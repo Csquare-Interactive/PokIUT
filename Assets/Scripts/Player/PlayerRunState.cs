@@ -1,0 +1,49 @@
+using UnityEngine;
+
+public class PlayerRunState : PlayerState
+{
+    public PlayerRunState(PlayerStateMachine stateMachine, PlayerManager player) 
+        : base(stateMachine, player) { }
+
+    public override void Enter()
+    {
+    }
+
+    public override void Update()
+    {
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+
+        Vector3 moveDirection = new Vector3(horizontal, 0f, vertical).normalized;
+
+        if (moveDirection.magnitude > 0.1f)
+        {
+            MovePlayer(moveDirection, player.playerData.runSpeed);
+        }
+        else
+        {
+            Vector3 stoppedVelocity = player.rb.linearVelocity;
+            stoppedVelocity.x = 0f;
+            stoppedVelocity.z = 0f;
+            player.rb.linearVelocity = stoppedVelocity;
+            stateMachine.ChangeState(new PlayerIdleState(stateMachine, player));
+        }
+
+        if (!Input.GetKey(KeyCode.LeftShift))
+        {
+            stateMachine.ChangeState(new PlayerWalkState(stateMachine, player));
+        }
+    }
+
+    private void MovePlayer(Vector3 direction, float speed)
+    {
+        Vector3 targetVelocity = direction * speed;
+        targetVelocity.y = player.rb.linearVelocity.y;
+
+        player.rb.linearVelocity = Vector3.Lerp(
+            player.rb.linearVelocity, 
+            targetVelocity, 
+            Time.deltaTime * player.playerData.smoothFactor
+        );
+    }
+}
