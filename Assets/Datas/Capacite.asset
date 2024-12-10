@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f26372ce6dcefb4c8a31e23b45f49a7, type: 3}
-  m_Name: Enemy
+  m_Script: {fileID: 11500000, guid: 3f6aa826bfff6c64e91e027ff137fd5e, type: 3}
+  m_Name: Capacite
   m_EditorClassIdentifier: 
-  pokeiutName: Enemy
-  level: 10
-  health: 100
-  icon: {fileID: 7482667652216324306, guid: 3fa310c63a51c344cad7a80e08919167, type: 3}
-  pokeiutType: 0
-  capacites: []
+  capaciteName: Gifle
+  description: Met une gifle
+  damage: 10
+  powerPoints: 15
+  type: 0

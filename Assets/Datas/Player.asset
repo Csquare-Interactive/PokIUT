@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pokeiutName: Player
   level: 10
-  health: 100
-  capacites: []
-  icon: {fileID: 0}
+  health: 200
+  icon: {fileID: 7482667652216324306, guid: 3fa310c63a51c344cad7a80e08919167, type: 3}
   pokeiutType: 0
+  capacites:
+  - {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
