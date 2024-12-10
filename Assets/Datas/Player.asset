@@ -10,14 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f26372ce6dcefb4c8a31e23b45f49a7, type: 3}
-  m_Name: NewPokeIUTData
+  m_Name: Player
   m_EditorClassIdentifier: 
-  pokeiutName: 
-  level: 0
-  health: 0
-  attack: 0
-  defense: 0
-  speed: 0
+  pokeiutName: Player
+  level: 10
+  health: 100
   capacites: []
   icon: {fileID: 0}
   pokeiutType: 0
