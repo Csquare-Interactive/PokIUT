@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 281585294}
   - component: {fileID: 281585293}
   - component: {fileID: 281585296}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: window_glass_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -319,7 +319,7 @@ GameObject:
   - component: {fileID: 300597939}
   - component: {fileID: 300597938}
   - component: {fileID: 300597940}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: window_glass_1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -882,7 +882,7 @@ GameObject:
   - component: {fileID: 848117947}
   - component: {fileID: 848117946}
   - component: {fileID: 848117949}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: window_glass_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
