@@ -8,6 +8,7 @@ public class PokeIUTData : ScriptableObject
     public string pokeiutName;
     public int level;
     public int health;
+    public int speed;
     public Sprite icon;
     public Type pokeiutType;
     public List<CapaciteData> capacites = new List<CapaciteData>(4);

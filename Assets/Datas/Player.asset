@@ -19,6 +19,6 @@ MonoBehaviour:
   pokeiutType: 0
   capacites:
   - {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
+  - {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
+  - {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
