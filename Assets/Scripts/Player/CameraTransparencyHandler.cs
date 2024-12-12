@@ -49,10 +49,13 @@ public class CameraTransparencyHandler
 
             if (obj != null && !currentObjects.Contains(obj))
             {
-                hit.collider.gameObject.SetActive(false);
+                Renderer renderer = obj.GetComponent<Renderer>();
+                if (renderer != null)
+                {
+                    renderer.enabled = false;
+                }
                 currentObjects.Add(obj);
             }
-            currentObjects.Add(obj);
         }
 
         foreach (Renderer renderer in transparentRenderers)
@@ -66,16 +69,21 @@ public class CameraTransparencyHandler
         {
             if (!currentObjects.Contains(obj))
             {
-                obj.SetActive(true);
+                Renderer renderer = obj.GetComponent<Renderer>();
+                if (renderer != null)
+                {
+                    renderer.enabled = true;
+                }
             }
         }
 
         transparentRenderers = currentRenderers;
+        invisibleObjects = currentObjects;
 
         DrawRayGizmos(ray, direction.magnitude, hits);
     }
 
-    private void SetTransparency(Renderer renderer, float alpha, float globalOpacity = 8.0f)
+    private void SetTransparency(Renderer renderer, float alpha, float globalOpacity = 5.0f)
     {
         foreach (Material mat in renderer.materials)
         {
@@ -85,7 +93,6 @@ public class CameraTransparencyHandler
                 mat.shader = Shader.Find("Custom/TransparentShader");
             }
 
-            // Ajuste la couleur pour inclure l'alpha
             Color color = mat.color;
             color.a = alpha;
             mat.color = color;
