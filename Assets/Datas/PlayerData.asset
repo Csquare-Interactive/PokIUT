@@ -18,6 +18,7 @@ MonoBehaviour:
   runSpeed: 10
   smoothFactor: 10
   canRun: 1
+  maxSlopeAngle: 50
   maxItems: 20
   items: []
   maxPokIUT: 20

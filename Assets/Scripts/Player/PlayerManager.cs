@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
 
     private PlayerStateMachine stateMachine;
     private CameraTransparencyHandler transparencyHandler;
+    public RaycastHit slopeHit;
 
     private void Awake()
     {
@@ -53,5 +54,21 @@ public class PlayerManager : MonoBehaviour
         }
 
         transparencyHandler.Update();
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (playerBody == null) return;
+
+        Gizmos.color = Color.yellow;
+
+        Vector3 origin = playerBody.transform.position;
+        Vector3 direction = Vector3.down;
+
+        float rayLength = .7f;
+
+        Gizmos.DrawLine(origin, origin + direction * rayLength);
+
+        Gizmos.DrawSphere(origin + direction * rayLength, 0.05f);
     }
 }

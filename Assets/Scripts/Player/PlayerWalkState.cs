@@ -39,10 +39,9 @@ public class PlayerWalkState : PlayerState
     {
         Vector3 targetVelocity = direction * speed;
         targetVelocity.y = player.rb.linearVelocity.y;
-
         player.rb.linearVelocity = Vector3.Lerp(
-            player.rb.linearVelocity, 
-            targetVelocity, 
+            player.rb.linearVelocity,
+            targetVelocity,
             Time.deltaTime * player.playerData.smoothFactor
         );
     }

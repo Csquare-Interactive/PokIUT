@@ -12,6 +12,7 @@ public class PlayerData : ScriptableObject
     public float runSpeed;
     public float smoothFactor;
     public bool canRun;
+    public float maxSlopeAngle;
 
     [Header("Inventaire")]
     public int maxItems;
