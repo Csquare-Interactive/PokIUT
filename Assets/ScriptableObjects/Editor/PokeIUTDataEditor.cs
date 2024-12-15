@@ -6,25 +6,16 @@ public class PokeIUTDataEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        // Affiche l'inspecteur par défaut
         DrawDefaultInspector();
 
-        // Référence à l'objet cible
         PokeIUTData pokeIUTData = (PokeIUTData)target;
 
-        // Ajoute un espace dans l'inspecteur
         GUILayout.Space(10);
 
-        // Bouton pour réinitialiser les capacités
-        if (GUILayout.Button("Réinitialiser les Capacités"))
+        if (GUILayout.Button("Réinitialiser les Données"))
         {
-            // Enregistre l'état actuel pour l'Undo
-            Undo.RecordObject(pokeIUTData, "Réinitialiser les Capacités");
-
-            // Appelle la méthode de réinitialisation
+            Undo.RecordObject(pokeIUTData, "Réinitialiser les Données");
             pokeIUTData.ResetPokeIUT();
-
-            // Marque l'objet comme modifié pour que les changements soient enregistrés
             EditorUtility.SetDirty(pokeIUTData);
         }
     }
