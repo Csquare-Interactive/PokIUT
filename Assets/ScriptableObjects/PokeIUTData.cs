@@ -22,4 +22,14 @@ public class PokeIUTData : ScriptableObject
         Procedural,
         OrienteeObjet,
     }
+
+    public void ResetPokeIUT()
+    {
+        health = maxHealth;
+        speed = maxSpeed;
+        foreach (var capacite in capacites)
+        {
+            capacite.powerPoints = capacite.maxPowerPoints;
+        }
+    }
 }

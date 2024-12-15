@@ -30,6 +30,7 @@ public class BattleManager : MonoBehaviour
         battleUIManager.OnBagClicked += HandleBagClicked;
         battleUIManager.OnPokeiutClicked += HandlePokeiutClicked;
         battleUIManager.OnRunClicked += HandleRunClicked;
+        battleUIManager.OnBackClicked += HandleBackClicked;
 
         combatSystem.StartBattle();
     }
@@ -82,6 +83,13 @@ public class BattleManager : MonoBehaviour
     {
         battleUIManager.ShowDescription("{0} a ouvert son sac", playerPokeIUT.pokeiutName);
         playerHasActed = true; // Not implemented yet
+    }
+
+    private void HandleBackClicked()
+    {
+        battleUIManager.ShowActionButtons(true);
+        battleUIManager.ShowCapaciteButtons(false, playerPokeIUT);
+        // Add Here other UI elements to hide (PokeIUT, Bag, etc...)
     }
 
     private void HandlePokeiutClicked()

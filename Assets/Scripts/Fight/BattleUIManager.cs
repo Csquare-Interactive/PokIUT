@@ -37,6 +37,7 @@ public class BattleUIManager : MonoBehaviour
     public event Action OnBagClicked;
     public event Action OnPokeiutClicked;
     public event Action OnRunClicked;
+    public event Action OnBackClicked;
 
     public void SetupBattleUI()
     {
@@ -61,6 +62,7 @@ public class BattleUIManager : MonoBehaviour
         bagButton.onClick.AddListener(() => OnBagClicked?.Invoke());
         pokeiutButton.onClick.AddListener(() => OnPokeiutClicked?.Invoke());
         runButton.onClick.AddListener(() => OnRunClicked?.Invoke());
+        backButton.onClick.AddListener(() => OnBackClicked?.Invoke());
         foreach (var button in capaciteButtons)
         {
             int index = Array.IndexOf(capaciteButtons, button);
