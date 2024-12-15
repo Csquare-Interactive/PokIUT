@@ -11,6 +11,10 @@ public class PlayerWalkState : PlayerState
 
     public override void Update()
     {
+    }
+
+    public override void FixedUpdate()
+    {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
@@ -22,10 +26,10 @@ public class PlayerWalkState : PlayerState
         }
         else
         {
-            Vector3 stoppedVelocity = player.rb.linearVelocity;
-            stoppedVelocity.x = 0f;
+            Vector3 stoppedVelocity = player.velocity;
+            stoppedVelocity.y = -9.81f * Time.deltaTime;
             stoppedVelocity.z = 0f;
-            player.rb.linearVelocity = stoppedVelocity;
+            player.controller.Move(stoppedVelocity * Time.deltaTime);
             stateMachine.ChangeState(new PlayerIdleState(stateMachine, player));
         }
 
@@ -37,12 +41,6 @@ public class PlayerWalkState : PlayerState
 
     private void MovePlayer(Vector3 direction, float speed)
     {
-        Vector3 targetVelocity = direction * speed;
-        targetVelocity.y = player.rb.linearVelocity.y;
-        player.rb.linearVelocity = Vector3.Lerp(
-            player.rb.linearVelocity,
-            targetVelocity,
-            Time.deltaTime * player.playerData.smoothFactor
-        );
+        player.controller.Move(direction * speed * Time.deltaTime);
     }
 }

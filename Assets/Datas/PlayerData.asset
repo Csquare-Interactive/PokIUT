@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerName: Player
   money: 0
-  walkSpeed: 6
-  runSpeed: 10
+  walkSpeed: 5
+  runSpeed: 7
   smoothFactor: 10
   canRun: 1
   maxSlopeAngle: 50

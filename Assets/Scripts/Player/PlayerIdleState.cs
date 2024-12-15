@@ -11,6 +11,10 @@ public class PlayerIdleState : PlayerState
 
     public override void Update()
     {
+    }
+
+    public override void FixedUpdate()
+    {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
@@ -26,4 +30,6 @@ public class PlayerIdleState : PlayerState
             }
         }
     }
+
+    
 }

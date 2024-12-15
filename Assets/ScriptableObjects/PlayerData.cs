@@ -10,9 +10,7 @@ public class PlayerData : ScriptableObject
     [Header("Déplacements")]
     public float walkSpeed;
     public float runSpeed;
-    public float smoothFactor;
     public bool canRun;
-    public float maxSlopeAngle;
 
     [Header("Inventaire")]
     public int maxItems;

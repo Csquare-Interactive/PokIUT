@@ -21,4 +21,9 @@ public class PlayerStateMachine
     {
         CurrentState.Update();
     }
+
+    public void FixedUpdate()
+    {
+        CurrentState.FixedUpdate();
+    }
 }

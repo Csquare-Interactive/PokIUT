@@ -7,11 +7,13 @@ public class PlayerManager : MonoBehaviour
     public GameObject playerBody;
     public GameObject playerCamera;
 
-    [HideInInspector] public Rigidbody rb;
+    [HideInInspector] public CharacterController controller;
+    public Vector3 velocity;
 
     private PlayerStateMachine stateMachine;
     private CameraTransparencyHandler transparencyHandler;
     public RaycastHit slopeHit;
+    private bool isGrounded;
 
     private void Awake()
     {
@@ -24,8 +26,6 @@ public class PlayerManager : MonoBehaviour
         Instance = this;
 
         DontDestroyOnLoad(gameObject);
-
-        rb = playerBody.GetComponent<Rigidbody>();
     }
 
     private void Start()
@@ -34,11 +34,18 @@ public class PlayerManager : MonoBehaviour
         stateMachine.Initialize(new PlayerIdleState(stateMachine, this));
 
         transparencyHandler = new CameraTransparencyHandler(playerCamera.transform, playerBody.transform, LayerMask.GetMask("TransparentObjects"), LayerMask.GetMask("InvisibleObjects"));
+        controller = playerBody.GetComponent<CharacterController>();
     }
 
     private void Update()
     {
         stateMachine.Update();
+        transparencyHandler.Update();
+    }
+
+    private void FixedUpdate()
+    {
+        stateMachine.FixedUpdate();
 
         if (stateMachine.CurrentState is PlayerIdleState)
         {
@@ -53,22 +60,13 @@ public class PlayerManager : MonoBehaviour
             playerData.state = "Run";
         }
 
-        transparencyHandler.Update();
-    }
+        isGrounded = controller.isGrounded;
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
 
-    private void OnDrawGizmos()
-    {
-        if (playerBody == null) return;
-
-        Gizmos.color = Color.yellow;
-
-        Vector3 origin = playerBody.transform.position;
-        Vector3 direction = Vector3.down;
-
-        float rayLength = .7f;
-
-        Gizmos.DrawLine(origin, origin + direction * rayLength);
-
-        Gizmos.DrawSphere(origin + direction * rayLength, 0.05f);
+        velocity.y += -9.81f * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
     }
 }
