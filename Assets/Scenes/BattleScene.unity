@@ -255,6 +255,69 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2796822}
   m_CullTransparentMesh: 1
+--- !u!1 &27286266
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 27286268}
+  - component: {fileID: 27286267}
+  m_Layer: 0
+  m_Name: BattleUIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &27286267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27286266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 822c2f81ffe1f3944a5f63888c081a23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNameText: {fileID: 1850003407}
+  playerLevelText: {fileID: 505867470}
+  playerHealthText: {fileID: 1147045419}
+  playerIcon: {fileID: 1702099262}
+  enemyNameText: {fileID: 1042166481}
+  enemyLevelText: {fileID: 1710624755}
+  enemyHealthText: {fileID: 1134768176}
+  enemyIcon: {fileID: 1671893636}
+  fightButton: {fileID: 127155441}
+  bagButton: {fileID: 1884508947}
+  pokeiutButton: {fileID: 1220140401}
+  runButton: {fileID: 238009411}
+  backButton: {fileID: 1275653885}
+  capaciteButtons:
+  - {fileID: 2038826201}
+  - {fileID: 223147027}
+  - {fileID: 154474798}
+  - {fileID: 1222639743}
+  descriptionText: {fileID: 298445483}
+--- !u!4 &27286268
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27286266}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 952.9531, y: 506.08975, z: -2.7912915}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &65143391
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,7 +623,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 139, y: -178}
+  m_AnchoredPosition: {x: 200, y: -210}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &154474796
@@ -681,7 +744,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 309, y: -141}
+  m_AnchoredPosition: {x: 370, y: -170}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &223147025
@@ -1767,25 +1830,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61bd4fcecc1d54a499858e27bc6a79fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battleUIManager: {fileID: 27286267}
   playerPokeIUT: {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
   enemyPokeIUT: {fileID: 11400000, guid: cce1d55802f2137498874f34a1d67a1f, type: 2}
-  playerNameText: {fileID: 1850003407}
-  playerLevelText: {fileID: 505867470}
-  playerHealthText: {fileID: 1147045419}
-  playerIcon: {fileID: 1702099262}
-  enemyNameText: {fileID: 1042166481}
-  enemyLevelText: {fileID: 1710624755}
-  enemyHealthText: {fileID: 1134768176}
-  enemyIcon: {fileID: 1671893636}
-  fightButton: {fileID: 127155441}
-  bagButton: {fileID: 1884508947}
-  pokeiutButton: {fileID: 1220140401}
-  runButton: {fileID: 238009411}
-  capaciteButtons:
-  - {fileID: 2038826201}
-  - {fileID: 223147027}
-  - {fileID: 154474798}
-  - {fileID: 1222639743}
 --- !u!4 &1077939564
 Transform:
   m_ObjectHideFlags: 0
@@ -2070,7 +2117,7 @@ GameObject:
   - component: {fileID: 1147045420}
   - component: {fileID: 1147045419}
   m_Layer: 5
-  m_Name: PlayerHealText
+  m_Name: PlayerHealthText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2569,7 +2616,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 309, y: -182}
+  m_AnchoredPosition: {x: 370, y: -210}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1275653883
@@ -2590,7 +2637,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1275653884
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2886,7 +2933,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Back
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3068,9 +3115,9 @@ RectTransform:
   - {fileID: 1702099261}
   - {fileID: 1671893635}
   - {fileID: 127155440}
+  - {fileID: 1884508946}
   - {fileID: 1220140400}
   - {fileID: 238009410}
-  - {fileID: 1884508946}
   - {fileID: 298445482}
   - {fileID: 2038826198}
   - {fileID: 223147024}
@@ -3935,7 +3982,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 136, y: -142}
+  m_AnchoredPosition: {x: 200, y: -170}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2038826199
@@ -4029,3 +4076,4 @@ SceneRoots:
   - {fileID: 1407389308}
   - {fileID: 537083447}
   - {fileID: 1077939564}
+  - {fileID: 27286268}

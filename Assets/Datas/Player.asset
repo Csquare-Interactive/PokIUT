@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pokeiutName: Player
   level: 10
+  maxHealth: 200
   health: 200
+  maxSpeed: 2
+  speed: 2
   icon: {fileID: 7482667652216324306, guid: 3fa310c63a51c344cad7a80e08919167, type: 3}
   pokeiutType: 0
   capacites:

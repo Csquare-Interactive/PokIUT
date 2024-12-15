@@ -11,16 +11,14 @@ public class CombatSystem
 
     public event Action OnBattleStart;
     public event Action OnTurnEnd;
-    public event Action<string> OnBattleEnd;
+    public event Action OnBattleEnd;
 
     public CombatSystem(PokeIUTData player, PokeIUTData enemy)
     {
-        Player = ClonePokeIUTData(player);
-        Enemy = ClonePokeIUTData(enemy);
+        Player = player;
+        Enemy = enemy;
         IsPlayerTurn = Player.speed >= Enemy.speed;
     }
-
-    private PokeIUTData ClonePokeIUTData(PokeIUTData original) => ScriptableObject.Instantiate(original);
 
     public void StartBattle()
     {
@@ -34,17 +32,18 @@ public class CombatSystem
 
         capacite.powerPoints--;
         Enemy.health -= capacite.damage;
-        OnTurnEnd?.Invoke();
-
+        
         if (Enemy.health <= 0)
         {
+            Debug.Log("La");
             Enemy.health = 0;
-            OnBattleEnd?.Invoke("Player wins!");
+            OnBattleEnd?.Invoke();
             return;
         }
 
+        Debug.Log("ici");
+        OnTurnEnd?.Invoke();
         IsPlayerTurn = false;
-        EnemyTurn();
     }
 
     public void EnemyTurn()
@@ -52,7 +51,6 @@ public class CombatSystem
         var validCapacites = Enemy.capacites.FindAll(c => c.powerPoints > 0);
         if (validCapacites.Count == 0)
         {
-            OnBattleEnd?.Invoke("Enemy has no PP left! Player's turn.");
             IsPlayerTurn = true;
             return;
         }
@@ -60,15 +58,19 @@ public class CombatSystem
         var chosenCapacite = validCapacites[UnityEngine.Random.Range(0, validCapacites.Count)];
         chosenCapacite.powerPoints--;
         Player.health -= chosenCapacite.damage;
-        OnTurnEnd?.Invoke();
 
         if (Player.health <= 0)
         {
             Player.health = 0;
-            OnBattleEnd?.Invoke("Enemy wins!");
+            OnBattleEnd?.Invoke();
             return;
         }
 
         IsPlayerTurn = true;
+    }
+
+    public void EndBattle()
+    {
+        OnBattleEnd?.Invoke();
     }
 }

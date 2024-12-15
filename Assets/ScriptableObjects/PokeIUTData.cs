@@ -7,7 +7,9 @@ public class PokeIUTData : ScriptableObject
 {
     public string pokeiutName;
     public int level;
+    public int maxHealth;
     public int health;
+    public int maxSpeed;
     public int speed;
     public Sprite icon;
     public Type pokeiutType;

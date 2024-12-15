@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f6aa826bfff6c64e91e027ff137fd5e, type: 3}
-  m_Name: CapaciteVide
+  m_Name: Gifle
   m_EditorClassIdentifier: 
-  capaciteName: 
-  description: 
-  damage: 0
-  powerPoints: 0
+  capaciteName: Gifle
+  description: Met une gifle
+  maxDamage: 10
+  damage: 10
+  maxPowerPoints: 10
+  powerPoints: 10
   type: 0

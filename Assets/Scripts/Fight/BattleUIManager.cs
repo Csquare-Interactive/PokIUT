@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Text = TMPro.TextMeshProUGUI;
@@ -28,6 +29,15 @@ public class BattleUIManager : MonoBehaviour
     [Header("PlayerCapacites")]
     public Button[] capaciteButtons;
 
+    [Header("Description")]
+    public Text descriptionText;
+
+    public event Action OnFightClicked;
+    public event Action<int> OnCapaciteClicked;
+    public event Action OnBagClicked;
+    public event Action OnPokeiutClicked;
+    public event Action OnRunClicked;
+
     public void SetupBattleUI()
     {
         if (playerNameText == null) Debug.LogError("playerNameText is not assigned");
@@ -43,94 +53,72 @@ public class BattleUIManager : MonoBehaviour
         if (pokeiutButton == null) Debug.LogError("pokeiutButton is not assigned");
         if (runButton == null) Debug.LogError("runButton is not assigned");
         if (backButton == null) Debug.LogError("backButton is not assigned");
+        if (capaciteButtons == null) Debug.LogError("capaciteButtons is not assigned");
+        if (capaciteButtons.Length < 4 || capaciteButtons.Length > 4) Debug.LogError("capaciteButtons must have 4 buttons");
 
-        fightButton.onClick.AddListener(OnFightButtonClicked);
-        bagButton.onClick.AddListener(OnBagButtonClicked);
-        pokeiutButton.onClick.AddListener(OnPokeiutButtonClicked);
-        runButton.onClick.AddListener(OnRunButtonClicked);
+        // Events listeners when buttons are clicked (To help BattleManager to know what to do)
+        fightButton.onClick.AddListener(() => OnFightClicked?.Invoke());
+        bagButton.onClick.AddListener(() => OnBagClicked?.Invoke());
+        pokeiutButton.onClick.AddListener(() => OnPokeiutClicked?.Invoke());
+        runButton.onClick.AddListener(() => OnRunClicked?.Invoke());
+        foreach (var button in capaciteButtons)
+        {
+            int index = Array.IndexOf(capaciteButtons, button);
+            button.onClick.AddListener(() => OnCapaciteClicked?.Invoke(index));
+        }
 
         fightButton.gameObject.SetActive(false);
         bagButton.gameObject.SetActive(false);
         pokeiutButton.gameObject.SetActive(false);
         runButton.gameObject.SetActive(false);
         backButton.gameObject.SetActive(false);
-    }
 
-    public void InitializeFightUI()
-    {
-        fightButton.gameObject.SetActive(true);
-        bagButton.gameObject.SetActive(true);
-        pokeiutButton.gameObject.SetActive(true);
-        runButton.gameObject.SetActive(true);
-
-        backButton.gameObject.SetActive(false);
+        foreach (var button in capaciteButtons)
+        {
+            button.gameObject.SetActive(false);
+        }
     }
 
     public void UpdateUI(PokeIUTData player, PokeIUTData enemy)
     {
-        playerNameText.text = player.pokIUTName;
+        playerNameText.text = player.pokeiutName;
         playerLevelText.text = $"Lvl {player.level}";
         playerHealthText.text = $"HP {player.health}";
         playerIcon.sprite = player.icon;
 
-        enemyNameText.text = enemy.pokIUTName;
+        enemyNameText.text = enemy.pokeiutName;
         enemyLevelText.text = $"Lvl {enemy.level}";
         enemyHealthText.text = $"HP {enemy.health}";
         enemyIcon.sprite = enemy.icon;
-
-        UpdateCapaciteButtons(true);
     }
 
     public void RefreshUI(PokeIUTData player, PokeIUTData enemy)
     {
         playerHealthText.text = $"HP {player.health}";
         enemyHealthText.text = $"HP {enemy.health}";
-        UpdateCapaciteButtons();
     }
 
-    private void HandleBattleEnd(string result)
+    public void ShowActionButtons(bool show)
     {
-        Debug.Log(result);
+        fightButton.gameObject.SetActive(show);
+        bagButton.gameObject.SetActive(show);
+        pokeiutButton.gameObject.SetActive(show);
+        runButton.gameObject.SetActive(show);
     }
 
-    private void OnFightButtonClicked()
+    public void ShowCapaciteButtons(bool show, PokeIUTData player)
     {
-        fightButton.gameObject.SetActive(false);
-        bagButton.gameObject.SetActive(false);
-        pokeiutButton.gameObject.SetActive(false);
-        runButton.gameObject.SetActive(false);
-
-        for (int i = 0; i < combatSystem.Player.capacites.Count; i++)
+        for (int i = 0; i < player.capacites.Count; i++)
         {
-            capaciteButtons[i].gameObject.SetActive(true);
+            capaciteButtons[i].gameObject.SetActive(show);
+            capaciteButtons[i].GetComponentInChildren<Text>().text = player.capacites[i].name + $" ({player.capacites[i].powerPoints})";
         }
+
+        backButton.gameObject.SetActive(show);
     }
 
-    private void OnBagButtonClicked()
+    public void ShowDescription(string format, params object[] args)
     {
-        Debug.Log("Bag button clicked");
-    }
-
-    private void OnPokeiutButtonClicked()
-    {
-        Debug.Log("Pokeiut button clicked");
-    }
-
-    private void OnRunButtonClicked()
-    {
-        Debug.Log("Run button clicked");
-    }
-
-    private void UpdateCapaciteButtons(bool isVisible)
-    {
-        for (int i = 0; i < combatSystem.Player.capacites.Count; i++)
-        {
-            var capacite = combatSystem.Player.capacites[i];
-            capaciteButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = $"{capacite.capaciteName} ({capacite.powerPoints})";
-            capaciteButtons[i].gameObject.SetActive(isVisible && i < combatSystem.Player.capacites.Count);
-            int index = i;
-            capaciteButtons[i].onClick.RemoveAllListeners();
-            capaciteButtons[i].onClick.AddListener(() => combatSystem.PlayerUseCapacite(index));
-        }
+        descriptionText.text = string.Format(format, args);
     }
 }
