@@ -7,6 +7,8 @@ public class PlayerIdleState : PlayerState
 
     public override void Enter()
     {
+        player.animator.SetBool("isWalking", false);
+        player.animator.SetBool("isRunning", false);
     }
 
     public override void Update()
@@ -24,6 +26,20 @@ public class PlayerIdleState : PlayerState
             {
                 stateMachine.ChangeState(new PlayerWalkState(stateMachine, player));
             }
+        }
+
+        // Handle Animation
+        if (horizontal > 0 && !player.facingRight)
+        {
+            Debug.Log("Facing Right");
+            player.facingRight = true;
+            player.animator.SetBool("facingRight", true);
+        }
+        else if (horizontal < 0 && player.facingRight)
+        {
+            Debug.Log("Facing Left");
+            player.facingRight = false;
+            player.animator.SetBool("facingRight", false);
         }
     }
 }
