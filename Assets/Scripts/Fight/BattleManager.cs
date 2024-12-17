@@ -4,22 +4,27 @@ using Text = TMPro.TextMeshProUGUI;
 using Image = UnityEngine.UI.Image;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
     public BattleUIManager battleUIManager;
-    public PlayerData playerData;
     public PokeIUTData enemyPokeIUT;
     private CombatSystem combatSystem;
     private PokeIUTData PlayerPokeIUT { get; set; }
+    private PlayerData playerData;
     private bool battleOver = false;
     private bool isPlayerTurn = false;
     private bool playerHasActed = false;
+    private string explorationSceneName = "IUT";
 
     void Start()
     {
-        if (playerData == null) Debug.LogError("playerData is not assigned");
+        if (GameManager.Instance == null || GameManager.Instance.playerData == null) Debug.LogError("GameManager or playerData is not assigned");
+
         if (enemyPokeIUT == null) Debug.LogError("enemyPokeIUT is not assigned");
+
+        playerData = GameManager.Instance.playerData;
 
         if (playerData.currentPokeIUT == null)
             playerData.currentPokeIUT = playerData.pokIUTTeam[0];
@@ -142,7 +147,19 @@ public class BattleManager : MonoBehaviour
         battleUIManager.ShowActionButtons(false);
         battleUIManager.ShowCapaciteButtons(false, PlayerPokeIUT);
         ResetPokeIUT();
+
+        StartCoroutine(ReturnToExploration());
     }
+
+    IEnumerator ReturnToExploration()
+    {
+        // Wait (To make some animations before)
+        yield return new WaitForSeconds(2f);
+
+        // Unload Battle Scene
+        SceneManager.UnloadSceneAsync("BattleScene");
+    }
+
 
     //NOTE Temporary function to reset the pokeIUTs (Remove when PokeIUT center is implemented)
     void ResetPokeIUT()

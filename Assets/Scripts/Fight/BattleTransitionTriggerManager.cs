@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BattleTransitionTriggerManager : MonoBehaviour
 {
-     private Collider battleCollider; 
+     private Collider battleCollider;
+     public string combatSceneName = "CombatScene";
 
     private void Start()
     {
@@ -13,7 +15,10 @@ public class BattleTransitionTriggerManager : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player entered battle trigger");
+            PlayerData playerData = GameManager.Instance.playerData;
+            playerData.lastPosition = other.transform.position;
+            SceneManager.LoadScene(combatSceneName, LoadSceneMode.Additive);
+            DisableCollider();
         }
     }
 
