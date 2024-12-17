@@ -16,6 +16,6 @@ MonoBehaviour:
   description: Met une gifle
   maxDamage: 10
   damage: 10
-  maxPowerPoints: 10
-  powerPoints: 10
+  maxPowerPoints: 5
+  powerPoints: 5
   type: 0
