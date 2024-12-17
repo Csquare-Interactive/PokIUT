@@ -22,5 +22,10 @@ MonoBehaviour:
   items: []
   maxPokIUT: 20
   pokIUTInventory: []
-  pokIUTTeam: []
+  pokIUTTeam:
+  - {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
+  - {fileID: 11400000, guid: d690eae31fdc9dd40906a04404f24518, type: 2}
+  - {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
+  - {fileID: 11400000, guid: d690eae31fdc9dd40906a04404f24518, type: 2}
+  currentPokeIUT: {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
   state: Idle

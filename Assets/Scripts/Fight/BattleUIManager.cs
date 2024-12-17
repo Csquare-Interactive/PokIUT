@@ -32,12 +32,18 @@ public class BattleUIManager : MonoBehaviour
     [Header("Description")]
     public Text descriptionText;
 
+    [Header("PokeIUTTeam")]
+    public Canvas pokeIUTTeamUI;
+    public Button backButtonPokeIUTTeam;
+    private List<Button> pokeIUTTeamButtons;
+
     public event Action OnFightClicked;
     public event Action<int> OnCapaciteClicked;
     public event Action OnBagClicked;
     public event Action OnPokeiutClicked;
     public event Action OnRunClicked;
     public event Action OnBackClicked;
+    public event Action<int> OnPokeIUTTeamClicked;
 
     public void SetupBattleUI()
     {
@@ -56,6 +62,21 @@ public class BattleUIManager : MonoBehaviour
         if (backButton == null) Debug.LogError("backButton is not assigned");
         if (capaciteButtons == null) Debug.LogError("capaciteButtons is not assigned");
         if (capaciteButtons.Length < 4 || capaciteButtons.Length > 4) Debug.LogError("capaciteButtons must have 4 buttons");
+        if (descriptionText == null) Debug.LogError("descriptionText is not assigned");
+        if (pokeIUTTeamUI == null) Debug.LogError("pokeIUTTeamUI is not assigned");
+        if (backButtonPokeIUTTeam == null) Debug.LogError("backButtonPokeIUTTeam is not assigned");
+
+        // Get All PokeIUT buttons from the PokeIUTTeamUI
+        pokeIUTTeamButtons = new List<Button>();
+        foreach (Transform child in pokeIUTTeamUI.transform)
+        {
+            if (child.name.StartsWith("PokeIUT"))
+            {
+                Button button = child.GetComponent<Button>();
+                if (button != null)
+                    pokeIUTTeamButtons.Add(button);
+            }
+        }
 
         // Events listeners when buttons are clicked (To help BattleManager to know what to do)
         fightButton.onClick.AddListener(() => OnFightClicked?.Invoke());
@@ -63,10 +84,16 @@ public class BattleUIManager : MonoBehaviour
         pokeiutButton.onClick.AddListener(() => OnPokeiutClicked?.Invoke());
         runButton.onClick.AddListener(() => OnRunClicked?.Invoke());
         backButton.onClick.AddListener(() => OnBackClicked?.Invoke());
+        backButtonPokeIUTTeam.onClick.AddListener(() => OnBackClicked?.Invoke());
         foreach (var button in capaciteButtons)
         {
             int index = Array.IndexOf(capaciteButtons, button);
             button.onClick.AddListener(() => OnCapaciteClicked?.Invoke(index));
+        }
+        foreach (var button in pokeIUTTeamButtons)
+        {
+            int index = pokeIUTTeamButtons.IndexOf(button);
+            button.onClick.AddListener(() => OnPokeIUTTeamClicked?.Invoke(index));
         }
 
         fightButton.gameObject.SetActive(false);
@@ -74,6 +101,7 @@ public class BattleUIManager : MonoBehaviour
         pokeiutButton.gameObject.SetActive(false);
         runButton.gameObject.SetActive(false);
         backButton.gameObject.SetActive(false);
+        pokeIUTTeamUI.gameObject.SetActive(false);
 
         foreach (var button in capaciteButtons)
         {
@@ -97,7 +125,13 @@ public class BattleUIManager : MonoBehaviour
     public void RefreshUI(PokeIUTData player, PokeIUTData enemy)
     {
         playerHealthText.text = $"HP {player.health}";
+        playerLevelText.text = $"Lvl {player.level}";
+        playerNameText.text = player.pokeiutName;
+        playerIcon.sprite = player.icon;
         enemyHealthText.text = $"HP {enemy.health}";
+        enemyLevelText.text = $"Lvl {enemy.level}";
+        enemyNameText.text = enemy.pokeiutName;
+        enemyIcon.sprite = enemy.icon;
     }
 
     public void ShowActionButtons(bool show)
@@ -106,6 +140,13 @@ public class BattleUIManager : MonoBehaviour
         bagButton.gameObject.SetActive(show);
         pokeiutButton.gameObject.SetActive(show);
         runButton.gameObject.SetActive(show);
+    }
+
+    public void ShowCurrentPokeIUTStats(bool show)
+    {
+        playerNameText.gameObject.SetActive(show);
+        playerLevelText.gameObject.SetActive(show);
+        playerHealthText.gameObject.SetActive(show);
     }
 
     public void ShowCapaciteButtons(bool show, PokeIUTData player)
@@ -122,5 +163,27 @@ public class BattleUIManager : MonoBehaviour
     public void ShowDescription(string format, params object[] args)
     {
         descriptionText.text = string.Format(format, args);
+    }
+
+    public void ShowPokeIUTTeamUI(bool show)
+    {
+        pokeIUTTeamUI.gameObject.SetActive(show);
+    }
+
+    public void UpdatePokeIUTTeamInfos(PlayerData playerData)
+    {
+        foreach (var button in pokeIUTTeamButtons)
+        {
+            int index = pokeIUTTeamButtons.IndexOf(button);
+            Text nameText = button.transform.Find("PokeIUT_Name")?.GetComponent<Text>();
+            Text healthText = button.transform.Find("PokeIUT_Health")?.GetComponent<Text>();
+            Text levelText = button.transform.Find("PokeIUT_Level")?.GetComponent<Text>();
+            Image icon = button.transform.Find("PokeIUT_Icon")?.GetComponent<Image>();
+
+            nameText.text = playerData.pokIUTTeam[index].pokeiutName;
+            healthText.text = $"HP {playerData.pokIUTTeam[index].health}";
+            levelText.text = $"Lvl {playerData.pokIUTTeam[index].level}";
+            icon.sprite = playerData.pokIUTTeam[index].icon;
+        }
     }
 }

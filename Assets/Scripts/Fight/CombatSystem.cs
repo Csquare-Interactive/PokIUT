@@ -5,19 +5,19 @@ using UnityEngine;
 public class CombatSystem
 {
 
-    public PokeIUTData Player { get; private set; }
+    public PlayerData Player { get; private set; }
     public PokeIUTData Enemy { get; private set; }
-    public bool IsPlayerTurn { get; private set; }
+    public PokeIUTData PlayerPokeIUT { get; set; }
 
     public event Action OnBattleStart;
     public event Action OnTurnEnd;
     public event Action OnBattleEnd;
 
-    public CombatSystem(PokeIUTData player, PokeIUTData enemy)
+    public CombatSystem(PlayerData player, PokeIUTData enemy)
     {
         Player = player;
         Enemy = enemy;
-        IsPlayerTurn = Player.speed >= Enemy.speed;
+        PlayerPokeIUT = player.currentPokeIUT;
     }
 
     public void StartBattle()
@@ -27,7 +27,7 @@ public class CombatSystem
 
     public void PlayerUseCapacite(int index)
     {
-        var capacite = Player.capacites[index];
+        var capacite = PlayerPokeIUT.capacites[index];
         if (capacite.powerPoints <= 0) return;
 
         capacite.powerPoints--;
@@ -35,15 +35,18 @@ public class CombatSystem
         
         if (Enemy.health <= 0)
         {
-            Debug.Log("La");
             Enemy.health = 0;
             OnBattleEnd?.Invoke();
             return;
         }
 
-        Debug.Log("ici");
         OnTurnEnd?.Invoke();
-        IsPlayerTurn = false;
+    }
+
+    public void PlayerSwitchPokeIUT(int index)
+    {
+        PlayerPokeIUT = Player.pokIUTTeam[index];
+        OnTurnEnd?.Invoke();
     }
 
     public void EnemyTurn()
@@ -51,22 +54,22 @@ public class CombatSystem
         var validCapacites = Enemy.capacites.FindAll(c => c.powerPoints > 0);
         if (validCapacites.Count == 0)
         {
-            IsPlayerTurn = true;
+            OnTurnEnd?.Invoke();
             return;
         }
 
         var chosenCapacite = validCapacites[UnityEngine.Random.Range(0, validCapacites.Count)];
         chosenCapacite.powerPoints--;
-        Player.health -= chosenCapacite.damage;
+        PlayerPokeIUT.health -= chosenCapacite.damage;
 
-        if (Player.health <= 0)
+        if (PlayerPokeIUT.health <= 0)
         {
-            Player.health = 0;
+            PlayerPokeIUT.health = 0;
             OnBattleEnd?.Invoke();
             return;
         }
 
-        IsPlayerTurn = true;
+        OnTurnEnd?.Invoke();
     }
 
     public void EndBattle()

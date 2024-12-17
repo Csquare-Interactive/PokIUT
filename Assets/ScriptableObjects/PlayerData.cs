@@ -19,8 +19,9 @@ public class PlayerData : ScriptableObject
 
     [Header("PokIUT")]
     public int maxPokIUT;
-    public string[] pokIUTInventory;
-    public string[] pokIUTTeam;
+    public PokeIUTData[] pokIUTInventory;
+    public PokeIUTData[] pokIUTTeam;
+    public PokeIUTData currentPokeIUT;
 
     [Header("TestInfos")]
     public string state;

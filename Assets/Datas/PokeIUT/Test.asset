@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f26372ce6dcefb4c8a31e23b45f49a7, type: 3}
-  m_Name: Player
+  m_Name: Test
   m_EditorClassIdentifier: 
-  pokeiutName: Player
-  level: 10
-  maxHealth: 200
-  health: 200
-  maxSpeed: 2
-  speed: 2
-  icon: {fileID: 7482667652216324306, guid: 3fa310c63a51c344cad7a80e08919167, type: 3}
-  pokeiutType: 0
+  pokeiutName: Test
+  level: 5
+  maxHealth: 100
+  health: 100
+  maxSpeed: 1
+  speed: 1
+  icon: {fileID: 21300000, guid: ff86550468b9dcc41bca43c4ebd36ec1, type: 3}
+  pokeiutType: 2
   capacites:
   - {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
   - {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
