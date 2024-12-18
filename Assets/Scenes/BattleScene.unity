@@ -2356,7 +2356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleUIManager: {fileID: 27286267}
-  enemyPokeIUT: {fileID: 11400000, guid: cce1d55802f2137498874f34a1d67a1f, type: 2}
+  enemyData: {fileID: 11400000, guid: 1671e57f13b0b794ca2ce1d7e744d345, type: 2}
 --- !u!4 &1077939564
 Transform:
   m_ObjectHideFlags: 0

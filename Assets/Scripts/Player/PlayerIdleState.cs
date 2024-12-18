@@ -31,13 +31,11 @@ public class PlayerIdleState : PlayerState
         // Handle Animation
         if (horizontal > 0 && !player.facingRight)
         {
-            Debug.Log("Facing Right");
             player.facingRight = true;
             player.animator.SetBool("facingRight", true);
         }
         else if (horizontal < 0 && player.facingRight)
         {
-            Debug.Log("Facing Left");
             player.facingRight = false;
             player.animator.SetBool("facingRight", false);
         }

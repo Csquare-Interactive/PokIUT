@@ -9,9 +9,10 @@ using UnityEngine.SceneManagement;
 public class BattleManager : MonoBehaviour
 {
     public BattleUIManager battleUIManager;
-    public PokeIUTData enemyPokeIUT;
     private CombatSystem combatSystem;
-    private PokeIUTData PlayerPokeIUT { get; set; }
+    public PokeIUTInstance EnemyPokeIUT { get; set; }
+    private PokeIUTInstance PlayerPokeIUT { get; set; }
+    public EnemyData enemyData;
     private PlayerData playerData;
     private bool battleOver = false;
     private bool isPlayerTurn = false;
@@ -22,18 +23,22 @@ public class BattleManager : MonoBehaviour
     {
         if (GameManager.Instance == null || GameManager.Instance.playerData == null) Debug.LogError("GameManager or playerData is not assigned");
 
-        if (enemyPokeIUT == null) Debug.LogError("enemyPokeIUT is not assigned");
-
         playerData = GameManager.Instance.playerData;
+
+        playerData.InitializePokeIUTTeam(); // Initialize all the pokeIUTs in the team (To prevent having same PokeIUT references in the team and with the enemy)
+        enemyData.InitializePokeIUTTeam();
 
         if (playerData.currentPokeIUT == null)
             playerData.currentPokeIUT = playerData.pokIUTTeam[0];
+        if (enemyData.currentPokeIUT == null)
+            enemyData.currentPokeIUT = enemyData.pokIUTTeam[0];
 
         PlayerPokeIUT = playerData.currentPokeIUT;
+        EnemyPokeIUT = enemyData.currentPokeIUT;
 
-        isPlayerTurn = PlayerPokeIUT.speed >= enemyPokeIUT.speed;
+        isPlayerTurn = PlayerPokeIUT.speed >= EnemyPokeIUT.speed; // Define who starts the battle
 
-        combatSystem = new CombatSystem(playerData, enemyPokeIUT);
+        combatSystem = new CombatSystem(playerData, enemyData);
         combatSystem.OnBattleStart += HandleBattleStart;
         combatSystem.OnTurnEnd += HandleTurnEnd;
         combatSystem.OnBattleEnd += HandleBattleEnd;
@@ -52,7 +57,7 @@ public class BattleManager : MonoBehaviour
 
     public void HandleBattleStart()
     {
-        battleUIManager.UpdateUI(combatSystem.PlayerPokeIUT, combatSystem.Enemy);
+        battleUIManager.UpdateUI(combatSystem.PlayerPokeIUT, combatSystem.EnemyPokeIUT);
         StartCoroutine(HandleBattleLoop());
     }
 
@@ -64,7 +69,7 @@ public class BattleManager : MonoBehaviour
             {
                 battleUIManager.ShowDescription("C'est au tour de {0} !", playerData.playerName);
                 battleUIManager.ShowActionButtons(true);
-                battleUIManager.RefreshUI(combatSystem.PlayerPokeIUT, combatSystem.Enemy);
+                battleUIManager.RefreshUI(combatSystem.PlayerPokeIUT, combatSystem.EnemyPokeIUT);
 
                 yield return new WaitUntil(() => playerHasActed); // Wait untill player hasn't acted
 
@@ -73,9 +78,9 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
-                battleUIManager.ShowDescription("C'est au tour de {0} !", enemyPokeIUT.pokeiutName);
+                battleUIManager.ShowDescription("C'est au tour de {0} !", EnemyPokeIUT.baseData.pokeiutName);
                 combatSystem.EnemyTurn();
-                battleUIManager.RefreshUI(combatSystem.PlayerPokeIUT, combatSystem.Enemy);
+                battleUIManager.RefreshUI(combatSystem.PlayerPokeIUT, combatSystem.EnemyPokeIUT);
                 yield return new WaitForSeconds(1f);
             }
         }
@@ -84,14 +89,14 @@ public class BattleManager : MonoBehaviour
     private void HandleFightClicked()
     {
         battleUIManager.ShowActionButtons(false);
-        battleUIManager.ShowCapaciteButtons(true, PlayerPokeIUT);
+        battleUIManager.ShowCapaciteButtons(true, combatSystem.PlayerPokeIUT);
     }
 
     private void HandleCapaciteClicked(int index)
     {
-        battleUIManager.ShowDescription("{0} a utilisé {1}", playerData.playerName, PlayerPokeIUT.capacites[index].name);
+        battleUIManager.ShowDescription("{0} a utilisé {1}", playerData.playerName, PlayerPokeIUT.capacites[index].baseData.name);
         combatSystem.PlayerUseCapacite(index);
-        battleUIManager.ShowCapaciteButtons(false, PlayerPokeIUT);
+        battleUIManager.ShowCapaciteButtons(false, combatSystem.PlayerPokeIUT);
     }
 
     private void HandleBagClicked()
@@ -104,7 +109,7 @@ public class BattleManager : MonoBehaviour
     {
         battleUIManager.ShowActionButtons(true);
         battleUIManager.ShowCurrentPokeIUTStats(true);
-        battleUIManager.ShowCapaciteButtons(false, PlayerPokeIUT);
+        battleUIManager.ShowCapaciteButtons(false, combatSystem.PlayerPokeIUT);
         battleUIManager.ShowPokeIUTTeamUI(false);
         // Add Here other UI elements to hide (PokeIUT, Bag, etc...)
     }
@@ -119,7 +124,7 @@ public class BattleManager : MonoBehaviour
 
     private void HandlePokeIUTTeamClicked(int index)
     {
-        battleUIManager.ShowDescription("{0} a envoyé {1}", playerData.playerName, PlayerPokeIUT.pokeiutName);
+        battleUIManager.ShowDescription("{0} a envoyé {1}", playerData.playerName, PlayerPokeIUT.baseData.pokeiutName);
         battleUIManager.ShowPokeIUTTeamUI(false);
         battleUIManager.ShowActionButtons(true);
         battleUIManager.ShowCurrentPokeIUTStats(true);
@@ -137,7 +142,7 @@ public class BattleManager : MonoBehaviour
     {
         isPlayerTurn = !isPlayerTurn;
         battleUIManager.ShowActionButtons(isPlayerTurn);
-        battleUIManager.RefreshUI(combatSystem.PlayerPokeIUT, combatSystem.Enemy);
+        battleUIManager.RefreshUI(combatSystem.PlayerPokeIUT, combatSystem.EnemyPokeIUT);
         playerHasActed = true;
     }
 
@@ -145,7 +150,7 @@ public class BattleManager : MonoBehaviour
     {
         battleOver = true;
         battleUIManager.ShowActionButtons(false);
-        battleUIManager.ShowCapaciteButtons(false, PlayerPokeIUT);
+        battleUIManager.ShowCapaciteButtons(false, combatSystem.PlayerPokeIUT);
         ResetPokeIUT();
 
         StartCoroutine(ReturnToExploration());
@@ -164,19 +169,19 @@ public class BattleManager : MonoBehaviour
     //NOTE Temporary function to reset the pokeIUTs (Remove when PokeIUT center is implemented)
     void ResetPokeIUT()
     {
-        PlayerPokeIUT.health = PlayerPokeIUT.maxHealth;
-        enemyPokeIUT.health = enemyPokeIUT.maxHealth;
-        PlayerPokeIUT.speed = PlayerPokeIUT.maxSpeed;
-        enemyPokeIUT.speed = enemyPokeIUT.maxSpeed;
+        PlayerPokeIUT.health = PlayerPokeIUT.baseData.maxHealth;
+        EnemyPokeIUT.health = EnemyPokeIUT.baseData.maxHealth;
+        PlayerPokeIUT.speed = PlayerPokeIUT.baseData.maxSpeed;
+        EnemyPokeIUT.speed = EnemyPokeIUT.baseData.maxSpeed;
         foreach (var capacite in PlayerPokeIUT.capacites)
         {
-            capacite.damage = capacite.maxDamage;
-            capacite.powerPoints = capacite.maxPowerPoints;
+            capacite.damage = capacite.baseData.maxDamage;
+            capacite.powerPoints = capacite.baseData.maxPowerPoints;
         }
-        foreach (var capacite in enemyPokeIUT.capacites)
+        foreach (var capacite in EnemyPokeIUT.capacites)
         {
-            capacite.damage = capacite.maxDamage;
-            capacite.powerPoints = capacite.maxPowerPoints;
+            capacite.damage = capacite.baseData.maxDamage;
+            capacite.powerPoints = capacite.baseData.maxPowerPoints;
         }
     }
 }

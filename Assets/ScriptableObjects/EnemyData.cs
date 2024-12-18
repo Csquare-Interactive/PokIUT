@@ -1,17 +1,12 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerData", menuName = "Player/PlayerData")]
-public class PlayerData : ScriptableObject
+[CreateAssetMenu(fileName = "EnemyData", menuName = "Enemy/EnemyData")]
+public class EnemyData : ScriptableObject
 {
     [Header("Informations Générales")]
     public string playerName;
-    public int money;
 
     [Header("Déplacements")]
-    public float walkSpeed;
-    public float runSpeed;
-    public float smoothFactor;
-    public bool canRun;
     public Vector3 lastPosition;
 
     [Header("Inventaire")]
@@ -28,9 +23,6 @@ public class PlayerData : ScriptableObject
     public PokeIUTInstance[] pokIUTTeam;
     public PokeIUTInstance currentPokeIUT;
 
-    [Header("TestInfos")]
-    public string state;
-
     public void InitializePokeIUTTeam()
     {
         if (pokIUTTeamData == null || pokIUTTeamData.Length == 0)
@@ -38,7 +30,6 @@ public class PlayerData : ScriptableObject
             Debug.LogWarning("PokeIUTTeamData est vide.");
             return;
         }
-
 
         pokIUTTeam = new PokeIUTInstance[pokIUTTeamData.Length];
 
@@ -48,11 +39,11 @@ public class PlayerData : ScriptableObject
             if (pokIUTTeam[i] == null || pokIUTTeam[i].baseData != pokIUTTeamData[i])
             {
                 pokIUTTeam[i] = new PokeIUTInstance(pokIUTTeamData[i]);
-                Debug.Log($"PLAYER DATA | Instancié {pokIUTTeamData[i].pokeiutName} dans PokeIUTTeam.");
+                Debug.Log($"ENEMY DATA | Instancié {pokIUTTeamData[i].pokeiutName} dans PokeIUTTeam.");
             }
             else
             {
-                Debug.Log($"PLAYER DATA | {pokIUTTeamData[i].pokeiutName} est déjà présent dans PokeIUTTeam.");
+                Debug.Log($"ENEMY DATA | {pokIUTTeamData[i].pokeiutName} est déjà présent dans PokeIUTTeam.");
             }
         }
 
