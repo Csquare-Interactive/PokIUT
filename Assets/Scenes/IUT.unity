@@ -169,7 +169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 067fb87706d520e4a9edba712b5d5373, type: 3}
       propertyPath: m_Name
-      value: hall_sol_entree
+      value: hall_ground_entry
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1871,7 +1871,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9ff4f1bf7af449c40859e2b20a4bfedb, type: 3}
       propertyPath: m_Name
-      value: hall_mur_entree
+      value: hall_wall_entry
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
