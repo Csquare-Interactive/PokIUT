@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemyData : ScriptableObject
 {
     [Header("Informations Générales")]
-    public string playerName;
+    public string enemyName;
 
     [Header("Déplacements")]
     public Vector3 lastPosition;

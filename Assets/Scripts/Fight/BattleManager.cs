@@ -10,8 +10,6 @@ public class BattleManager : MonoBehaviour
 {
     public BattleUIManager battleUIManager;
     private CombatSystem combatSystem;
-    public PokeIUTInstance EnemyPokeIUT { get; set; }
-    private PokeIUTInstance PlayerPokeIUT { get; set; }
     public EnemyData enemyData;
     private PlayerData playerData;
     private bool battleOver = false;
@@ -33,15 +31,12 @@ public class BattleManager : MonoBehaviour
         if (enemyData.currentPokeIUT == null)
             enemyData.currentPokeIUT = enemyData.pokIUTTeam[0];
 
-        PlayerPokeIUT = playerData.currentPokeIUT;
-        EnemyPokeIUT = enemyData.currentPokeIUT;
-
-        isPlayerTurn = PlayerPokeIUT.speed >= EnemyPokeIUT.speed; // Define who starts the battle
-
         combatSystem = new CombatSystem(playerData, enemyData);
         combatSystem.OnBattleStart += HandleBattleStart;
         combatSystem.OnTurnEnd += HandleTurnEnd;
         combatSystem.OnBattleEnd += HandleBattleEnd;
+
+        isPlayerTurn = combatSystem.IsPlayerFirst();
 
         battleUIManager.SetupBattleUI();
         battleUIManager.OnFightClicked += HandleFightClicked;
@@ -78,7 +73,7 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
-                battleUIManager.ShowDescription("C'est au tour de {0} !", EnemyPokeIUT.baseData.pokeiutName);
+                battleUIManager.ShowDescription("C'est au tour de {0} !", enemyData.enemyName);
                 combatSystem.EnemyTurn();
                 battleUIManager.RefreshUI(combatSystem.PlayerPokeIUT, combatSystem.EnemyPokeIUT);
                 yield return new WaitForSeconds(1f);
@@ -94,7 +89,7 @@ public class BattleManager : MonoBehaviour
 
     private void HandleCapaciteClicked(int index)
     {
-        battleUIManager.ShowDescription("{0} a utilisé {1}", playerData.playerName, PlayerPokeIUT.capacites[index].baseData.name);
+        battleUIManager.ShowDescription("{0} a utilisé {1}", playerData.playerName, combatSystem.PlayerPokeIUT.capacites[index].baseData.name);
         combatSystem.PlayerUseCapacite(index);
         battleUIManager.ShowCapaciteButtons(false, combatSystem.PlayerPokeIUT);
     }
@@ -124,7 +119,7 @@ public class BattleManager : MonoBehaviour
 
     private void HandlePokeIUTTeamClicked(int index)
     {
-        battleUIManager.ShowDescription("{0} a envoyé {1}", playerData.playerName, PlayerPokeIUT.baseData.pokeiutName);
+        battleUIManager.ShowDescription("{0} a envoyé {1}", playerData.playerName, combatSystem.PlayerPokeIUT.baseData.pokeiutName);
         battleUIManager.ShowPokeIUTTeamUI(false);
         battleUIManager.ShowActionButtons(true);
         battleUIManager.ShowCurrentPokeIUTStats(true);
@@ -151,7 +146,6 @@ public class BattleManager : MonoBehaviour
         battleOver = true;
         battleUIManager.ShowActionButtons(false);
         battleUIManager.ShowCapaciteButtons(false, combatSystem.PlayerPokeIUT);
-        ResetPokeIUT();
 
         StartCoroutine(ReturnToExploration());
     }
@@ -163,25 +157,5 @@ public class BattleManager : MonoBehaviour
 
         // Unload Battle Scene
         SceneManager.UnloadSceneAsync("BattleScene");
-    }
-
-
-    //NOTE Temporary function to reset the pokeIUTs (Remove when PokeIUT center is implemented)
-    void ResetPokeIUT()
-    {
-        PlayerPokeIUT.health = PlayerPokeIUT.baseData.maxHealth;
-        EnemyPokeIUT.health = EnemyPokeIUT.baseData.maxHealth;
-        PlayerPokeIUT.speed = PlayerPokeIUT.baseData.maxSpeed;
-        EnemyPokeIUT.speed = EnemyPokeIUT.baseData.maxSpeed;
-        foreach (var capacite in PlayerPokeIUT.capacites)
-        {
-            capacite.damage = capacite.baseData.maxDamage;
-            capacite.powerPoints = capacite.baseData.maxPowerPoints;
-        }
-        foreach (var capacite in EnemyPokeIUT.capacites)
-        {
-            capacite.damage = capacite.baseData.maxDamage;
-            capacite.powerPoints = capacite.baseData.maxPowerPoints;
-        }
     }
 }

@@ -39,23 +39,50 @@ public class PlayerData : ScriptableObject
             return;
         }
 
-
-        pokIUTTeam = new PokeIUTInstance[pokIUTTeamData.Length];
+        if (pokIUTTeam == null || pokIUTTeam.Length != pokIUTTeamData.Length)
+        {
+            pokIUTTeam = new PokeIUTInstance[pokIUTTeamData.Length];
+            Debug.Log("PlayerData | PokeIUTTeam a été réinitialisé.");
+        }
 
         for (int i = 0; i < pokIUTTeamData.Length; i++)
         {
-            // Check if the PokeIUT is already in the team
+            if (pokIUTTeamData[i] == null)
+            {
+                Debug.LogError($"PlayerData | pokIUTTeamData[{i}] est null. Veuillez assigner un PokeIUTData valide.");
+                continue;
+            }
+
             if (pokIUTTeam[i] == null || pokIUTTeam[i].baseData != pokIUTTeamData[i])
             {
                 pokIUTTeam[i] = new PokeIUTInstance(pokIUTTeamData[i]);
-                Debug.Log($"PLAYER DATA | Instancié {pokIUTTeamData[i].pokeiutName} dans PokeIUTTeam.");
+                if (pokIUTTeam[i].baseData != null)
+                {
+                    Debug.Log($"PlayerData | Instancié {pokIUTTeam[i].baseData.pokeiutName} dans PokeIUTTeam à l'indice {i}.");
+                }
+                else
+                {
+                    Debug.Log($"PlayerData | Instancié {pokIUTTeam[i]} avec baseData à null.");
+                }
             }
             else
             {
-                Debug.Log($"PLAYER DATA | {pokIUTTeamData[i].pokeiutName} est déjà présent dans PokeIUTTeam.");
+                Debug.Log($"PlayerData | {pokIUTTeamData[i].pokeiutName} est déjà présent dans PokeIUTTeam à l'indice {i}.");
             }
         }
 
-        currentPokeIUT = pokIUTTeam[0];
+        if (currentPokeIUT == null || currentPokeIUT.baseData == null)
+            currentPokeIUT = pokIUTTeam[0];
+    }
+
+    public void ResetPokeIUT()
+    {
+        for (int i = 0; i < pokIUTTeam.Length; i++)
+        {
+            if (pokIUTTeam[i] != null)
+            {
+                pokIUTTeam[i].Reset();
+            }
+        }
     }
 }

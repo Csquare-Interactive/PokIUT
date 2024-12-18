@@ -27,6 +27,8 @@ public class CombatSystem
         OnBattleStart?.Invoke();
     }
 
+    public bool IsPlayerFirst() => PlayerPokeIUT.speed >= EnemyPokeIUT.speed;
+
     public void PlayerUseCapacite(int index)
     {
         var capacite = PlayerPokeIUT.capacites[index];
