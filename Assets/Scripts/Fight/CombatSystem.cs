@@ -6,18 +6,20 @@ public class CombatSystem
 {
 
     public PlayerData Player { get; private set; }
-    public PokeIUTData Enemy { get; private set; }
-    public PokeIUTData PlayerPokeIUT { get; set; }
+    public EnemyData Enemy { get; private set; }
+    public PokeIUTInstance PlayerPokeIUT { get; set; }
+    public PokeIUTInstance EnemyPokeIUT { get; set; }
 
     public event Action OnBattleStart;
     public event Action OnTurnEnd;
     public event Action OnBattleEnd;
 
-    public CombatSystem(PlayerData player, PokeIUTData enemy)
+    public CombatSystem(PlayerData player, EnemyData enemy)
     {
         Player = player;
         Enemy = enemy;
         PlayerPokeIUT = player.currentPokeIUT;
+        EnemyPokeIUT = enemy.currentPokeIUT;
     }
 
     public void StartBattle()
@@ -25,17 +27,19 @@ public class CombatSystem
         OnBattleStart?.Invoke();
     }
 
+    public bool IsPlayerFirst() => PlayerPokeIUT.speed >= EnemyPokeIUT.speed;
+
     public void PlayerUseCapacite(int index)
     {
         var capacite = PlayerPokeIUT.capacites[index];
         if (capacite.powerPoints <= 0) return;
 
         capacite.powerPoints--;
-        Enemy.health -= capacite.damage;
+        EnemyPokeIUT.health -= capacite.damage;
         
-        if (Enemy.health <= 0)
+        if (EnemyPokeIUT.health <= 0)
         {
-            Enemy.health = 0;
+            EnemyPokeIUT.health = 0;
             OnBattleEnd?.Invoke();
             return;
         }
@@ -51,7 +55,7 @@ public class CombatSystem
 
     public void EnemyTurn()
     {
-        var validCapacites = Enemy.capacites.FindAll(c => c.powerPoints > 0);
+        var validCapacites = EnemyPokeIUT.capacites.FindAll(c => c.powerPoints > 0);
         if (validCapacites.Count == 0)
         {
             OnTurnEnd?.Invoke();

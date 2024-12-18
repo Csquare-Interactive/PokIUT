@@ -141,29 +141,29 @@ public class BattleUIManager : MonoBehaviour
         }
     }
 
-    public void UpdateUI(PokeIUTData player, PokeIUTData enemy)
+    public void UpdateUI(PokeIUTInstance player, PokeIUTInstance enemy)
     {
-        playerNameText.text = player.pokeiutName;
+        playerNameText.text = player.baseData.pokeiutName;
         playerLevelText.text = $"Lvl {player.level}";
         playerHealthText.text = $"HP {player.health}";
-        playerIcon.sprite = player.icon;
+        playerIcon.sprite = player.baseData.icon;
 
-        enemyNameText.text = enemy.pokeiutName;
+        enemyNameText.text = enemy.baseData.pokeiutName;
         enemyLevelText.text = $"Lvl {enemy.level}";
         enemyHealthText.text = $"HP {enemy.health}";
-        enemyIcon.sprite = enemy.icon;
+        enemyIcon.sprite = enemy.baseData.icon;
     }
 
-    public void RefreshUI(PokeIUTData player, PokeIUTData enemy)
+    public void RefreshUI(PokeIUTInstance player, PokeIUTInstance enemy)
     {
         playerHealthText.text = $"HP {player.health}";
         playerLevelText.text = $"Lvl {player.level}";
-        playerNameText.text = player.pokeiutName;
-        playerIcon.sprite = player.icon;
+        playerNameText.text = player.baseData.pokeiutName;
+        playerIcon.sprite = player.baseData.icon;
         enemyHealthText.text = $"HP {enemy.health}";
         enemyLevelText.text = $"Lvl {enemy.level}";
-        enemyNameText.text = enemy.pokeiutName;
-        enemyIcon.sprite = enemy.icon;
+        enemyNameText.text = enemy.baseData.pokeiutName;
+        enemyIcon.sprite = enemy.baseData.icon;
     }
 
     public void ShowActionButtons(bool show)
@@ -181,12 +181,12 @@ public class BattleUIManager : MonoBehaviour
         playerHealthText.gameObject.SetActive(show);
     }
 
-    public void ShowCapaciteButtons(bool show, PokeIUTData player)
+    public void ShowCapaciteButtons(bool show, PokeIUTInstance player)
     {
         for (int i = 0; i < player.capacites.Count; i++)
         {
             capaciteButtons[i].gameObject.SetActive(show);
-            capaciteButtons[i].GetComponentInChildren<Text>().text = player.capacites[i].name + $" ({player.capacites[i].powerPoints})";
+            capaciteButtons[i].GetComponentInChildren<Text>().text = player.capacites[i].baseData.name + $" ({player.capacites[i].powerPoints})";
         }
 
         backButton.gameObject.SetActive(show);
@@ -206,15 +206,12 @@ public class BattleUIManager : MonoBehaviour
     {
 
         // Create new buttons
-        for (int i = 0; i < playerData.pokIUTTeam.Length; i++)
+        for (int index = 0; index < playerData.pokIUTTeam.Length; index++)
         {
             var pokeIUT = playerData.pokIUTTeam[i];
             var button = pokeIUTTeamButtons[i];
             button.transform.Find("PokeIUT_Name").GetComponent<Text>().text = pokeIUT.pokeiutName;
             button.transform.Find("PokeIUT_Health").GetComponent<Text>().text = $"HP {pokeIUT.health}";
-            int index = i;
-            button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() => OnPokeIUTTeamClicked?.Invoke(index));
         }
     }
 
