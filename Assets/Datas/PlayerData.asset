@@ -19,7 +19,8 @@ MonoBehaviour:
   smoothFactor: 10
   canRun: 1
   maxItems: 20
-  items: []
+  items:
+  - {fileID: 11400000, guid: 9340584de6340b94ba8313de272df04f, type: 2}
   maxPokIUT: 20
   pokIUTInventory: []
   pokIUTTeam:

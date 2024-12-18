@@ -15,7 +15,7 @@ public class PlayerData : ScriptableObject
 
     [Header("Inventaire")]
     public int maxItems;
-    public string[] items;
+    public ItemData[] items;
 
     [Header("PokIUT")]
     public int maxPokIUT;

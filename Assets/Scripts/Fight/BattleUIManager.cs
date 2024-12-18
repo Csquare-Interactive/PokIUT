@@ -37,12 +37,23 @@ public class BattleUIManager : MonoBehaviour
     public Button backButtonPokeIUTTeam;
     private List<Button> pokeIUTTeamButtons;
 
+    [Header("Bag")]
+    public GameObject bagUI;
+    public Button backButtonBag;
+    public GameObject itemButtonPrefab;
+    public Transform itemButtonContainer;
+    private List<Button> itemButtons = new List<Button>();
+
+
+
+
     public event Action OnFightClicked;
     public event Action<int> OnCapaciteClicked;
     public event Action OnBagClicked;
     public event Action OnPokeiutClicked;
     public event Action OnRunClicked;
     public event Action OnBackClicked;
+    public event Action<int> OnItemClicked;
     public event Action<int> OnPokeIUTTeamClicked;
 
     public void SetupBattleUI()
@@ -65,6 +76,8 @@ public class BattleUIManager : MonoBehaviour
         if (descriptionText == null) Debug.LogError("descriptionText is not assigned");
         if (pokeIUTTeamUI == null) Debug.LogError("pokeIUTTeamUI is not assigned");
         if (backButtonPokeIUTTeam == null) Debug.LogError("backButtonPokeIUTTeam is not assigned");
+        if (bagUI == null) Debug.LogError("bagUI is not assigned");
+        if (backButtonBag == null) Debug.LogError("backButtonBag is not assigned");
 
         // Get All PokeIUT buttons from the PokeIUTTeamUI
         pokeIUTTeamButtons = new List<Button>();
@@ -102,10 +115,29 @@ public class BattleUIManager : MonoBehaviour
         runButton.gameObject.SetActive(false);
         backButton.gameObject.SetActive(false);
         pokeIUTTeamUI.gameObject.SetActive(false);
+        bagUI.gameObject.SetActive(false);
 
         foreach (var button in capaciteButtons)
         {
             button.gameObject.SetActive(false);
+        }
+
+        itemButtons = new List<Button>();
+        foreach (Transform child in bagUI.transform)
+        {
+            if (child.name.StartsWith("Item"))
+            {
+                Button button = child.GetComponent<Button>();
+                if (button != null)
+                    itemButtons.Add(button);
+            }
+        }
+
+        backButtonBag.onClick.AddListener(() => OnBackClicked?.Invoke());
+        foreach (var button in itemButtons)
+        {
+            int index = itemButtons.IndexOf(button);
+            button.onClick.AddListener(() => OnItemClicked?.Invoke(index));
         }
     }
 
@@ -172,18 +204,46 @@ public class BattleUIManager : MonoBehaviour
 
     public void UpdatePokeIUTTeamInfos(PlayerData playerData)
     {
-        foreach (var button in pokeIUTTeamButtons)
-        {
-            int index = pokeIUTTeamButtons.IndexOf(button);
-            Text nameText = button.transform.Find("PokeIUT_Name")?.GetComponent<Text>();
-            Text healthText = button.transform.Find("PokeIUT_Health")?.GetComponent<Text>();
-            Text levelText = button.transform.Find("PokeIUT_Level")?.GetComponent<Text>();
-            Image icon = button.transform.Find("PokeIUT_Icon")?.GetComponent<Image>();
 
-            nameText.text = playerData.pokIUTTeam[index].pokeiutName;
-            healthText.text = $"HP {playerData.pokIUTTeam[index].health}";
-            levelText.text = $"Lvl {playerData.pokIUTTeam[index].level}";
-            icon.sprite = playerData.pokIUTTeam[index].icon;
+        // Create new buttons
+        for (int i = 0; i < playerData.pokIUTTeam.Length; i++)
+        {
+            var pokeIUT = playerData.pokIUTTeam[i];
+            var button = pokeIUTTeamButtons[i];
+            button.transform.Find("PokeIUT_Name").GetComponent<Text>().text = pokeIUT.pokeiutName;
+            button.transform.Find("PokeIUT_Health").GetComponent<Text>().text = $"HP {pokeIUT.health}";
+            int index = i;
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(() => OnPokeIUTTeamClicked?.Invoke(index));
         }
     }
+
+     public void ShowBagUI(bool show)
+    {
+        bagUI.gameObject.SetActive(show);
+    }
+
+    public void UpdateBagInfos(PlayerData playerData)
+    {
+        // Clear existing buttons
+        foreach (Transform child in itemButtonContainer)
+        {
+            Destroy(child.gameObject);
+        }
+        itemButtons.Clear();
+
+        // Create new buttons
+        for (int i = 0; i < playerData.items.Length; i++)
+        {
+            var item = playerData.items[i];
+            var button = Instantiate(itemButtonPrefab, itemButtonContainer).GetComponent<Button>();
+            button.transform.Find("Item_Name").GetComponent<Text>().text = item.itemName;
+            button.transform.Find("Item_Quantity").GetComponent<Text>().text = $"Qty {item.quantity}";
+            int index = i;
+            button.onClick.AddListener(() => OnItemClicked?.Invoke(index));
+            itemButtons.Add(button);
+        }
+    }
+
+
 }
