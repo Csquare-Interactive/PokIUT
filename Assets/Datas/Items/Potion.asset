@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Potion
   m_EditorClassIdentifier: 
   itemName: Potion
-  quantity: 6
+  quantity: 10

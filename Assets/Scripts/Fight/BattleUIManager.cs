@@ -202,22 +202,23 @@ public class BattleUIManager : MonoBehaviour
         pokeIUTTeamUI.gameObject.SetActive(show);
     }
 
+    public void ShowBagUI(bool show)
+    {
+        bagUI.gameObject.SetActive(show);
+    }
+
     public void UpdatePokeIUTTeamInfos(PlayerData playerData)
     {
 
         // Create new buttons
         for (int index = 0; index < playerData.pokIUTTeam.Length; index++)
         {
-            var pokeIUT = playerData.pokIUTTeam[i];
-            var button = pokeIUTTeamButtons[i];
-            button.transform.Find("PokeIUT_Name").GetComponent<Text>().text = pokeIUT.pokeiutName;
+            var pokeIUT = playerData.pokIUTTeam[index];
+            var button = pokeIUTTeamButtons[index];
+            button.transform.Find("PokeIUT_Name").GetComponent<Text>().text = pokeIUT.baseData.pokeiutName;
             button.transform.Find("PokeIUT_Health").GetComponent<Text>().text = $"HP {pokeIUT.health}";
+            button.transform.Find("PokeIUT_Icon").GetComponent<Image>().sprite = pokeIUT.baseData.icon;
         }
-    }
-
-     public void ShowBagUI(bool show)
-    {
-        bagUI.gameObject.SetActive(show);
     }
 
     public void UpdateBagInfos(PlayerData playerData)
@@ -237,6 +238,7 @@ public class BattleUIManager : MonoBehaviour
             button.transform.Find("Item_Name").GetComponent<Text>().text = item.itemName;
             button.transform.Find("Item_Quantity").GetComponent<Text>().text = $"Qty {item.quantity}";
             int index = i;
+            button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() => OnItemClicked?.Invoke(index));
             itemButtons.Add(button);
         }

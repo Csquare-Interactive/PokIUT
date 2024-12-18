@@ -122,7 +122,7 @@ public class BattleManager : MonoBehaviour
     {
         if (isUsingItem)
         {
-            var pokeIUT = playerData.pokIUTTeam[pokeIUTIndex];
+            PokeIUTInstance pokeIUT = playerData.pokIUTTeam[pokeIUTIndex];
             UseItemOnPokeIUT(currentItem, pokeIUT);
             currentItem.quantity--;
             isUsingItem = false;
@@ -133,24 +133,24 @@ public class BattleManager : MonoBehaviour
         battleUIManager.ShowCurrentPokeIUTStats(true);
     }
 
-    private void UseItemOnPokeIUT(ItemData item, PokeIUTData pokeIUT)
+    // TODO: MOVE THIS SHIT IN COMBATSYSTEM
+    private void UseItemOnPokeIUT(ItemData item, PokeIUTInstance pokeIUT)
     {
         switch (item.itemName)
         {
             case "Potion":
-                pokeIUT.health = Mathf.Min(pokeIUT.maxHealth, pokeIUT.health + 20);
-                battleUIManager.ShowDescription("{0} a utilisé une {1} sur {2} et a récupéré 20 PV", playerData.playerName, item.itemName, pokeIUT.pokeiutName);
+                pokeIUT.health = Mathf.Min(pokeIUT.baseData.maxHealth, pokeIUT.health + 20);
+                battleUIManager.ShowDescription("{0} a utilisé une {1} sur {2} et a récupéré 20 PV", playerData.playerName, item.itemName, pokeIUT.baseData.pokeiutName);
                 break;
             case "Super Potion":
-                pokeIUT.health = Mathf.Min(pokeIUT.maxHealth, pokeIUT.health + 50);
-                battleUIManager.ShowDescription("{0} a utilisé une {1} sur {2} et a récupéré 50 PV", playerData.playerName, item.itemName, pokeIUT.pokeiutName);
+                pokeIUT.health = Mathf.Min(pokeIUT.baseData.maxHealth, pokeIUT.health + 50);
+                battleUIManager.ShowDescription("{0} a utilisé une {1} sur {2} et a récupéré 50 PV", playerData.playerName, item.itemName, pokeIUT.baseData.pokeiutName);
                 break;
-            // Ajoutez d'autres cas pour différents items
             default:
-                battleUIManager.ShowDescription("{0} a utilisé {1} sur {2}", playerData.playerName, item.itemName, pokeIUT.pokeiutName);
+                battleUIManager.ShowDescription("{0} a utilisé {1} sur {2}", playerData.playerName, item.itemName, pokeIUT.baseData.pokeiutName);
                 break;
         }
-        battleUIManager.RefreshUI(PlayerPokeIUT, enemyPokeIUT);
+        battleUIManager.RefreshUI(combatSystem.PlayerPokeIUT, combatSystem.EnemyPokeIUT);
     }
 
     private void HandleBackClicked()
