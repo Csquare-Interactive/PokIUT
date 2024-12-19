@@ -197,9 +197,17 @@ public class BattleUIManager : MonoBehaviour
         descriptionText.text = string.Format(format, args);
     }
 
-    public void ShowPokeIUTTeamUI(bool show)
+    public void ShowPokeIUTTeamUI(bool show, PlayerData playerData)
     {
         pokeIUTTeamUI.gameObject.SetActive(show);
+        foreach (var button in pokeIUTTeamButtons)
+        {
+            button.gameObject.SetActive(false);
+        }
+        for (int i = 0; i < playerData.pokIUTTeam.Length; i++)
+        {
+            pokeIUTTeamButtons[i].gameObject.SetActive(show);
+        }
     }
 
     public void ShowBagUI(bool show)
@@ -209,7 +217,6 @@ public class BattleUIManager : MonoBehaviour
 
     public void UpdatePokeIUTTeamInfos(PlayerData playerData)
     {
-
         // Create new buttons
         for (int index = 0; index < playerData.pokIUTTeam.Length; index++)
         {

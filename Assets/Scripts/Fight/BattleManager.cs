@@ -116,7 +116,7 @@ public class BattleManager : MonoBehaviour
         currentItem = item;
         isUsingItem = true;
         battleUIManager.ShowBagUI(false);
-        battleUIManager.ShowPokeIUTTeamUI(true);
+        battleUIManager.ShowPokeIUTTeamUI(true, playerData);
         battleUIManager.UpdatePokeIUTTeamInfos(playerData);
     }
 
@@ -126,7 +126,7 @@ public class BattleManager : MonoBehaviour
         battleUIManager.ShowCurrentPokeIUTStats(true);
         battleUIManager.ShowBagUI(false);
         battleUIManager.ShowCapaciteButtons(false, combatSystem.PlayerPokeIUT);
-        battleUIManager.ShowPokeIUTTeamUI(false);
+        battleUIManager.ShowPokeIUTTeamUI(false, playerData);
         // Add Here other UI elements to hide (PokeIUT, Bag, etc...)
     }
 
@@ -134,7 +134,7 @@ public class BattleManager : MonoBehaviour
     {
         battleUIManager.ShowActionButtons(false);
         battleUIManager.ShowCurrentPokeIUTStats(false);
-        battleUIManager.ShowPokeIUTTeamUI(true);
+        battleUIManager.ShowPokeIUTTeamUI(true, playerData);
         battleUIManager.UpdatePokeIUTTeamInfos(playerData);
     }
 
@@ -148,7 +148,7 @@ public class BattleManager : MonoBehaviour
         else
         {
             battleUIManager.ShowDescription("{0} a envoyé {1}", playerData.playerName, combatSystem.PlayerPokeIUT.baseData.pokeiutName);
-            battleUIManager.ShowPokeIUTTeamUI(false);
+            battleUIManager.ShowPokeIUTTeamUI(false, playerData);
             battleUIManager.ShowActionButtons(true);
             battleUIManager.ShowCurrentPokeIUTStats(true);
             combatSystem.PlayerSwitchPokeIUT(index);
@@ -167,7 +167,7 @@ public class BattleManager : MonoBehaviour
             isUsingItem = false;
         }
 
-        battleUIManager.ShowPokeIUTTeamUI(false);
+        battleUIManager.ShowPokeIUTTeamUI(false, playerData);
         battleUIManager.ShowActionButtons(true);
         battleUIManager.ShowCurrentPokeIUTStats(true);
     }

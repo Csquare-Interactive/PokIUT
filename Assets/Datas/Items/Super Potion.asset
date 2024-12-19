@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Super Potion
   m_EditorClassIdentifier: 
   itemName: Super Potion
-  quantity: 10
+  maxQuantity: 5
