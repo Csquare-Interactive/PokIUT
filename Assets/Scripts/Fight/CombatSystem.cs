@@ -29,10 +29,10 @@ public class CombatSystem
 
     public bool IsPlayerFirst() => PlayerPokeIUT.speed >= EnemyPokeIUT.speed;
 
-    public void PlayerUseCapacite(int index)
+    public int PlayerUseCapacite(int index)
     {
         var capacite = PlayerPokeIUT.capacites[index];
-        if (capacite.powerPoints <= 0) return;
+        if (capacite.powerPoints <= 0) return 1;
 
         capacite.powerPoints--;
         EnemyPokeIUT.health -= capacite.damage;
@@ -41,10 +41,11 @@ public class CombatSystem
         {
             EnemyPokeIUT.health = 0;
             OnBattleEnd?.Invoke();
-            return;
+            return 0;
         }
 
         OnTurnEnd?.Invoke();
+        return 0;
     }
 
     public void PlayerSwitchPokeIUT(int index)

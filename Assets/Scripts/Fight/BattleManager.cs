@@ -95,8 +95,14 @@ public class BattleManager : MonoBehaviour
 
     private void HandleCapaciteClicked(int index)
     {
-        battleUIManager.ShowDescription("{0} a utilisé {1}", playerData.playerName, combatSystem.PlayerPokeIUT.capacites[index].baseData.name);
-        combatSystem.PlayerUseCapacite(index);
+        int result = combatSystem.PlayerUseCapacite(index);
+        if (result == 0)
+            battleUIManager.ShowDescription("{0} a utilisé {1}", playerData.playerName, combatSystem.PlayerPokeIUT.capacites[index].baseData.name);
+        else
+        {
+            battleUIManager.ShowDescription("{0} a utilisé {1} mais il n'y a plus de PP", playerData.playerName, combatSystem.PlayerPokeIUT.capacites[index].baseData.name);
+            battleUIManager.ShowActionButtons(true);
+        }
         battleUIManager.ShowCapaciteButtons(false, combatSystem.PlayerPokeIUT);
     }
 
