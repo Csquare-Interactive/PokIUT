@@ -96,9 +96,9 @@ public class BattleManager : MonoBehaviour
     private void HandleCapaciteClicked(int index)
     {
         int result = combatSystem.PlayerUseCapacite(index);
-        if (result == 0)
+        if (result == 0) // Worked
             battleUIManager.ShowDescription("{0} a utilisé {1}", playerData.playerName, combatSystem.PlayerPokeIUT.capacites[index].baseData.name);
-        else
+        else // Illegal Action (No PP)
         {
             battleUIManager.ShowDescription("{0} a utilisé {1} mais il n'y a plus de PP", playerData.playerName, combatSystem.PlayerPokeIUT.capacites[index].baseData.name);
             battleUIManager.ShowActionButtons(true);
@@ -166,10 +166,15 @@ public class BattleManager : MonoBehaviour
         if (isUsingItem)
         {
             PokeIUTInstance pokeIUT = playerData.pokIUTTeam[pokeIUTIndex];
-            currentItem.quantity--;
-            battleUIManager.ShowDescription("{0} a utilisé {1} sur {2}", playerData.playerName, currentItem.baseData.itemName, pokeIUT.baseData.pokeiutName);
             battleUIManager.RefreshUI(combatSystem.PlayerPokeIUT, combatSystem.EnemyPokeIUT);
-            combatSystem.PlayerUseItem(currentItem, pokeIUT);
+            int result = combatSystem.PlayerUseItem(currentItem, pokeIUT);
+            if (result == 0) // Worked
+            {
+                battleUIManager.ShowDescription("{0} a utilisé {1} sur {2}", playerData.playerName, currentItem.baseData.itemName, pokeIUT.baseData.pokeiutName);
+                currentItem.quantity--;
+            }
+            else // Illegal Action
+                battleUIManager.ShowDescription("Action Impossible");
             isUsingItem = false;
         }
 

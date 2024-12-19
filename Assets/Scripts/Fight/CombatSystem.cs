@@ -54,20 +54,21 @@ public class CombatSystem
         OnTurnEnd?.Invoke();
     }
 
-    public void PlayerUseItem(ItemInstance item, PokeIUTInstance target)
+    public int PlayerUseItem(ItemInstance item, PokeIUTInstance target)
     {
         switch (item.baseData.itemName)
         {
             case "Potion":
-                if (target.health + 20 >= target.baseData.maxHealth) return;
+                if (target.health + 20 > target.baseData.maxHealth) return 1;
                 target.health += 20;
                 break;
             case "Super Potion":
-                if (target.health + 50 >= target.baseData.maxHealth) return;
+                if (target.health + 50 > target.baseData.maxHealth) return 1;
                 target.health += 50;
                 break;
         }
         OnTurnEnd?.Invoke();
+        return 0;
     }
 
     public void EnemyTurn()
