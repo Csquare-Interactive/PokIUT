@@ -69,8 +69,28 @@ public class PlayerData : ScriptableObject
             }
         }
 
-        if (currentPokeIUT == null || currentPokeIUT.baseData == null)
+        // Instanciate currentPokeIUT if it's not null or if it's not in the team
+        if (currentPokeIUT != null && currentPokeIUT.baseData != null)
+        {
+            bool found = false;
+            foreach (PokeIUTInstance pokeIUT in pokIUTTeam)
+            {
+                if (pokeIUT.baseData == currentPokeIUT.baseData)
+                {
+                    currentPokeIUT = pokeIUT;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+            {
+                currentPokeIUT = pokIUTTeam[0];
+            }
+        }
+        else
+        {
             currentPokeIUT = pokIUTTeam[0];
+        }
     }
 
     public void InitializeItems()

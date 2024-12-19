@@ -58,9 +58,11 @@ public class CombatSystem
         switch (item.baseData.itemName)
         {
             case "Potion":
+                if (target.health + 20 >= target.baseData.maxHealth) return;
                 target.health += 20;
                 break;
             case "Super Potion":
+                if (target.health + 50 >= target.baseData.maxHealth) return;
                 target.health += 50;
                 break;
         }
