@@ -42,19 +42,6 @@ public class PlayerManager : MonoBehaviour
     {
         stateMachine.Update();
 
-        if (stateMachine.CurrentState is PlayerIdleState)
-        {
-            playerData.state = "Idle";
-        }
-        else if (stateMachine.CurrentState is PlayerWalkState)
-        {
-            playerData.state = "Walk";
-        }
-        else if (stateMachine.CurrentState is PlayerRunState)
-        {
-            playerData.state = "Run";
-        }
-
         transparencyHandler.Update();
     }
 }

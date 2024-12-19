@@ -11,7 +11,8 @@ public class EnemyData : ScriptableObject
 
     [Header("Inventaire")]
     public int maxItems;
-    public string[] items;
+    public ItemData[] itemsData;
+    public ItemInstance[] items;
 
     [Header("PokIUT")]
     public int maxPokIUT;
@@ -48,5 +49,46 @@ public class EnemyData : ScriptableObject
         }
 
         currentPokeIUT = pokIUTTeam[0];
+    }
+
+    public void InitializeItems()
+    {
+        if (itemsData == null || itemsData.Length == 0)
+        {
+            Debug.LogWarning("ItemData est vide.");
+            return;
+        }
+
+        if (items == null || items.Length != itemsData.Length)
+        {
+            items = new ItemInstance[itemsData.Length];
+            Debug.Log("EnemyData | Items a été réinitialisé.");
+        }
+
+        for (int i = 0; i < itemsData.Length; i++)
+        {
+            if (itemsData[i] == null)
+            {
+                Debug.LogError($"EnemyData | itemsData[{i}] est null. Veuillez assigner un ItemData valide.");
+                continue;
+            }
+
+            if (items[i] == null || items[i].baseData != itemsData[i])
+            {
+                items[i] = new ItemInstance(itemsData[i]);
+                if (items[i].baseData != null)
+                {
+                    Debug.Log($"EnemyData | Instancié {items[i].baseData.itemName} dans Items à l'indice {i}.");
+                }
+                else
+                {
+                    Debug.Log($"EnemyData | Instancié {items[i]} avec baseData à null.");
+                }
+            }
+            else
+            {
+                Debug.Log($"EnemyData | {itemsData[i].itemName} est déjà présent dans Items à l'indice {i}.");
+            }
+        }
     }
 }

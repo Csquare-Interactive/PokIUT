@@ -16,7 +16,8 @@ public class PlayerData : ScriptableObject
 
     [Header("Inventaire")]
     public int maxItems;
-    public ItemData[] items;
+    public ItemData[] itemsData;
+    public ItemInstance[] items;
 
     [Header("PokIUT")]
     public int maxPokIUT;
@@ -27,9 +28,6 @@ public class PlayerData : ScriptableObject
     public PokeIUTInstance[] pokIUTInventory;
     public PokeIUTInstance[] pokIUTTeam;
     public PokeIUTInstance currentPokeIUT;
-
-    [Header("TestInfos")]
-    public string state;
 
     public void InitializePokeIUTTeam()
     {
@@ -73,6 +71,48 @@ public class PlayerData : ScriptableObject
 
         if (currentPokeIUT == null || currentPokeIUT.baseData == null)
             currentPokeIUT = pokIUTTeam[0];
+    }
+
+    public void InitializeItems()
+    {
+        if (itemsData == null || itemsData.Length == 0)
+        {
+            Debug.LogWarning("ItemData est vide.");
+            return;
+        }
+
+        if (items == null || items.Length != itemsData.Length)
+        {
+            items = new ItemInstance[itemsData.Length];
+            Debug.Log("PlayerData | Items a été réinitialisé.");
+        }
+
+        for (int i = 0; i < itemsData.Length; i++)
+        {
+            if (itemsData[i] == null)
+            {
+                Debug.LogError($"PlayerData | itemsData[{i}] est null. Veuillez assigner un ItemData valide.");
+                continue;
+            }
+
+            if (items[i] == null || items[i].baseData != itemsData[i])
+            {
+                items[i] = new ItemInstance(itemsData[i]);
+                items[i].quantity = itemsData[i].maxQuantity; //NOTE: Temporaire, le temps de permettre au joueur de récupérer des items //
+                if (items[i].baseData != null)
+                {
+                    Debug.Log($"PlayerData | Instancié {items[i].baseData.itemName} dans Items à l'indice {i}.");
+                }
+                else
+                {
+                    Debug.Log($"PlayerData | Instancié {items[i]} avec baseData à null.");
+                }
+            }
+            else
+            {
+                Debug.Log($"PlayerData | {itemsData[i].itemName} est déjà présent dans Items à l'indice {i}.");
+            }
+        }
     }
 
     public void ResetPokeIUT()

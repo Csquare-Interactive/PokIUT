@@ -20,8 +20,10 @@ MonoBehaviour:
   canRun: 1
   lastPosition: {x: 442.56195, y: 0.74604726, z: 306.55386}
   maxItems: 20
-  items:
+  itemsData:
   - {fileID: 11400000, guid: 9340584de6340b94ba8313de272df04f, type: 2}
+  - {fileID: 11400000, guid: 4ef5d6877ba384647ac0c23cea808faf, type: 2}
+  items: []
   maxPokIUT: 20
   pokIUTInventoryData: []
   pokIUTTeamData:
@@ -50,4 +52,3 @@ MonoBehaviour:
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
       damage: 10
       powerPoints: 9
-  state: Idle

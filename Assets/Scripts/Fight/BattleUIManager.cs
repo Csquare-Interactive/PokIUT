@@ -235,7 +235,7 @@ public class BattleUIManager : MonoBehaviour
         {
             var item = playerData.items[i];
             var button = Instantiate(itemButtonPrefab, itemButtonContainer).GetComponent<Button>();
-            button.transform.Find("Item_Name").GetComponent<Text>().text = item.itemName;
+            button.transform.Find("Item_Name").GetComponent<Text>().text = item.baseData.itemName;
             button.transform.Find("Item_Quantity").GetComponent<Text>().text = $"Qty {item.quantity}";
             int index = i;
             button.onClick.RemoveAllListeners();

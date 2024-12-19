@@ -4,5 +4,5 @@ using UnityEngine;
 public class ItemData : ScriptableObject
 {
     public string itemName;
-    public int quantity;
+    public int maxQuantity;
 }

@@ -53,6 +53,20 @@ public class CombatSystem
         OnTurnEnd?.Invoke();
     }
 
+    public void PlayerUseItem(ItemInstance item, PokeIUTInstance target)
+    {
+        switch (item.baseData.itemName)
+        {
+            case "Potion":
+                target.health += 20;
+                break;
+            case "Super Potion":
+                target.health += 50;
+                break;
+        }
+        OnTurnEnd?.Invoke();
+    }
+
     public void EnemyTurn()
     {
         var validCapacites = EnemyPokeIUT.capacites.FindAll(c => c.powerPoints > 0);

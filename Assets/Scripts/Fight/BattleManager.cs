@@ -12,7 +12,7 @@ public class BattleManager : MonoBehaviour
     private CombatSystem combatSystem;
     public EnemyData enemyData;
     private PlayerData playerData;
-    private ItemData currentItem;
+    private ItemInstance currentItem;
     private bool isUsingItem = false;
     private bool battleOver = false;
     private bool isPlayerTurn = false;
@@ -26,7 +26,9 @@ public class BattleManager : MonoBehaviour
         playerData = GameManager.Instance.playerData;
 
         playerData.InitializePokeIUTTeam(); // Initialize all the pokeIUTs in the team (To prevent having same PokeIUT references in the team and with the enemy)
+        playerData.InitializeItems(); // Initialize all the items in the inventory
         enemyData.InitializePokeIUTTeam();
+        enemyData.InitializeItems();
 
         if (playerData.currentPokeIUT == null)
             playerData.currentPokeIUT = playerData.pokIUTTeam[0];
@@ -118,41 +120,6 @@ public class BattleManager : MonoBehaviour
         battleUIManager.UpdatePokeIUTTeamInfos(playerData);
     }
 
-    private void HandlePokeIUTSelected(int pokeIUTIndex)
-    {
-        if (isUsingItem)
-        {
-            PokeIUTInstance pokeIUT = playerData.pokIUTTeam[pokeIUTIndex];
-            UseItemOnPokeIUT(currentItem, pokeIUT);
-            currentItem.quantity--;
-            isUsingItem = false;
-        }
-
-        battleUIManager.ShowPokeIUTTeamUI(false);
-        battleUIManager.ShowActionButtons(true);
-        battleUIManager.ShowCurrentPokeIUTStats(true);
-    }
-
-    // TODO: MOVE THIS SHIT IN COMBATSYSTEM
-    private void UseItemOnPokeIUT(ItemData item, PokeIUTInstance pokeIUT)
-    {
-        switch (item.itemName)
-        {
-            case "Potion":
-                pokeIUT.health = Mathf.Min(pokeIUT.baseData.maxHealth, pokeIUT.health + 20);
-                battleUIManager.ShowDescription("{0} a utilisé une {1} sur {2} et a récupéré 20 PV", playerData.playerName, item.itemName, pokeIUT.baseData.pokeiutName);
-                break;
-            case "Super Potion":
-                pokeIUT.health = Mathf.Min(pokeIUT.baseData.maxHealth, pokeIUT.health + 50);
-                battleUIManager.ShowDescription("{0} a utilisé une {1} sur {2} et a récupéré 50 PV", playerData.playerName, item.itemName, pokeIUT.baseData.pokeiutName);
-                break;
-            default:
-                battleUIManager.ShowDescription("{0} a utilisé {1} sur {2}", playerData.playerName, item.itemName, pokeIUT.baseData.pokeiutName);
-                break;
-        }
-        battleUIManager.RefreshUI(combatSystem.PlayerPokeIUT, combatSystem.EnemyPokeIUT);
-    }
-
     private void HandleBackClicked()
     {
         battleUIManager.ShowActionButtons(true);
@@ -173,6 +140,7 @@ public class BattleManager : MonoBehaviour
 
     private void HandlePokeIUTTeamClicked(int index)
     {
+        // Handler when using an item or switching PokeIUT
         if (isUsingItem)
         {
             HandlePokeIUTSelected(index);
@@ -185,6 +153,23 @@ public class BattleManager : MonoBehaviour
             battleUIManager.ShowCurrentPokeIUTStats(true);
             combatSystem.PlayerSwitchPokeIUT(index);
         }
+    }
+
+    private void HandlePokeIUTSelected(int pokeIUTIndex)
+    {
+        if (isUsingItem)
+        {
+            PokeIUTInstance pokeIUT = playerData.pokIUTTeam[pokeIUTIndex];
+            currentItem.quantity--;
+            battleUIManager.ShowDescription("{0} a utilisé {1} sur {2}", playerData.playerName, currentItem.baseData.itemName, pokeIUT.baseData.pokeiutName);
+            battleUIManager.RefreshUI(combatSystem.PlayerPokeIUT, combatSystem.EnemyPokeIUT);
+            combatSystem.PlayerUseItem(currentItem, pokeIUT);
+            isUsingItem = false;
+        }
+
+        battleUIManager.ShowPokeIUTTeamUI(false);
+        battleUIManager.ShowActionButtons(true);
+        battleUIManager.ShowCurrentPokeIUTStats(true);
     }
 
     private void HandleRunClicked()
