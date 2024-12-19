@@ -8,7 +8,7 @@ Shader "Custom/TransparentShader"
     }
     SubShader
     {
-        Tags { "Queue"="Transparent" "RenderType"="Transparent" }
+        Tags { "Queue"="Transparent+10" "RenderType"="Transparent" }
         LOD 200
 
         Pass
@@ -16,6 +16,7 @@ Shader "Custom/TransparentShader"
             Blend SrcAlpha OneMinusSrcAlpha
             ZWrite Off
             Cull Off
+            ZTest LEqual
 
             CGPROGRAM
             #pragma vertex vert

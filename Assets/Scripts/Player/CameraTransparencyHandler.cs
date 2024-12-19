@@ -9,7 +9,7 @@ public class CameraTransparencyHandler
     private LayerMask invisibleLayer;
 
     private List<Renderer> transparentRenderers = new List<Renderer>();
-    private List<GameObject> invisibleObjects = new List<GameObject>();
+    private List<Renderer> invisibleObjects = new List<Renderer>();
     private float transparentAlpha = 0.3f;
     private float fadeSpeed = 5f;
 
@@ -31,7 +31,7 @@ public class CameraTransparencyHandler
         RaycastHit[] hits_inv = Physics.RaycastAll(ray, direction.magnitude, invisibleLayer);
 
         List<Renderer> currentRenderers = new List<Renderer>();
-        List<GameObject> currentObjects = new List<GameObject>();
+        List<Renderer> currentObjects = new List<Renderer>();
 
         foreach (RaycastHit hit in hits)
         {
@@ -45,14 +45,14 @@ public class CameraTransparencyHandler
         foreach (RaycastHit hit in hits_inv)
         {
 
-            GameObject obj = hit.collider.gameObject;
+            Renderer renderer = hit.collider.GetComponent<Renderer>();
 
-            if (obj != null && !currentObjects.Contains(obj))
+            if (renderer != null && !currentObjects.Contains(renderer))
             {
-                hit.collider.gameObject.SetActive(false);
-                currentObjects.Add(obj);
+                renderer.enabled = false;
+                currentObjects.Add(renderer);
             }
-            currentObjects.Add(obj);
+            currentObjects.Add(renderer);
         }
 
         foreach (Renderer renderer in transparentRenderers)
@@ -62,15 +62,16 @@ public class CameraTransparencyHandler
                 ResetTransparency(renderer);
             }
         }
-        foreach (GameObject obj in invisibleObjects)
+        foreach (Renderer renderer in invisibleObjects)
         {
-            if (!currentObjects.Contains(obj))
+            if (!currentObjects.Contains(renderer))
             {
-                obj.SetActive(true);
+                renderer.enabled = true;
             }
         }
 
         transparentRenderers = currentRenderers;
+        invisibleObjects = currentObjects;
 
         DrawRayGizmos(ray, direction.magnitude, hits);
     }
