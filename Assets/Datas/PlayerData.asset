@@ -18,7 +18,7 @@ MonoBehaviour:
   runSpeed: 10
   smoothFactor: 10
   canRun: 1
-  lastPosition: {x: 442.59595, y: 0.74604726, z: 306.58093}
+  lastPosition: {x: 442.56393, y: 0.74604726, z: 307.34842}
   maxItems: 20
   itemsData:
   - {fileID: 11400000, guid: 9340584de6340b94ba8313de272df04f, type: 2}
@@ -27,17 +27,19 @@ MonoBehaviour:
   - baseData: {fileID: 11400000, guid: 9340584de6340b94ba8313de272df04f, type: 2}
     quantity: 10
   - baseData: {fileID: 11400000, guid: 4ef5d6877ba384647ac0c23cea808faf, type: 2}
-    quantity: 4
+    quantity: 5
   maxPokIUT: 20
   pokIUTInventoryData: []
   pokIUTTeamData:
+  - {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
+  - {fileID: 11400000, guid: d690eae31fdc9dd40906a04404f24518, type: 2}
   - {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
   - {fileID: 11400000, guid: d690eae31fdc9dd40906a04404f24518, type: 2}
   currentPokeIUTData: {fileID: 0}
   pokIUTInventory: []
   pokIUTTeam:
   - baseData: {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
-    health: 240
+    health: 200
     speed: 2
     level: 10
     capacites:
@@ -54,7 +56,41 @@ MonoBehaviour:
       damage: 10
       powerPoints: 5
   - baseData: {fileID: 11400000, guid: d690eae31fdc9dd40906a04404f24518, type: 2}
-    health: 90
+    health: 100
+    speed: 1
+    level: 5
+    capacites:
+    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
+      damage: 10
+      powerPoints: 5
+    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
+      damage: 10
+      powerPoints: 5
+    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
+      damage: 10
+      powerPoints: 5
+    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
+      damage: 10
+      powerPoints: 5
+  - baseData: {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
+    health: 200
+    speed: 2
+    level: 10
+    capacites:
+    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
+      damage: 10
+      powerPoints: 5
+    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
+      damage: 10
+      powerPoints: 5
+    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
+      damage: 10
+      powerPoints: 5
+    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
+      damage: 10
+      powerPoints: 5
+  - baseData: {fileID: 11400000, guid: d690eae31fdc9dd40906a04404f24518, type: 2}
+    health: 100
     speed: 1
     level: 5
     capacites:
@@ -72,19 +108,19 @@ MonoBehaviour:
       powerPoints: 5
   currentPokeIUT:
     baseData: {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
-    health: 150
+    health: 70
     speed: 2
     level: 10
     capacites:
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
       damage: 10
+      powerPoints: 0
+    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
+      damage: 10
+      powerPoints: 1
+    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
+      damage: 10
+      powerPoints: 2
+    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
+      damage: 10
       powerPoints: 3
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 4
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 4
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 5

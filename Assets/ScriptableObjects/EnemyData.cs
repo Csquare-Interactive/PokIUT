@@ -36,16 +36,7 @@ public class EnemyData : ScriptableObject
 
         for (int i = 0; i < pokIUTTeamData.Length; i++)
         {
-            // Check if the PokeIUT is already in the team
-            if (pokIUTTeam[i] == null || pokIUTTeam[i].baseData != pokIUTTeamData[i])
-            {
-                pokIUTTeam[i] = new PokeIUTInstance(pokIUTTeamData[i]);
-                Debug.Log($"ENEMY DATA | Instancié {pokIUTTeamData[i].pokeiutName} dans PokeIUTTeam.");
-            }
-            else
-            {
-                Debug.Log($"ENEMY DATA | {pokIUTTeamData[i].pokeiutName} est déjà présent dans PokeIUTTeam.");
-            }
+            pokIUTTeam[i] = new PokeIUTInstance(pokIUTTeamData[i]);
         }
 
         currentPokeIUT = pokIUTTeam[0];
@@ -59,36 +50,12 @@ public class EnemyData : ScriptableObject
             return;
         }
 
-        if (items == null || items.Length != itemsData.Length)
-        {
-            items = new ItemInstance[itemsData.Length];
-            Debug.Log("EnemyData | Items a été réinitialisé.");
-        }
+        items = new ItemInstance[itemsData.Length];
 
         for (int i = 0; i < itemsData.Length; i++)
         {
-            if (itemsData[i] == null)
-            {
-                Debug.LogError($"EnemyData | itemsData[{i}] est null. Veuillez assigner un ItemData valide.");
-                continue;
-            }
-
-            if (items[i] == null || items[i].baseData != itemsData[i])
-            {
-                items[i] = new ItemInstance(itemsData[i]);
-                if (items[i].baseData != null)
-                {
-                    Debug.Log($"EnemyData | Instancié {items[i].baseData.itemName} dans Items à l'indice {i}.");
-                }
-                else
-                {
-                    Debug.Log($"EnemyData | Instancié {items[i]} avec baseData à null.");
-                }
-            }
-            else
-            {
-                Debug.Log($"EnemyData | {itemsData[i].itemName} est déjà présent dans Items à l'indice {i}.");
-            }
+            items[i] = new ItemInstance(itemsData[i]);
+            items[i].quantity = itemsData[i].maxQuantity;
         }
     }
 }

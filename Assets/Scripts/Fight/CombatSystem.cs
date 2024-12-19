@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class CombatSystem
 {
@@ -9,6 +10,8 @@ public class CombatSystem
     public EnemyData Enemy { get; private set; }
     public PokeIUTInstance PlayerPokeIUT { get; set; }
     public PokeIUTInstance EnemyPokeIUT { get; set; }
+    private EnemyIA EnemyIA { get; set; }
+    private string enemyAction;
 
     public event Action OnBattleStart;
     public event Action OnTurnEnd;
@@ -20,6 +23,7 @@ public class CombatSystem
         Enemy = enemy;
         PlayerPokeIUT = player.currentPokeIUT;
         EnemyPokeIUT = enemy.currentPokeIUT;
+        EnemyIA = new EnemyIA(this);
     }
 
     public void StartBattle()
@@ -76,23 +80,64 @@ public class CombatSystem
 
     public void EnemyTurn()
     {
-        var validCapacites = EnemyPokeIUT.capacites.FindAll(c => c.powerPoints > 0);
-        if (validCapacites.Count == 0)
+        enemyAction = EnemyIA.WhichActions();
+        Debug.Log(enemyAction);
+        switch (enemyAction)
         {
-            OnTurnEnd?.Invoke();
-            return;
-        }
+            case "Switch": //////////////////////////////////////////////////////////
 
-        var chosenCapacite = validCapacites[UnityEngine.Random.Range(0, validCapacites.Count)];
-        chosenCapacite.powerPoints--;
-        PlayerPokeIUT.health -= chosenCapacite.damage;
+                PokeIUTInstance pokeIUT = EnemyIA.ChoosePokeIUT(Enemy.pokIUTTeam);
+                EnemyPokeIUT = pokeIUT;
+                break;
 
-        if (PlayerPokeIUT.health <= 0)
-        {
-            PlayerPokeIUT.health = 0;
-            OnBattleEnd?.Invoke();
-            return;
-        }
+            case "Heal": //////////////////////////////////////////////////////////
+
+                ItemInstance[] healingItems = Array.FindAll(Enemy.items, i => i.baseData.itemType == ItemType.Healing);
+                if (healingItems.Length == 0)
+                {
+                    OnTurnEnd?.Invoke();
+                    return;
+                }
+
+                ItemInstance healingItem = healingItems[UnityEngine.Random.Range(0, healingItems.Length)];
+                healingItem.quantity--;
+
+                switch (healingItem.baseData.itemName)
+                {
+                    case "Potion":
+                        if (EnemyPokeIUT.health + 20 > EnemyPokeIUT.baseData.maxHealth) break;
+                        EnemyPokeIUT.health += 20;
+                        break;
+                    case "Super Potion":
+                        if (EnemyPokeIUT.health + 50 > EnemyPokeIUT.baseData.maxHealth) break;
+                        EnemyPokeIUT.health += 50;
+                        break;
+                }
+
+                break;
+
+            case "Attack": //////////////////////////////////////////////////////////
+
+                List<CapaciteInstance> validCapacites = EnemyPokeIUT.capacites.FindAll(c => c.powerPoints > 0);
+                if (validCapacites.Count == 0)
+                {
+                    OnTurnEnd?.Invoke();
+                    return;
+                }
+
+                CapaciteInstance capacite = EnemyIA.ChooseCapacity(validCapacites);
+                capacite.powerPoints--;
+                PlayerPokeIUT.health -= capacite.damage;
+
+                if (PlayerPokeIUT.health <= 0)
+                {
+                    PlayerPokeIUT.health = 0;
+                    OnBattleEnd?.Invoke();
+                    return;
+                }
+
+                break;
+        }    
 
         OnTurnEnd?.Invoke();
     }
