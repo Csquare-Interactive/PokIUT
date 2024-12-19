@@ -48,10 +48,13 @@ public class CombatSystem
         return 0;
     }
 
-    public void PlayerSwitchPokeIUT(int index)
+    public int PlayerSwitchPokeIUT(int index)
     {
+        if (Player.pokIUTTeam[index].health <= 0) return 1;
+        if (Player.pokIUTTeam[index] == PlayerPokeIUT) return 1;
         PlayerPokeIUT = Player.pokIUTTeam[index];
         OnTurnEnd?.Invoke();
+        return 0;
     }
 
     public int PlayerUseItem(ItemInstance item, PokeIUTInstance target)

@@ -153,11 +153,14 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            battleUIManager.ShowDescription("{0} a envoyé {1}", playerData.playerName, combatSystem.PlayerPokeIUT.baseData.pokeiutName);
             battleUIManager.ShowPokeIUTTeamUI(false, playerData);
             battleUIManager.ShowActionButtons(true);
             battleUIManager.ShowCurrentPokeIUTStats(true);
-            combatSystem.PlayerSwitchPokeIUT(index);
+            int result = combatSystem.PlayerSwitchPokeIUT(index);
+            if (result == 1) // Illegal Action
+                battleUIManager.ShowDescription("Action Impossible");
+            else
+                battleUIManager.ShowDescription("{0} a envoyé {1}", playerData.playerName, combatSystem.PlayerPokeIUT.baseData.pokeiutName);
         }
     }
 
