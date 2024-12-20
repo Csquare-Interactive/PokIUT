@@ -10,18 +10,34 @@ public class BattleManager : MonoBehaviour
 {
     public BattleUIManager battleUIManager;
     private CombatSystem combatSystem;
-    public EnemyData enemyData;
     private PlayerData playerData;
     private ItemInstance currentItem;
+    [HideInInspector] public EnemyData enemyData;
     private bool isUsingItem = false;
     private bool battleOver = false;
     private bool isPlayerTurn = false;
     private bool playerHasActed = false;
     private string explorationSceneName = "IUT";
 
-    void Start()
+    public void Start()
+
+    {
+        if (BattleDataManager.Instance == null || BattleDataManager.Instance.GetEnemyData() == null)
+        {
+            Debug.LogError("No EnemyData available to initialize the battle!");
+            return;
+        }
+
+        enemyData = BattleDataManager.Instance.GetEnemyData();
+
+        Initialize(enemyData);
+    }
+
+    public void Initialize(EnemyData enemyData)
     {
         if (GameManager.Instance == null || GameManager.Instance.playerData == null) Debug.LogError("GameManager or playerData is not assigned");
+        
+        this.enemyData = enemyData;
 
         playerData = GameManager.Instance.playerData;
 
@@ -51,7 +67,6 @@ public class BattleManager : MonoBehaviour
         battleUIManager.OnBackClicked += HandleBackClicked;
         battleUIManager.OnPokeIUTTeamClicked += HandlePokeIUTTeamClicked;
         battleUIManager.OnItemClicked += HandleItemClicked;
-
 
         combatSystem.StartBattle();
     }
@@ -205,6 +220,7 @@ public class BattleManager : MonoBehaviour
         battleOver = true;
         battleUIManager.ShowActionButtons(false);
         battleUIManager.ShowCapaciteButtons(false, combatSystem.PlayerPokeIUT);
+        enemyData = null; // Reset the enemyData for the next battle
 
         StartCoroutine(ReturnToExploration());
     }
