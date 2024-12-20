@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             CheckForHealingStation();
+            CheckForTrainer();
         }
 
        if (isInGrass && IsMoving())
@@ -88,6 +89,27 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log("HealingStation detected!"); 
                 hit.collider.GetComponent<HealingStation>().HealAllPokeIUTs();
+            }
+        }
+        else
+        {
+            Debug.Log("Raycast did not hit any object."); 
+        }
+    }
+
+    private void CheckForTrainer()
+    {
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, interactionDistance))
+        {
+            Debug.Log("Raycast hit: " + hit.collider.name); 
+
+            if (hit.collider.CompareTag("Trainer"))
+            {
+                Debug.Log("Trainer detected!"); 
+                hit.collider.GetComponent<TrainerManager>().StartBattle();
             }
         }
         else
