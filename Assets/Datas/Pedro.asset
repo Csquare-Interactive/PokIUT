@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd13aa83f79a6642aedb1a0baeb8c84, type: 3}
   m_Name: Pedro
   m_EditorClassIdentifier: 
-  enemyName: 
-  lastPosition: {x: 0, y: 0, z: 0}
+  name: Pedro
   maxItems: 0
   itemsData:
   - {fileID: 11400000, guid: 9340584de6340b94ba8313de272df04f, type: 2}
@@ -116,3 +115,5 @@ MonoBehaviour:
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
       damage: 10
       powerPoints: 1
+  enemyType: 0
+  lastPosition: {x: 0, y: 0, z: 0}

@@ -12,3 +12,8 @@ public class CapaciteData : ScriptableObject
     public int powerPoints;
     public PokeIUTData.Type type;
 }
+
+public abstract class Capacity
+{
+    public abstract void Use(EntityData self, EntityData target);
+}

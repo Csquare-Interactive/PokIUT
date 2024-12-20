@@ -12,13 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d08ef3959752c734e8bca1c84e474507, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  playerName: Player
-  money: 0
-  walkSpeed: 6
-  runSpeed: 10
-  smoothFactor: 10
-  canRun: 1
-  lastPosition: {x: 442.56393, y: 0.74604726, z: 307.34842}
+  name: Player
   maxItems: 20
   itemsData:
   - {fileID: 11400000, guid: 9340584de6340b94ba8313de272df04f, type: 2}
@@ -124,3 +118,9 @@ MonoBehaviour:
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
       damage: 10
       powerPoints: 3
+  money: 0
+  walkSpeed: 6
+  runSpeed: 10
+  smoothFactor: 10
+  canRun: 1
+  lastPosition: {x: 442.56393, y: 0.74604726, z: 307.34842}

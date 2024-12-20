@@ -1,29 +1,13 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EnemyData", menuName = "Enemy/EnemyData")]
-public class EnemyData : ScriptableObject
+public class EnemyData : EntityData
 {
     [Header("Informations Générales")]
-    public string enemyName;
     public EnemyType enemyType;
 
     [Header("Déplacements")]
     public Vector3 lastPosition;
-
-    [Header("Inventaire")]
-    public int maxItems;
-    public ItemData[] itemsData;
-    public ItemInstance[] items;
-
-    [Header("PokIUT")]
-    public int maxPokIUT;
-    public PokeIUTData[] pokIUTInventoryData;
-    public PokeIUTData[] pokIUTTeamData;
-    public PokeIUTData currentPokeIUTData;
-
-    public PokeIUTInstance[] pokIUTInventory;
-    public PokeIUTInstance[] pokIUTTeam;
-    public PokeIUTInstance currentPokeIUT;
 
     public void InitializePokeIUTTeam()
     {

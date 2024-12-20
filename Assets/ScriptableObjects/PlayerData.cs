@@ -1,10 +1,9 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Player/PlayerData")]
-public class PlayerData : ScriptableObject
+public class PlayerData : EntityData
 {
     [Header("Informations Générales")]
-    public string playerName;
     public int money;
 
     [Header("Déplacements")]
@@ -13,21 +12,6 @@ public class PlayerData : ScriptableObject
     public float smoothFactor;
     public bool canRun;
     public Vector3 lastPosition;
-
-    [Header("Inventaire")]
-    public int maxItems;
-    public ItemData[] itemsData;
-    public ItemInstance[] items;
-
-    [Header("PokIUT")]
-    public int maxPokIUT;
-    public PokeIUTData[] pokIUTInventoryData;
-    public PokeIUTData[] pokIUTTeamData;
-    public PokeIUTData currentPokeIUTData;
-
-    public PokeIUTInstance[] pokIUTInventory;
-    public PokeIUTInstance[] pokIUTTeam;
-    public PokeIUTInstance currentPokeIUT;
 
     public void InitializePokeIUTTeam()
     {

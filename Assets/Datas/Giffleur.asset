@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd13aa83f79a6642aedb1a0baeb8c84, type: 3}
   m_Name: Giffleur
   m_EditorClassIdentifier: 
-  enemyName: Giffleur
-  enemyType: 1
-  lastPosition: {x: 0, y: 0, z: 0}
+  name: Giffleur
   maxItems: 0
   itemsData: []
   items: []
@@ -31,3 +29,5 @@ MonoBehaviour:
     speed: 0
     level: 0
     capacites: []
+  enemyType: 1
+  lastPosition: {x: 0, y: 0, z: 0}

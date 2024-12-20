@@ -83,7 +83,7 @@ public class BattleManager : MonoBehaviour
         {
             if (isPlayerTurn)
             {
-                battleUIManager.ShowDescription("C'est au tour de {0} !", playerData.playerName);
+                battleUIManager.ShowDescription("C'est au tour de {0} !", playerData.name);
                 battleUIManager.ShowActionButtons(true);
                 battleUIManager.RefreshUI(combatSystem.PlayerPokeIUT, combatSystem.EnemyPokeIUT);
 
@@ -94,7 +94,7 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
-                battleUIManager.ShowDescription("C'est au tour de {0} !", enemyData.enemyName);
+                battleUIManager.ShowDescription("C'est au tour de {0} !", enemyData.name);
                 combatSystem.EnemyTurn();
                 battleUIManager.RefreshUI(combatSystem.PlayerPokeIUT, combatSystem.EnemyPokeIUT);
                 yield return new WaitForSeconds(1f);
@@ -112,10 +112,10 @@ public class BattleManager : MonoBehaviour
     {
         int result = combatSystem.PlayerUseCapacite(index);
         if (result == 0) // Worked
-            battleUIManager.ShowDescription("{0} a utilisé {1}", playerData.playerName, combatSystem.PlayerPokeIUT.capacites[index].baseData.name);
+            battleUIManager.ShowDescription("{0} a utilisé {1}", playerData.name, combatSystem.PlayerPokeIUT.capacites[index].baseData.name);
         else // Illegal Action (No PP)
         {
-            battleUIManager.ShowDescription("{0} a utilisé {1} mais il n'y a plus de PP", playerData.playerName, combatSystem.PlayerPokeIUT.capacites[index].baseData.name);
+            battleUIManager.ShowDescription("{0} a utilisé {1} mais il n'y a plus de PP", playerData.name, combatSystem.PlayerPokeIUT.capacites[index].baseData.name);
             battleUIManager.ShowActionButtons(true);
         }
         battleUIManager.ShowCapaciteButtons(false, combatSystem.PlayerPokeIUT);
@@ -175,7 +175,7 @@ public class BattleManager : MonoBehaviour
             if (result == 1) // Illegal Action
                 battleUIManager.ShowDescription("Action Impossible");
             else
-                battleUIManager.ShowDescription("{0} a envoyé {1}", playerData.playerName, combatSystem.PlayerPokeIUT.baseData.pokeiutName);
+                battleUIManager.ShowDescription("{0} a envoyé {1}", playerData.name, combatSystem.PlayerPokeIUT.baseData.pokeiutName);
         }
     }
 
@@ -188,7 +188,7 @@ public class BattleManager : MonoBehaviour
             int result = combatSystem.PlayerUseItem(currentItem, pokeIUT);
             if (result == 0) // Worked
             {
-                battleUIManager.ShowDescription("{0} a utilisé {1} sur {2}", playerData.playerName, currentItem.baseData.itemName, pokeIUT.baseData.pokeiutName);
+                battleUIManager.ShowDescription("{0} a utilisé {1} sur {2}", playerData.name, currentItem.baseData.itemName, pokeIUT.baseData.pokeiutName);
                 currentItem.quantity--;
             }
             else // Illegal Action
@@ -203,7 +203,7 @@ public class BattleManager : MonoBehaviour
 
     private void HandleRunClicked()
     {
-        battleUIManager.ShowDescription("{0} fuit le combat !", playerData.playerName);
+        battleUIManager.ShowDescription("{0} fuit le combat !", playerData.name);
         combatSystem.EndBattle();
     }
 
