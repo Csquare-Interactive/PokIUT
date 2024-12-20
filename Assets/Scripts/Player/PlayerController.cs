@@ -1,15 +1,19 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public float interactionDistance = 3f;
-    private bool isInGrass = false;
-    private float encounterRate = 0.03f;
-    private Vector3 lastPosition;
-    private float distanceThreshold = 1f;
     private BattleManager battleManager;
-
+    public string combatSceneName = "BattleScene";
+    [Header("Healing Station")]
+    public float interactionDistance = 3f;
+    [Header("Grass Encounter")]
+    public float encounterRate = 0.03f;
+    public float distanceThreshold = 1f;
+    private bool isInGrass = false;    
+    private Vector3 lastPosition;
+    private GameObject currentGrass;
 
     void Start()
     {
@@ -34,23 +38,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private bool IsMoving()
-    {
-        return Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0;
-    }
+    private bool IsMoving()=> Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0;
 
     private void TryStartEncounter()
     {
         if (Random.value < encounterRate)
         {
-            StartEncounter();
+            StartEncounter(currentGrass.GetComponent<TallGrassManager>().GetRandomEnemy());
         }
     }
 
-    private void StartEncounter()
+    private void StartEncounter(EnemyData enemyData)
     {
         Debug.Log("Encounter started!");
-       
+        BattleDataManager.Instance.SetEnemyData(enemyData);
+        SceneManager.LoadScene(combatSceneName, LoadSceneMode.Additive);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -58,6 +60,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Grass"))
         {
             isInGrass = true;
+            currentGrass = other.gameObject;
         }
     }
 
@@ -66,6 +69,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Grass"))
         {
             isInGrass = false;
+            currentGrass = null;
         }
     }
 

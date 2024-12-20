@@ -1339,7 +1339,7 @@ Transform:
   m_GameObject: {fileID: 1320125020}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 462.95, y: 0.391, z: 293.445}
+  m_LocalPosition: {x: 462.95, y: 0.391, z: 298.86}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1448,10 +1448,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1441364782}
   - component: {fileID: 1441364784}
+  - component: {fileID: 1441364787}
   - component: {fileID: 1441364783}
   - component: {fileID: 1441364785}
   - component: {fileID: 1441364786}
-  - component: {fileID: 1441364787}
   m_Layer: 0
   m_Name: Body
   m_TagString: Player
@@ -1613,7 +1613,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f0d6ceb4330b2e4bace5b44d37a4109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  combatSceneName: BattleScene
   interactionDistance: 3
+  encounterRate: 0.03
+  distanceThreshold: 1
 --- !u!1 &1523943210
 GameObject:
   m_ObjectHideFlags: 0
@@ -1679,7 +1682,7 @@ GameObject:
   - component: {fileID: 1623176799}
   m_Layer: 0
   m_Name: Core
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1849,6 +1852,7 @@ GameObject:
   - component: {fileID: 2082178427}
   - component: {fileID: 2082178426}
   - component: {fileID: 2082178425}
+  - component: {fileID: 2082178429}
   m_Layer: 0
   m_Name: HerbeHautes
   m_TagString: Grass
@@ -1945,6 +1949,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2082178429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2082178424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a9d0fad7179a794da7943be6d172e7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  possibleEnemies:
+  - {fileID: 11400000, guid: d33d3d44ce982104f913fd7d7b47d789, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

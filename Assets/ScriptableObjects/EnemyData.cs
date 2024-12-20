@@ -5,6 +5,7 @@ public class EnemyData : ScriptableObject
 {
     [Header("Informations Générales")]
     public string enemyName;
+    public EnemyType enemyType;
 
     [Header("Déplacements")]
     public Vector3 lastPosition;
@@ -91,4 +92,10 @@ public class EnemyData : ScriptableObject
             }
         }
     }
+}
+
+public enum EnemyType
+{
+    Trainer,
+    Wild
 }

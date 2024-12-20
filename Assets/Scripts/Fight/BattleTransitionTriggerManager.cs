@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class BattleTransitionTriggerManager : MonoBehaviour
 {
      private Collider battleCollider;
-     public string combatSceneName = "CombatScene";
+     public string combatSceneName = "BattleScene";
 
     private void Start()
     {
