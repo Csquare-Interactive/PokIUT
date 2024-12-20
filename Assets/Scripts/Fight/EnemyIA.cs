@@ -41,7 +41,7 @@ public class EnemyIA
         int enemyHealth = GetEnemyPokeIUTHealth();
         foreach(CapaciteInstance capacite in capacites)
         {
-            if (capacite.damage >= playerHealth) return capacite;
+            if (capacite.GetDamage() >= playerHealth) return capacite;
         }
         return capacites[Random.Range(0, capacites.Count)];
     }

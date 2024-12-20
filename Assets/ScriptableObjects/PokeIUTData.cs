@@ -16,8 +16,11 @@ public class PokeIUTData : ScriptableObject
     [Serializable]
     public enum Type
     {
-        Fonctionnel,
-        Procedural,
-        OrienteeObjet,
+        Interprete,
+        Compile,
+        BDD,
+        Asynchrone,
+        Web,
+        TrashTier
     }
 }

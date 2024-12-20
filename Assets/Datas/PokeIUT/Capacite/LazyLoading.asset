@@ -10,12 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f6aa826bfff6c64e91e027ff137fd5e, type: 3}
-  m_Name: Gifle
+  m_Name: LazyLoading
   m_EditorClassIdentifier: 
-  capaciteName: Gifle
-  description: Met une gifle
-  maxDamage: 10
-  damage: 10
+  capaciteName: LazyLoading
+  description: "Retarde l\u2019attaque de l\u2019adversaire d\u2019un tour en chargeant
+    les modules n\xE9cessaires."
+  power: 10
   maxPowerPoints: 5
   powerPoints: 5
   type: 0
+  powerDebuff: 0
+  capacity:
+    rid: 3286597957422940277
+  references:
+    version: 2
+    RefIds:
+    - rid: 3286597957422940277
+      type: {class: LazyLoading, ns: , asm: Assembly-CSharp}
+      data:
+        data: {fileID: 11400000}

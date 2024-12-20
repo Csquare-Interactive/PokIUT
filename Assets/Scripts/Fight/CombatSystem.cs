@@ -38,8 +38,7 @@ public class CombatSystem
         var capacite = PlayerPokeIUT.capacites[index];
         if (capacite.powerPoints <= 0) return 1;
 
-        capacite.powerPoints--;
-        EnemyPokeIUT.health -= capacite.damage;
+        capacite.baseData.capacity.Use(Player, Enemy);
         
         if (EnemyPokeIUT.health <= 0)
         {
@@ -126,8 +125,7 @@ public class CombatSystem
                 }
 
                 CapaciteInstance capacite = EnemyIA.ChooseCapacity(validCapacites);
-                capacite.powerPoints--;
-                PlayerPokeIUT.health -= capacite.damage;
+                capacite.baseData.capacity.Use(Player, Enemy);
 
                 if (PlayerPokeIUT.health <= 0)
                 {

@@ -2,19 +2,24 @@
 public class CapaciteInstance
 {
     public CapaciteData baseData;
-    public int damage;
+    public int power;
     public int powerPoints;
 
     public CapaciteInstance(CapaciteData data)
     {
         baseData = data;
-        damage = data.maxDamage;
+        power = data.power;
         powerPoints = data.maxPowerPoints;
     }
 
     public void Reset()
     {
-        damage = baseData.maxDamage;
+        power = baseData.power;
         powerPoints = baseData.maxPowerPoints;
+    }
+
+    public int GetDamage()
+    {
+        return baseData.capacity.GetDamage(power);
     }
 }
