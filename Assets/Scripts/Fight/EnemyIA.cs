@@ -16,9 +16,6 @@ public class EnemyIA
     public string WhichActions()
     {
         // If the enemy's health is less than 33%
-        Debug.Log("Have healing item: " + HaveHealingItem());
-        Debug.Log("Switch ? " + (GetEnemyPokeIUTHealth() <= GetEnemyPokeIUTMaxHealth() / 3));
-        Debug.Log("Heal ? " + (GetEnemyPokeIUTHealth() <= GetEnemyPokeIUTMaxHealth() / 1.5f && HaveHealingItem() && GetPlayerPokeIUTHealth() >= GetPlayerPokeIUTMaxHealth() / 3));
         if (GetEnemyPokeIUTHealth() <= GetEnemyPokeIUTMaxHealth() / 3)
         {
             int random = Random.Range(0, 3);
@@ -41,7 +38,7 @@ public class EnemyIA
         int enemyHealth = GetEnemyPokeIUTHealth();
         foreach(CapaciteInstance capacite in capacites)
         {
-            if (capacite.GetDamage() >= playerHealth) return capacite;
+            if (Capacity.GetDamage(capacite.power, -10, 10) >= playerHealth) return capacite;
         }
         return capacites[Random.Range(0, capacites.Count)];
     }

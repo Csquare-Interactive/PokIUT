@@ -17,9 +17,4 @@ public class CapaciteInstance
         power = baseData.power;
         powerPoints = baseData.maxPowerPoints;
     }
-
-    public int GetDamage()
-    {
-        return baseData.capacity.GetDamage(power);
-    }
 }

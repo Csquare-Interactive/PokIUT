@@ -24,7 +24,6 @@ public class PlayerData : EntityData
         if (pokIUTTeam == null || pokIUTTeam.Length != pokIUTTeamData.Length)
         {
             pokIUTTeam = new PokeIUTInstance[pokIUTTeamData.Length];
-            Debug.Log("PlayerData | PokeIUTTeam a été réinitialisé.");
         }
 
         for (int i = 0; i < pokIUTTeamData.Length; i++)
@@ -38,19 +37,8 @@ public class PlayerData : EntityData
             if (pokIUTTeam[i] == null || pokIUTTeam[i].baseData != pokIUTTeamData[i])
             {
                 pokIUTTeam[i] = new PokeIUTInstance(pokIUTTeamData[i]);
-                if (pokIUTTeam[i].baseData != null)
-                {
-                    Debug.Log($"PlayerData | Instancié {pokIUTTeam[i].baseData.pokeiutName} dans PokeIUTTeam à l'indice {i}.");
-                }
-                else
-                {
-                    Debug.Log($"PlayerData | Instancié {pokIUTTeam[i]} avec baseData à null.");
-                }
             }
-            else
-            {
-                Debug.Log($"PlayerData | {pokIUTTeamData[i].pokeiutName} est déjà présent dans PokeIUTTeam à l'indice {i}.");
-            }
+
         }
 
         // Instanciate currentPokeIUT if it's not null or if it's not in the team
@@ -88,7 +76,6 @@ public class PlayerData : EntityData
         if (items == null || items.Length != itemsData.Length)
         {
             items = new ItemInstance[itemsData.Length];
-            Debug.Log("PlayerData | Items a été réinitialisé.");
         }
 
         for (int i = 0; i < itemsData.Length; i++)
@@ -103,18 +90,6 @@ public class PlayerData : EntityData
             {
                 items[i] = new ItemInstance(itemsData[i]);
                 items[i].quantity = itemsData[i].maxQuantity; //NOTE: Temporaire, le temps de permettre au joueur de récupérer des items //
-                if (items[i].baseData != null)
-                {
-                    Debug.Log($"PlayerData | Instancié {items[i].baseData.itemName} dans Items à l'indice {i}.");
-                }
-                else
-                {
-                    Debug.Log($"PlayerData | Instancié {items[i]} avec baseData à null.");
-                }
-            }
-            else
-            {
-                Debug.Log($"PlayerData | {itemsData[i].itemName} est déjà présent dans Items à l'indice {i}.");
             }
         }
     }

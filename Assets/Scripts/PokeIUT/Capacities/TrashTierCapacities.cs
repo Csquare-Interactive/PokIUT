@@ -13,6 +13,6 @@ public class UndifinedMadness : Capacity
     public override void Use(EntityData self, EntityData target)
     {
         if(Random.Range(0, 5) == 0)
-            target.currentPokeIUT.health -= Mathf.RoundToInt(base.GetDamage(data.power) * 1.5f);;
+            target.currentPokeIUT.health -= Mathf.RoundToInt(Capacity.GetDamage(data.power, -10, 10) * 1.5f);;
     }
 }

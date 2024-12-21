@@ -36,88 +36,93 @@ MonoBehaviour:
     health: 200
     speed: 2
     level: 10
+    canAttack: 1
     capacites:
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
+      power: 10
       powerPoints: 5
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
+      power: 10
       powerPoints: 5
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
+      power: 10
       powerPoints: 5
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
+      power: 10
       powerPoints: 5
   - baseData: {fileID: 11400000, guid: d690eae31fdc9dd40906a04404f24518, type: 2}
     health: 100
     speed: 1
     level: 5
+    canAttack: 1
     capacites:
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
+      power: 10
       powerPoints: 5
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
+    - baseData: {fileID: 11400000, guid: 95f3389b3c8f95145b242fa99e71b723, type: 2}
+      power: 100
       powerPoints: 5
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 5
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 5
+    - baseData: {fileID: 11400000, guid: 9d928a9e9ae9f1d499ee8aa79c070e6b, type: 2}
+      power: 50
+      powerPoints: 10
+    - baseData: {fileID: 11400000, guid: 9d928a9e9ae9f1d499ee8aa79c070e6b, type: 2}
+      power: 50
+      powerPoints: 10
   - baseData: {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
     health: 200
     speed: 2
     level: 10
+    canAttack: 1
     capacites:
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
+      power: 10
       powerPoints: 5
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
+      power: 10
       powerPoints: 5
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
+      power: 10
       powerPoints: 5
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
+      power: 10
       powerPoints: 5
   - baseData: {fileID: 11400000, guid: d690eae31fdc9dd40906a04404f24518, type: 2}
     health: 100
     speed: 1
     level: 5
+    canAttack: 1
     capacites:
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
+      power: 10
       powerPoints: 5
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
+    - baseData: {fileID: 11400000, guid: 95f3389b3c8f95145b242fa99e71b723, type: 2}
+      power: 100
       powerPoints: 5
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 5
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 5
+    - baseData: {fileID: 11400000, guid: 9d928a9e9ae9f1d499ee8aa79c070e6b, type: 2}
+      power: 50
+      powerPoints: 10
+    - baseData: {fileID: 11400000, guid: 9d928a9e9ae9f1d499ee8aa79c070e6b, type: 2}
+      power: 50
+      powerPoints: 10
   currentPokeIUT:
     baseData: {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
-    health: 70
+    health: 200
     speed: 2
     level: 10
+    canAttack: 1
     capacites:
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 0
+      power: 10
+      powerPoints: 5
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 1
+      power: 10
+      powerPoints: 5
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 2
+      power: 10
+      powerPoints: 5
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 3
+      power: 10
+      powerPoints: 5
   money: 0
   walkSpeed: 6
   runSpeed: 10

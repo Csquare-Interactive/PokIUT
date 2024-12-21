@@ -35,10 +35,10 @@ public abstract class Capacity
     }
     public abstract void Use(EntityData self, EntityData target);
 
-    public int GetDamage(int power)
+    public static int GetDamage(int power, int minVariation, int maxVariation)
     {
         Random random = new Random();
-        int variation = random.Next(-10, 11); // Generates a number between -10 and 10
+        int variation = random.Next(minVariation, maxVariation + 1); // Generates a number between minVariation and maxVariation + 1
         return power + (power * variation / 100);
     }
 }

@@ -15,9 +15,9 @@ MonoBehaviour:
   capaciteName: CompileAndCrash
   description: "Une attaque puissante, mais n\xE9cessite un tour pour compiler."
   power: 100
-  maxPowerPoints: 0
-  powerPoints: 0
-  type: 0
+  maxPowerPoints: 5
+  powerPoints: 5
+  type: 1
   powerDebuff: 0
   capacity:
     rid: 3286597957422940278

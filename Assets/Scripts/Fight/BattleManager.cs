@@ -81,11 +81,14 @@ public class BattleManager : MonoBehaviour
     {
         while(!battleOver)
         {
+            combatSystem.PlayerPokeIUT.UpdateStateDescription();
+            combatSystem.EnemyPokeIUT.UpdateStateDescription();
             if (isPlayerTurn)
             {
                 battleUIManager.ShowDescription("C'est au tour de {0} !", playerData.name);
                 battleUIManager.ShowActionButtons(true);
                 battleUIManager.RefreshUI(combatSystem.PlayerPokeIUT, combatSystem.EnemyPokeIUT);
+                combatSystem.PlayerPokeIUT.OnStartTurn(); // Get PlayerPokeIUT state effect at the start of the turn
 
                 yield return new WaitUntil(() => playerHasActed); // Wait untill player hasn't acted
 
@@ -95,8 +98,10 @@ public class BattleManager : MonoBehaviour
             else
             {
                 battleUIManager.ShowDescription("C'est au tour de {0} !", enemyData.name);
+                combatSystem.EnemyPokeIUT.OnStartTurn(); // Get EnemyPokeIUT state effect at the start of the turn
                 combatSystem.EnemyTurn();
                 battleUIManager.RefreshUI(combatSystem.PlayerPokeIUT, combatSystem.EnemyPokeIUT);
+                combatSystem.EnemyPokeIUT.OnEndTurn(); // Get EnemyPokeIUT state effect at the end of the turn
                 yield return new WaitForSeconds(1f);
             }
         }
@@ -209,6 +214,7 @@ public class BattleManager : MonoBehaviour
 
     private void HandleTurnEnd()
     {
+        combatSystem.PlayerPokeIUT.OnEndTurn(); // Get PokeIUT state effect at the end of the turn
         isPlayerTurn = !isPlayerTurn;
         battleUIManager.ShowActionButtons(isPlayerTurn);
         battleUIManager.RefreshUI(combatSystem.PlayerPokeIUT, combatSystem.EnemyPokeIUT);

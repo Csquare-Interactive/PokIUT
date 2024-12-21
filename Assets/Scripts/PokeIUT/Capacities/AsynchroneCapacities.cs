@@ -13,5 +13,12 @@ public class LazyLoading : Capacity
     public override void Use(EntityData self, EntityData target)
     {
         Debug.Log("PokeIUT Capacity(Lazy Loading) | Target Can't Attack Next Turn");
+        if (target.currentPokeIUT.state.GetType() != typeof(ParalyzedState))
+        {
+            Debug.Log("Target : " + target.currentPokeIUT.baseData.pokeiutName);
+            target.currentPokeIUT.state = new ParalyzedState(target.currentPokeIUT);
+        }
+        else
+            Debug.Log("PokeIUT Capacity(Lazy Loading) | Target is already paralyzed");
     }
 }

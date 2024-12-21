@@ -12,6 +12,6 @@ public class ZIndexKick : Capacity
 
     public override void Use(EntityData self, EntityData target)
     {
-        target.currentPokeIUT.health -= base.GetDamage(data.power);
+        target.currentPokeIUT.health -= Capacity.GetDamage(data.power, -10, 10);
     }
 }

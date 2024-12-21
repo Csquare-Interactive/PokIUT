@@ -35,6 +35,13 @@ public class CombatSystem
 
     public int PlayerUseCapacite(int index)
     {
+        PlayerPokeIUT.OnAction(); // Apply the state effect of the player's PokeIUT when attacking
+        if (!PlayerPokeIUT.canAttack)
+        {
+            OnTurnEnd?.Invoke();
+            return 0;
+        }
+
         var capacite = PlayerPokeIUT.capacites[index];
         if (capacite.powerPoints <= 0) return 1;
 
@@ -56,6 +63,7 @@ public class CombatSystem
         if (Player.pokIUTTeam[index].health <= 0) return 1;
         if (Player.pokIUTTeam[index] == PlayerPokeIUT) return 1;
         PlayerPokeIUT = Player.pokIUTTeam[index];
+        Player.currentPokeIUT = PlayerPokeIUT;
         OnTurnEnd?.Invoke();
         return 0;
     }
@@ -80,13 +88,13 @@ public class CombatSystem
     public void EnemyTurn()
     {
         enemyAction = EnemyIA.WhichActions();
-        Debug.Log(enemyAction);
         switch (enemyAction)
         {
             case "Switch": //////////////////////////////////////////////////////////
 
                 PokeIUTInstance pokeIUT = EnemyIA.ChoosePokeIUT(Enemy.pokIUTTeam);
                 EnemyPokeIUT = pokeIUT;
+                Enemy.currentPokeIUT = pokeIUT;
                 break;
 
             case "Heal": //////////////////////////////////////////////////////////
@@ -117,6 +125,13 @@ public class CombatSystem
 
             case "Attack": //////////////////////////////////////////////////////////
 
+                EnemyPokeIUT.OnAction(); // Apply the state effect of the enemy's PokeIUT when attacking
+                if (!EnemyPokeIUT.canAttack)
+                {
+                    OnTurnEnd?.Invoke();
+                    return;
+                }
+
                 List<CapaciteInstance> validCapacites = EnemyPokeIUT.capacites.FindAll(c => c.powerPoints > 0);
                 if (validCapacites.Count == 0)
                 {
@@ -125,7 +140,7 @@ public class CombatSystem
                 }
 
                 CapaciteInstance capacite = EnemyIA.ChooseCapacity(validCapacites);
-                capacite.baseData.capacity.Use(Player, Enemy);
+                capacite.baseData.capacity.Use(Enemy, Player);
 
                 if (PlayerPokeIUT.health <= 0)
                 {

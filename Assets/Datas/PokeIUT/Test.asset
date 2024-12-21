@@ -15,13 +15,11 @@ MonoBehaviour:
   pokeiutName: Test
   level: 5
   maxHealth: 100
-  health: 100
   maxSpeed: 1
-  speed: 1
   icon: {fileID: 21300000, guid: ff86550468b9dcc41bca43c4ebd36ec1, type: 3}
   pokeiutType: 2
   capacites:
   - {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-  - {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-  - {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-  - {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
+  - {fileID: 11400000, guid: 95f3389b3c8f95145b242fa99e71b723, type: 2}
+  - {fileID: 11400000, guid: 9d928a9e9ae9f1d499ee8aa79c070e6b, type: 2}
+  - {fileID: 11400000, guid: 9d928a9e9ae9f1d499ee8aa79c070e6b, type: 2}
