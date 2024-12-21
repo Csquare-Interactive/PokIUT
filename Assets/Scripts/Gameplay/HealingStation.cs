@@ -18,6 +18,7 @@ public class HealingStation : MonoBehaviour
                     {
                     capacite.powerPoints = capacite.baseData.maxPowerPoints;
                     }
+                    pokeIUT.canAttack = true;
                     pokeIUT.state = new NormalState(pokeIUT);
                     pokeIUT.UpdateStateDescription(); // Display correct state on Inspector
                 }
