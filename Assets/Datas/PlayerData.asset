@@ -17,11 +17,17 @@ MonoBehaviour:
   itemsData:
   - {fileID: 11400000, guid: 9340584de6340b94ba8313de272df04f, type: 2}
   - {fileID: 11400000, guid: 4ef5d6877ba384647ac0c23cea808faf, type: 2}
+  - {fileID: 11400000, guid: 250f8a432c02ba6419bd35da7b943cb1, type: 2}
+  - {fileID: 11400000, guid: 5cedc87b65490a04c99775052fde7bcf, type: 2}
   items:
   - baseData: {fileID: 11400000, guid: 9340584de6340b94ba8313de272df04f, type: 2}
     quantity: 10
   - baseData: {fileID: 11400000, guid: 4ef5d6877ba384647ac0c23cea808faf, type: 2}
     quantity: 5
+  - baseData: {fileID: 11400000, guid: 250f8a432c02ba6419bd35da7b943cb1, type: 2}
+    quantity: 5
+  - baseData: {fileID: 11400000, guid: 5cedc87b65490a04c99775052fde7bcf, type: 2}
+    quantity: 3
   maxPokIUT: 20
   pokIUTInventoryData: []
   pokIUTTeamData:
@@ -50,6 +56,7 @@ MonoBehaviour:
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
       power: 10
       powerPoints: 5
+    stateDescription: No State
   - baseData: {fileID: 11400000, guid: d690eae31fdc9dd40906a04404f24518, type: 2}
     health: 100
     speed: 1
@@ -68,6 +75,7 @@ MonoBehaviour:
     - baseData: {fileID: 11400000, guid: 9d928a9e9ae9f1d499ee8aa79c070e6b, type: 2}
       power: 50
       powerPoints: 10
+    stateDescription: NormalState
   - baseData: {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
     health: 200
     speed: 2
@@ -86,6 +94,7 @@ MonoBehaviour:
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
       power: 10
       powerPoints: 5
+    stateDescription: NormalState
   - baseData: {fileID: 11400000, guid: d690eae31fdc9dd40906a04404f24518, type: 2}
     health: 100
     speed: 1
@@ -104,6 +113,7 @@ MonoBehaviour:
     - baseData: {fileID: 11400000, guid: 9d928a9e9ae9f1d499ee8aa79c070e6b, type: 2}
       power: 50
       powerPoints: 10
+    stateDescription: NormalState
   currentPokeIUT:
     baseData: {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
     health: 200
@@ -123,6 +133,7 @@ MonoBehaviour:
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
       power: 10
       powerPoints: 5
+    stateDescription: No State
   money: 0
   walkSpeed: 6
   runSpeed: 10

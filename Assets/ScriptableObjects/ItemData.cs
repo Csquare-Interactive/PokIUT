@@ -13,5 +13,8 @@ public class ItemData : ScriptableObject
 [Serializable]
 public enum ItemType
 {
-    Healing
+    General,
+    Healing,
+    Attack,
+    Defense,
 }
