@@ -99,6 +99,8 @@ public class BattleManager : MonoBehaviour
                 battleUIManager.ShowDescription("C'est au tour de {0} !", playerData.name);
                 battleUIManager.ShowActionButtons(true);
                 battleUIManager.RefreshUI(combatSystem.PlayerPokeIUT, combatSystem.EnemyPokeIUT);
+                battleUIManager.ShowPokeIUTTeamIcons(playerData, enemyData, true);
+                battleUIManager.UpdatePokeIUTTeamIcons(playerData, enemyData);
                 combatSystem.PlayerPokeIUT.OnStartTurn(); // Get PlayerPokeIUT state effect at the start of the turn
 
                 yield return new WaitUntil(() => playerHasActed); // Wait untill player hasn't acted
@@ -111,7 +113,9 @@ public class BattleManager : MonoBehaviour
                 battleUIManager.ShowDescription("C'est au tour de {0} !", enemyData.name);
                 combatSystem.EnemyPokeIUT.OnStartTurn(); // Get EnemyPokeIUT state effect at the start of the turn
                 combatSystem.EnemyTurn();
+                battleUIManager.ShowPokeIUTTeamIcons(playerData, enemyData, true);
                 battleUIManager.RefreshUI(combatSystem.PlayerPokeIUT, combatSystem.EnemyPokeIUT);
+                battleUIManager.UpdatePokeIUTTeamIcons(playerData, enemyData);
                 combatSystem.EnemyPokeIUT.OnEndTurn(); // Get EnemyPokeIUT state effect at the end of the turn
                 yield return new WaitForSeconds(1f);
             }
@@ -141,6 +145,7 @@ public class BattleManager : MonoBehaviour
     {
         battleUIManager.ShowActionButtons(false);
         battleUIManager.ShowCurrentPokeIUTStats(false);
+        battleUIManager.ShowPokeIUTTeamIcons(playerData, enemyData, false);
         battleUIManager.ShowBagUI(true);
         battleUIManager.UpdateBagInfos(playerData);
     }
@@ -161,6 +166,7 @@ public class BattleManager : MonoBehaviour
     {
         battleUIManager.ShowActionButtons(true);
         battleUIManager.ShowCurrentPokeIUTStats(true);
+        battleUIManager.ShowPokeIUTTeamIcons(playerData, enemyData, true);
         battleUIManager.ShowBagUI(false);
         battleUIManager.ShowCapaciteButtons(false, combatSystem.PlayerPokeIUT);
         battleUIManager.ShowPokeIUTTeamUI(false, playerData);
@@ -171,6 +177,7 @@ public class BattleManager : MonoBehaviour
     {
         battleUIManager.ShowActionButtons(false);
         battleUIManager.ShowCurrentPokeIUTStats(false);
+        battleUIManager.ShowPokeIUTTeamIcons(playerData, enemyData, false);
         battleUIManager.ShowPokeIUTTeamUI(true, playerData);
         battleUIManager.UpdatePokeIUTTeamInfos(playerData);
     }
@@ -187,6 +194,7 @@ public class BattleManager : MonoBehaviour
             battleUIManager.ShowPokeIUTTeamUI(false, playerData);
             battleUIManager.ShowActionButtons(true);
             battleUIManager.ShowCurrentPokeIUTStats(true);
+            battleUIManager.ShowPokeIUTTeamIcons(playerData, enemyData, true);
             int result = combatSystem.PlayerSwitchPokeIUT(index);
             if (result == 1) // Illegal Action
                 battleUIManager.ShowDescription("Action Impossible");
@@ -216,6 +224,7 @@ public class BattleManager : MonoBehaviour
         battleUIManager.ShowPokeIUTTeamUI(false, playerData);
         battleUIManager.ShowActionButtons(true);
         battleUIManager.ShowCurrentPokeIUTStats(true);
+        battleUIManager.ShowPokeIUTTeamIcons(playerData, enemyData, true);
     }
 
     private void HandleRunClicked()

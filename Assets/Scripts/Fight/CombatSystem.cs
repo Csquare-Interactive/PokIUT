@@ -48,11 +48,13 @@ public class CombatSystem
         capacite.baseData.capacity.Use(Player, Enemy);
         capacite.powerPoints--;
         
-        if (EnemyPokeIUT.health <= 0)
+        foreach (var pokeIUT in Enemy.pokIUTTeam)
         {
-            EnemyPokeIUT.health = 0;
+            if (pokeIUT.health > 0)
+            {
+                break;
+            }
             OnBattleEnd?.Invoke();
-            return 0;
         }
 
         OnTurnEnd?.Invoke();
@@ -144,11 +146,13 @@ public class CombatSystem
                 capacite.baseData.capacity.Use(Enemy, Player);
                 capacite.powerPoints--;
 
-                if (PlayerPokeIUT.health <= 0)
+                foreach (PokeIUTInstance playerPokeIUT in Player.pokIUTTeam)
                 {
-                    PlayerPokeIUT.health = 0;
+                    if (playerPokeIUT.health > 0)
+                    {
+                        break;
+                    }
                     OnBattleEnd?.Invoke();
-                    return;
                 }
 
                 break;

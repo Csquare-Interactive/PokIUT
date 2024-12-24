@@ -11,12 +11,14 @@ public class BattleUIManager : MonoBehaviour
     public Text playerNameText;
     public Text playerLevelText;
     public GameObject playerHealthBar;
+    public GameObject playerPokeIUTCount;
     public Image playerIcon;
 
     [Header("EnemyInfos")]
     public Text enemyNameText;
     public Text enemyLevelText;
     public GameObject enemyHealthBar;
+    public GameObject enemyPokeIUTCount;
     public Image enemyIcon;
 
     [Header("PlayerActions")]
@@ -54,6 +56,8 @@ public class BattleUIManager : MonoBehaviour
 
     private Slider playerHealthSlider;
     private Slider enemyHealthSlider;
+    private List<Image> playerPokeIUTTeamIcons = new List<Image>();
+    private List<Image> enemyPokeIUTTeamIcons = new List<Image>();
 
     public event Action OnFightClicked;
     public event Action<int> OnCapaciteClicked;
@@ -68,9 +72,13 @@ public class BattleUIManager : MonoBehaviour
     {
         if (playerNameText == null) Debug.LogError("playerNameText is not assigned");
         if (playerLevelText == null) Debug.LogError("playerLevelText is not assigned");
+        if (playerHealthBar == null) Debug.LogError("playerHealthBar is not assigned");
+        if (playerPokeIUTCount == null) Debug.LogError("playerPokeIUTCount is not assigned");
         if (playerIcon == null) Debug.LogError("playerIcon is not assigned");
         if (enemyNameText == null) Debug.LogError("enemyNameText is not assigned");
         if (enemyLevelText == null) Debug.LogError("enemyLevelText is not assigned");
+        if (enemyHealthBar == null) Debug.LogError("enemyHealthBar is not assigned");
+        if (enemyPokeIUTCount == null) Debug.LogError("enemyPokeIUTCount is not assigned");
         if (enemyIcon == null) Debug.LogError("enemyIcon is not assigned");
         if (fightButton == null) Debug.LogError("fightButton is not assigned");
         if (bagButton == null) Debug.LogError("bagButton is not assigned");
@@ -98,6 +106,28 @@ public class BattleUIManager : MonoBehaviour
                 if (button != null)
                     pokeIUTTeamButtons.Add(button);
             }
+        }
+
+        // Get All PokeIUT icons from the PokeIUTCount (Main interface)
+        foreach (Transform child in playerPokeIUTCount.transform)
+        {
+            if (child.name.StartsWith("PokeIUT"))
+            {
+                Image image = child.GetComponent<Image>();
+                if (image != null)
+                    playerPokeIUTTeamIcons.Add(image);
+            }
+            child.gameObject.SetActive(false);
+        }
+        foreach (Transform child in enemyPokeIUTCount.transform)
+        {
+            if (child.name.StartsWith("PokeIUT"))
+            {
+                Image image = child.GetComponent<Image>();
+                if (image != null)
+                    enemyPokeIUTTeamIcons.Add(image);
+            }
+            child.gameObject.SetActive(false);
         }
 
         // Events listeners when buttons are clicked (To help BattleManager to know what to do)
@@ -179,6 +209,36 @@ public class BattleUIManager : MonoBehaviour
         enemyLevelText.text = $"Lvl {enemy.level}";
         enemyNameText.text = enemy.baseData.pokeiutName;
         enemyIcon.sprite = enemy.baseData.icon;
+    }
+
+    public void ShowPokeIUTTeamIcons(PlayerData playerData, EnemyData enemyData, bool show)
+    {
+        for (int i = 0; i < playerData.pokIUTTeam.Length; i++)
+        {
+            playerPokeIUTTeamIcons[i].gameObject.SetActive(show);
+        }
+        for (int i = 0; i < enemyData.pokIUTTeam.Length; i++)
+        {
+            enemyPokeIUTTeamIcons[i].gameObject.SetActive(show);
+        }
+    }
+
+    public void UpdatePokeIUTTeamIcons(PlayerData playerData, EnemyData enemyData)
+    {
+        for (int i = 0; i < playerData.pokIUTTeam.Length; i++)
+        {
+            if (playerData.pokIUTTeam[i].health <= 0)
+            {
+                playerPokeIUTTeamIcons[i].color = Color.red;
+            }
+        }
+        for (int i = 0; i < enemyData.pokIUTTeam.Length; i++)
+        {
+            if (enemyData.pokIUTTeam[i].health <= 0)
+            {
+                enemyPokeIUTTeamIcons[i].color = Color.red;
+            }
+        }
     }
 
     public void ShowActionButtons(bool show)
