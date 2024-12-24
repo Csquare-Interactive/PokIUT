@@ -10,13 +10,13 @@ public class BattleUIManager : MonoBehaviour
     [Header("PlayerInfos")]
     public Text playerNameText;
     public Text playerLevelText;
-    public Text playerHealthText;
+    public GameObject playerHealthBar;
     public Image playerIcon;
 
     [Header("EnemyInfos")]
     public Text enemyNameText;
     public Text enemyLevelText;
-    public Text enemyHealthText;
+    public GameObject enemyHealthBar;
     public Image enemyIcon;
 
     [Header("PlayerActions")]
@@ -52,8 +52,8 @@ public class BattleUIManager : MonoBehaviour
     private ItemType[] itemTypes = (ItemType[])System.Enum.GetValues(typeof(ItemType));
     private int currentItemTypeIndex = 0;
 
-
-
+    private Slider playerHealthSlider;
+    private Slider enemyHealthSlider;
 
     public event Action OnFightClicked;
     public event Action<int> OnCapaciteClicked;
@@ -68,11 +68,9 @@ public class BattleUIManager : MonoBehaviour
     {
         if (playerNameText == null) Debug.LogError("playerNameText is not assigned");
         if (playerLevelText == null) Debug.LogError("playerLevelText is not assigned");
-        if (playerHealthText == null) Debug.LogError("playerHealthText is not assigned");
         if (playerIcon == null) Debug.LogError("playerIcon is not assigned");
         if (enemyNameText == null) Debug.LogError("enemyNameText is not assigned");
         if (enemyLevelText == null) Debug.LogError("enemyLevelText is not assigned");
-        if (enemyHealthText == null) Debug.LogError("enemyHealthText is not assigned");
         if (enemyIcon == null) Debug.LogError("enemyIcon is not assigned");
         if (fightButton == null) Debug.LogError("fightButton is not assigned");
         if (bagButton == null) Debug.LogError("bagButton is not assigned");
@@ -86,6 +84,9 @@ public class BattleUIManager : MonoBehaviour
         if (backButtonPokeIUTTeam == null) Debug.LogError("backButtonPokeIUTTeam is not assigned");
         if (bagUI == null) Debug.LogError("bagUI is not assigned");
         if (backButtonBag == null) Debug.LogError("backButtonBag is not assigned");
+
+        playerHealthSlider = playerHealthBar.GetComponent<Slider>();
+        enemyHealthSlider = enemyHealthBar.GetComponent<Slider>();
 
         // Get All PokeIUT buttons from the PokeIUTTeamUI
         pokeIUTTeamButtons = new List<Button>();
@@ -155,22 +156,26 @@ public class BattleUIManager : MonoBehaviour
     {
         playerNameText.text = player.baseData.pokeiutName;
         playerLevelText.text = $"Lvl {player.level}";
-        playerHealthText.text = $"HP {player.health}";
+        playerHealthSlider.maxValue = player.baseData.maxHealth;
+        playerHealthSlider.currentValue = player.health;
         playerIcon.sprite = player.baseData.icon;
 
         enemyNameText.text = enemy.baseData.pokeiutName;
         enemyLevelText.text = $"Lvl {enemy.level}";
-        enemyHealthText.text = $"HP {enemy.health}";
+        enemyHealthSlider.maxValue = enemy.baseData.maxHealth;
+        enemyHealthSlider.currentValue = enemy.health;
         enemyIcon.sprite = enemy.baseData.icon;
     }
 
     public void RefreshUI(PokeIUTInstance player, PokeIUTInstance enemy)
     {
-        playerHealthText.text = $"HP {player.health}";
+        playerHealthSlider.maxValue = player.baseData.maxHealth;
+        playerHealthSlider.currentValue = player.health;
         playerLevelText.text = $"Lvl {player.level}";
         playerNameText.text = player.baseData.pokeiutName;
         playerIcon.sprite = player.baseData.icon;
-        enemyHealthText.text = $"HP {enemy.health}";
+        enemyHealthSlider.maxValue = enemy.baseData.maxHealth;
+        enemyHealthSlider.currentValue = enemy.health;
         enemyLevelText.text = $"Lvl {enemy.level}";
         enemyNameText.text = enemy.baseData.pokeiutName;
         enemyIcon.sprite = enemy.baseData.icon;
@@ -188,7 +193,7 @@ public class BattleUIManager : MonoBehaviour
     {
         playerNameText.gameObject.SetActive(show);
         playerLevelText.gameObject.SetActive(show);
-        playerHealthText.gameObject.SetActive(show);
+        playerHealthBar.SetActive(show);
     }
 
     public void ShowCapaciteButtons(bool show, PokeIUTInstance player)

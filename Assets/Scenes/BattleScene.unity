@@ -467,11 +467,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNameText: {fileID: 1850003407}
   playerLevelText: {fileID: 505867470}
-  playerHealthText: {fileID: 1147045419}
+  playerHealthBar: {fileID: 2318190682798663138}
   playerIcon: {fileID: 1702099262}
   enemyNameText: {fileID: 1042166481}
   enemyLevelText: {fileID: 1710624755}
-  enemyHealthText: {fileID: 0}
+  enemyHealthBar: {fileID: 1397911772}
   enemyIcon: {fileID: 1671893636}
   fightButton: {fileID: 127155441}
   bagButton: {fileID: 1884508947}
@@ -3488,17 +3488,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1146632843}
   m_CullTransparentMesh: 1
---- !u!114 &1147045419 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1842826793134982974, guid: 96d4e70c452ce964e9e36fd784df1a90, type: 3}
-  m_PrefabInstance: {fileID: 2318190682798663136}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1164443437
 GameObject:
   m_ObjectHideFlags: 0
@@ -4413,6 +4402,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthSlider_Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 4060740777659681521, guid: 96d4e70c452ce964e9e36fd784df1a90, type: 3}
+      propertyPath: maxValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4060740777659681521, guid: 96d4e70c452ce964e9e36fd784df1a90, type: 3}
+      propertyPath: currentValue
+      value: 108.4
+      objectReference: {fileID: 0}
     - target: {fileID: 6082463656702318000, guid: 96d4e70c452ce964e9e36fd784df1a90, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4501,6 +4498,11 @@ PrefabInstance:
 --- !u!224 &1397911771 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6082463656702318000, guid: 96d4e70c452ce964e9e36fd784df1a90, type: 3}
+  m_PrefabInstance: {fileID: 1397911770}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1397911772 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 117410828043252203, guid: 96d4e70c452ce964e9e36fd784df1a90, type: 3}
   m_PrefabInstance: {fileID: 1397911770}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1405383903
@@ -6558,6 +6560,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthSlider_Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4060740777659681521, guid: 96d4e70c452ce964e9e36fd784df1a90, type: 3}
+      propertyPath: currentValue
+      value: 100.3
+      objectReference: {fileID: 0}
     - target: {fileID: 6082463656702318000, guid: 96d4e70c452ce964e9e36fd784df1a90, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -6646,6 +6652,11 @@ PrefabInstance:
 --- !u!224 &2318190682798663137 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6082463656702318000, guid: 96d4e70c452ce964e9e36fd784df1a90, type: 3}
+  m_PrefabInstance: {fileID: 2318190682798663136}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2318190682798663138 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 117410828043252203, guid: 96d4e70c452ce964e9e36fd784df1a90, type: 3}
   m_PrefabInstance: {fileID: 2318190682798663136}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4427613459373409074

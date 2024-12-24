@@ -5,11 +5,6 @@ using TMPro;
 [ExecuteAlways]
 public class Slider : MonoBehaviour
 {
-
-    [Header("Dimensions")]
-    public int width;
-    public int height;
-
     [Header("Values Settings")]
     public float maxValue = 100f;
     public float currentValue = 100f;
@@ -43,11 +38,6 @@ public class Slider : MonoBehaviour
         if (healthTextField != null)
         {
             healthTextField.text = $"{Mathf.FloorToInt(currentValue)} / {maxValue}";
-        }
-
-        if (rectTransform != null)
-        {
-            rectTransform.sizeDelta = new Vector2(width, height);
         }
     }
 }
