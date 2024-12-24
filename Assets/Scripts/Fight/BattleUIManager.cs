@@ -251,14 +251,19 @@ public class BattleUIManager : MonoBehaviour
         }
         itemButtons.Clear();
 
-
+        int index = -1;
         foreach (var item in playerData.items)
         {
+            index++;
             if (currentItemType == ItemType.General || item.baseData.itemType == currentItemType)
             {
                 var button = Instantiate(itemButtonPrefab, itemButtonContainer).GetComponent<Button>();
                 button.transform.Find("Item_Name").GetComponent<Text>().text = item.baseData.itemName;
                 button.transform.Find("Item_Quantity").GetComponent<Text>().text = $"Qty {item.quantity}";
+                int globalIndex = index;
+                button.onClick.RemoveAllListeners();
+                button.onClick.AddListener(() => OnItemClicked?.Invoke(globalIndex));
+                Debug.Log("Adding Listener to Item with index : " + index);
                 itemButtons.Add(button);
             }
         }

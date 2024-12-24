@@ -51,6 +51,17 @@ public class BattleManager : MonoBehaviour
         if (enemyData.currentPokeIUT == null)
             enemyData.currentPokeIUT = enemyData.pokIUTTeam[0];
 
+        foreach(PokeIUTInstance pokeIUT in playerData.pokIUTTeam)
+        {
+            if (pokeIUT.state == null)
+                pokeIUT.state = new NormalState(pokeIUT);
+        }
+        foreach(PokeIUTInstance pokeIUT in enemyData.pokIUTTeam)
+        {
+            if (pokeIUT.state == null)
+                pokeIUT.state = new NormalState(pokeIUT);
+        }
+
         combatSystem = new CombatSystem(playerData, enemyData);
         combatSystem.OnBattleStart += HandleBattleStart;
         combatSystem.OnTurnEnd += HandleTurnEnd;
@@ -186,6 +197,7 @@ public class BattleManager : MonoBehaviour
 
     private void HandlePokeIUTSelected(int pokeIUTIndex)
     {
+        Debug.Log("Using Item on PokeIUT: " + pokeIUTIndex);
         if (isUsingItem)
         {
             PokeIUTInstance pokeIUT = playerData.pokIUTTeam[pokeIUTIndex];
