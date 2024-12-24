@@ -37,6 +37,7 @@ public class PlayerData : EntityData
             if (pokIUTTeam[i] == null || pokIUTTeam[i].baseData != pokIUTTeamData[i])
             {
                 pokIUTTeam[i] = new PokeIUTInstance(pokIUTTeamData[i]);
+                pokIUTTeam[i].state = new NormalState(pokIUTTeam[i]);
             }
 
         }
