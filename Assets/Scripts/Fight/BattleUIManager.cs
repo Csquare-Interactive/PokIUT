@@ -43,6 +43,14 @@ public class BattleUIManager : MonoBehaviour
     public GameObject itemButtonPrefab;
     public Transform itemButtonContainer;
     private List<Button> itemButtons = new List<Button>();
+    public Button leftArrowButton;
+    public Button rightArrowButton;
+    public Text itemTypeText;
+
+
+    private ItemType currentItemType = ItemType.General;
+    private ItemType[] itemTypes = (ItemType[])System.Enum.GetValues(typeof(ItemType));
+    private int currentItemTypeIndex = 0;
 
 
 
@@ -98,6 +106,8 @@ public class BattleUIManager : MonoBehaviour
         runButton.onClick.AddListener(() => OnRunClicked?.Invoke());
         backButton.onClick.AddListener(() => OnBackClicked?.Invoke());
         backButtonPokeIUTTeam.onClick.AddListener(() => OnBackClicked?.Invoke());
+        leftArrowButton.onClick.AddListener(ShowPreviousItemType);
+        rightArrowButton.onClick.AddListener(ShowNextItemType);
         foreach (var button in capaciteButtons)
         {
             int index = Array.IndexOf(capaciteButtons, button);
@@ -213,6 +223,10 @@ public class BattleUIManager : MonoBehaviour
     public void ShowBagUI(bool show)
     {
         bagUI.gameObject.SetActive(show);
+        if (show)
+        {
+            UpdateBagInfos(GameManager.Instance.playerData);
+        }
     }
 
     public void UpdatePokeIUTTeamInfos(PlayerData playerData)
@@ -237,19 +251,42 @@ public class BattleUIManager : MonoBehaviour
         }
         itemButtons.Clear();
 
-        // Create new buttons
-        for (int i = 0; i < playerData.items.Length; i++)
+        int index = -1;
+        foreach (var item in playerData.items)
         {
-            var item = playerData.items[i];
-            var button = Instantiate(itemButtonPrefab, itemButtonContainer).GetComponent<Button>();
-            button.transform.Find("Item_Name").GetComponent<Text>().text = item.baseData.itemName;
-            button.transform.Find("Item_Quantity").GetComponent<Text>().text = $"Qty {item.quantity}";
-            int index = i;
-            button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() => OnItemClicked?.Invoke(index));
-            itemButtons.Add(button);
+            index++;
+            if (currentItemType == ItemType.General || item.baseData.itemType == currentItemType)
+            {
+                var button = Instantiate(itemButtonPrefab, itemButtonContainer).GetComponent<Button>();
+                button.transform.Find("Item_Name").GetComponent<Text>().text = item.baseData.itemName;
+                button.transform.Find("Item_Quantity").GetComponent<Text>().text = $"Qty {item.quantity}";
+                int globalIndex = index;
+                button.onClick.RemoveAllListeners();
+                button.onClick.AddListener(() => OnItemClicked?.Invoke(globalIndex));
+                Debug.Log("Adding Listener to Item with index : " + index);
+                itemButtons.Add(button);
+            }
         }
+        UpdateItemTypeText();
     }
 
+    private void ShowPreviousItemType()
+    {
+        currentItemTypeIndex = (currentItemTypeIndex - 1 + itemTypes.Length) % itemTypes.Length;
+        currentItemType = itemTypes[currentItemTypeIndex];
+        UpdateBagInfos(GameManager.Instance.playerData);
+    }
+
+    private void ShowNextItemType()
+    {
+        currentItemTypeIndex = (currentItemTypeIndex + 1) % itemTypes.Length;
+        currentItemType = itemTypes[currentItemTypeIndex];
+        UpdateBagInfos(GameManager.Instance.playerData);
+    }
+
+    private void UpdateItemTypeText()
+    {
+        itemTypeText.text = $"{currentItemType}";
+    }
 
 }
