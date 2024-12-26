@@ -13,6 +13,7 @@ public class BattleUIManager : MonoBehaviour
     public GameObject playerHealthBar;
     public GameObject playerPokeIUTCount;
     public Image playerIcon;
+    public Image playerPokeIUTStateIcon;
 
     [Header("EnemyInfos")]
     public Text enemyNameText;
@@ -20,6 +21,7 @@ public class BattleUIManager : MonoBehaviour
     public GameObject enemyHealthBar;
     public GameObject enemyPokeIUTCount;
     public Image enemyIcon;
+    public Image enemyPokeIUTStateIcon;
 
     [Header("PlayerActions")]
     public Button fightButton;
@@ -195,6 +197,8 @@ public class BattleUIManager : MonoBehaviour
         enemyHealthSlider.maxValue = enemy.baseData.maxHealth;
         enemyHealthSlider.currentValue = enemy.health;
         enemyIcon.sprite = enemy.baseData.icon;
+        UpdatePlayerPokeIUTStateIcon(player);
+        UpdateEnemyPokeIUTStateIcon(enemy);
     }
 
     public void RefreshUI(PokeIUTInstance player, PokeIUTInstance enemy)
@@ -209,7 +213,33 @@ public class BattleUIManager : MonoBehaviour
         enemyLevelText.text = $"Lvl {enemy.level}";
         enemyNameText.text = enemy.baseData.pokeiutName;
         enemyIcon.sprite = enemy.baseData.icon;
+        UpdatePlayerPokeIUTStateIcon(player);
+        UpdateEnemyPokeIUTStateIcon(enemy);
     }
+
+    public void UpdatePlayerPokeIUTStateIcon(PokeIUTInstance player)
+    {
+        if (player.state is NormalState)
+            playerPokeIUTStateIcon.gameObject.SetActive(false);
+        if (player.state is ParalyzedState)
+        {
+            playerPokeIUTStateIcon.gameObject.SetActive(true);
+            playerPokeIUTStateIcon.sprite = Resources.Load<Sprite>("Imports/Images/UI/Paralyzed_icon");
+        }
+    }
+
+    public void UpdateEnemyPokeIUTStateIcon(PokeIUTInstance enemy)
+    {
+        if (enemy.state is NormalState)
+            enemyPokeIUTStateIcon.gameObject.SetActive(false);
+        if (enemy.state is ParalyzedState)
+        {
+            enemyPokeIUTStateIcon.gameObject.SetActive(true);
+            enemyPokeIUTStateIcon.sprite = Resources.Load<Sprite>("Imports/Images/UI/Paralyzed_icon");
+        }
+    }
+    
+
 
     public void ShowPokeIUTTeamIcons(PlayerData playerData, EnemyData enemyData, bool show)
     {

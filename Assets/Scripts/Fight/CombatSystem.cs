@@ -59,6 +59,7 @@ public class CombatSystem
                 return 0;
             }
             EnemyPokeIUT = EnemyIA.ChoosePokeIUT(Enemy.pokeIUTTeam);
+            Enemy.currentPokeIUT = EnemyPokeIUT;
         }
 
         OnTurnEnd?.Invoke();

@@ -19,8 +19,6 @@ public class BattleManager : MonoBehaviour
     private bool battleOver = false;
     private bool isPlayerTurn = false;
     private bool playerHasActed = false;
-    private string explorationSceneName = "IUT";
-
     public event Action OnBattleScene;
     public event Action OnExploreScene;
 

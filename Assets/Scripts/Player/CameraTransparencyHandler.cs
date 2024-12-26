@@ -11,7 +11,6 @@ public class CameraTransparencyHandler
     private List<Renderer> transparentRenderers = new List<Renderer>();
     private List<Renderer> invisibleObjects = new List<Renderer>();
     private float transparentAlpha = 0.3f;
-    private float fadeSpeed = 5f;
 
     private Shader originalShader;
 
