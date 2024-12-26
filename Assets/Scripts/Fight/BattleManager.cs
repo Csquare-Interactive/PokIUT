@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Text = TMPro.TextMeshProUGUI;
@@ -8,6 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
+    public static BattleManager Instance { get; private set; }
     public BattleUIManager battleUIManager;
     private CombatSystem combatSystem;
     private PlayerData playerData;
@@ -19,8 +21,31 @@ public class BattleManager : MonoBehaviour
     private bool playerHasActed = false;
     private string explorationSceneName = "IUT";
 
-    public void Start()
+    public event Action OnBattleScene;
+    public event Action OnExploreScene;
 
+    public void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogWarning("Multiple BattleManager instances found. Destroying duplicate.");
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
+    }
+
+    public void Start()
     {
         if (BattleDataManager.Instance == null || BattleDataManager.Instance.GetEnemyData() == null)
         {
@@ -30,6 +55,7 @@ public class BattleManager : MonoBehaviour
 
         enemyData = BattleDataManager.Instance.GetEnemyData();
 
+        OnBattleScene?.Invoke();
         Initialize(enemyData);
     }
 
@@ -258,6 +284,8 @@ public class BattleManager : MonoBehaviour
         // Wait (To make some animations before)
         yield return new WaitForSeconds(2f);
 
+        // Notice the ExploreManager to show the UI
+        OnExploreScene?.Invoke();
         // Unload Battle Scene
         SceneManager.UnloadSceneAsync("BattleScene");
     }

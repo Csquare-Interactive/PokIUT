@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System;
 using Text = TMPro.TextMeshProUGUI;
 using Image = UnityEngine.UI.Image;
 
@@ -24,9 +25,9 @@ public class ExploreUIManager : MonoBehaviour
     public Button backButtonPokeIUTTeam;
     private List<Button> pokeIUTTeamButtons;
 
-    public event System.Action OnInventoryClicked;
-    public event System.Action OnPokeiutClicked;
-    public event System.Action OnBackClicked;
+    public event Action OnInventoryClicked;
+    public event Action OnPokeiutClicked;
+    public event Action OnBackClicked;
 
     private ItemType currentItemType = ItemType.General;
     private ItemType[] itemTypes = (ItemType[])System.Enum.GetValues(typeof(ItemType));
@@ -111,6 +112,11 @@ public class ExploreUIManager : MonoBehaviour
         }
     }
 
+    public void ShowExplorationUI(bool show)
+    {
+        inventoryButton.gameObject.SetActive(show);
+        pokeiutButton.gameObject.SetActive(show);
+    }
 
     public void UpdateInventoryInfos(PlayerData playerData)
     {
