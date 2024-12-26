@@ -11,20 +11,20 @@ public class EnemyData : EntityData
 
     public void InitializePokeIUTTeam()
     {
-        if (pokIUTTeamData == null || pokIUTTeamData.Length == 0)
+        if (pokeIUTTeamData == null || pokeIUTTeamData.Length == 0)
         {
             Debug.LogWarning("PokeIUTTeamData est vide.");
             return;
         }
 
-        pokIUTTeam = new PokeIUTInstance[pokIUTTeamData.Length];
+        pokeIUTTeam = new PokeIUTInstance[pokeIUTTeamData.Length];
 
-        for (int i = 0; i < pokIUTTeamData.Length; i++)
+        for (int i = 0; i < pokeIUTTeamData.Length; i++)
         {
-            pokIUTTeam[i] = new PokeIUTInstance(pokIUTTeamData[i]);
+            pokeIUTTeam[i] = new PokeIUTInstance(pokeIUTTeamData[i]);
         }
 
-        currentPokeIUT = pokIUTTeam[0];
+        currentPokeIUT = pokeIUTTeam[0];
     }
 
     public void InitializeItems()

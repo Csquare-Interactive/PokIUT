@@ -47,16 +47,16 @@ public class BattleManager : MonoBehaviour
         enemyData.InitializeItems();
 
         if (playerData.currentPokeIUT == null)
-            playerData.currentPokeIUT = playerData.pokIUTTeam[0];
+            playerData.currentPokeIUT = playerData.pokeIUTTeam[0];
         if (enemyData.currentPokeIUT == null)
-            enemyData.currentPokeIUT = enemyData.pokIUTTeam[0];
+            enemyData.currentPokeIUT = enemyData.pokeIUTTeam[0];
 
-        foreach(PokeIUTInstance pokeIUT in playerData.pokIUTTeam)
+        foreach(PokeIUTInstance pokeIUT in playerData.pokeIUTTeam)
         {
             if (pokeIUT.state == null)
                 pokeIUT.state = new NormalState(pokeIUT);
         }
-        foreach(PokeIUTInstance pokeIUT in enemyData.pokIUTTeam)
+        foreach(PokeIUTInstance pokeIUT in enemyData.pokeIUTTeam)
         {
             if (pokeIUT.state == null)
                 pokeIUT.state = new NormalState(pokeIUT);
@@ -66,6 +66,7 @@ public class BattleManager : MonoBehaviour
         combatSystem.OnBattleStart += HandleBattleStart;
         combatSystem.OnTurnEnd += HandleTurnEnd;
         combatSystem.OnBattleEnd += HandleBattleEnd;
+        combatSystem.OnPokeIUTDead += HandlePokeiutClicked;
 
         isPlayerTurn = combatSystem.IsPlayerFirst();
 
@@ -208,7 +209,7 @@ public class BattleManager : MonoBehaviour
         Debug.Log("Using Item on PokeIUT: " + pokeIUTIndex);
         if (isUsingItem)
         {
-            PokeIUTInstance pokeIUT = playerData.pokIUTTeam[pokeIUTIndex];
+            PokeIUTInstance pokeIUT = playerData.pokeIUTTeam[pokeIUTIndex];
             battleUIManager.RefreshUI(combatSystem.PlayerPokeIUT, combatSystem.EnemyPokeIUT);
             int result = combatSystem.PlayerUseItem(currentItem, pokeIUT);
             if (result == 0) // Worked

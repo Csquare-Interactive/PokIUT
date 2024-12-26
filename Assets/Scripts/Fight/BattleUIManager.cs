@@ -213,11 +213,11 @@ public class BattleUIManager : MonoBehaviour
 
     public void ShowPokeIUTTeamIcons(PlayerData playerData, EnemyData enemyData, bool show)
     {
-        for (int i = 0; i < playerData.pokIUTTeam.Length; i++)
+        for (int i = 0; i < playerData.pokeIUTTeam.Length; i++)
         {
             playerPokeIUTTeamIcons[i].gameObject.SetActive(show);
         }
-        for (int i = 0; i < enemyData.pokIUTTeam.Length; i++)
+        for (int i = 0; i < enemyData.pokeIUTTeam.Length; i++)
         {
             enemyPokeIUTTeamIcons[i].gameObject.SetActive(show);
         }
@@ -225,16 +225,16 @@ public class BattleUIManager : MonoBehaviour
 
     public void UpdatePokeIUTTeamIcons(PlayerData playerData, EnemyData enemyData)
     {
-        for (int i = 0; i < playerData.pokIUTTeam.Length; i++)
+        for (int i = 0; i < playerData.pokeIUTTeam.Length; i++)
         {
-            if (playerData.pokIUTTeam[i].health <= 0)
+            if (playerData.pokeIUTTeam[i].health <= 0)
             {
                 playerPokeIUTTeamIcons[i].color = Color.red;
             }
         }
-        for (int i = 0; i < enemyData.pokIUTTeam.Length; i++)
+        for (int i = 0; i < enemyData.pokeIUTTeam.Length; i++)
         {
-            if (enemyData.pokIUTTeam[i].health <= 0)
+            if (enemyData.pokeIUTTeam[i].health <= 0)
             {
                 enemyPokeIUTTeamIcons[i].color = Color.red;
             }
@@ -279,7 +279,7 @@ public class BattleUIManager : MonoBehaviour
         {
             button.gameObject.SetActive(false);
         }
-        for (int i = 0; i < playerData.pokIUTTeam.Length; i++)
+        for (int i = 0; i < playerData.pokeIUTTeam.Length; i++)
         {
             pokeIUTTeamButtons[i].gameObject.SetActive(show);
         }
@@ -297,9 +297,9 @@ public class BattleUIManager : MonoBehaviour
     public void UpdatePokeIUTTeamInfos(PlayerData playerData)
     {
         // Create new buttons
-        for (int index = 0; index < playerData.pokIUTTeam.Length; index++)
+        for (int index = 0; index < playerData.pokeIUTTeam.Length; index++)
         {
-            var pokeIUT = playerData.pokIUTTeam[index];
+            var pokeIUT = playerData.pokeIUTTeam[index];
             var button = pokeIUTTeamButtons[index];
             button.transform.Find("PokeIUT_Name").GetComponent<Text>().text = pokeIUT.baseData.pokeiutName;
             button.transform.Find("PokeIUT_Health").GetComponent<Text>().text = $"HP {pokeIUT.health}";

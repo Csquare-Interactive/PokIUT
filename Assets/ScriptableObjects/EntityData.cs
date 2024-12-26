@@ -9,14 +9,14 @@ public abstract class EntityData : ScriptableObject
     public ItemData[] itemsData;
     public ItemInstance[] items;
 
-    [Header("PokIUT")]
-    public int maxPokIUT;
-    public PokeIUTData[] pokIUTInventoryData;
-    public PokeIUTData[] pokIUTTeamData;
+    [Header("pokeIUT")]
+    public int maxpokeIUT;
+    public PokeIUTData[] pokeIUTInventoryData;
+    public PokeIUTData[] pokeIUTTeamData;
     public PokeIUTData currentPokeIUTData;
 
-    public PokeIUTInstance[] pokIUTInventory;
-    public PokeIUTInstance[] pokIUTTeam;
+    public PokeIUTInstance[] pokeIUTInventory;
+    public PokeIUTInstance[] pokeIUTTeam;
     public PokeIUTInstance currentPokeIUT;
 
 

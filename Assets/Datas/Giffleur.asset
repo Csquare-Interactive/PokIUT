@@ -16,18 +16,51 @@ MonoBehaviour:
   maxItems: 0
   itemsData: []
   items: []
-  maxPokIUT: 0
-  pokIUTInventoryData: []
-  pokIUTTeamData:
-  - {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
+  maxpokeIUT: 0
+  pokeIUTInventoryData: []
+  pokeIUTTeamData:
+  - {fileID: 11400000, guid: d690eae31fdc9dd40906a04404f24518, type: 2}
   currentPokeIUTData: {fileID: 0}
-  pokIUTInventory: []
-  pokIUTTeam: []
+  pokeIUTInventory: []
+  pokeIUTTeam:
+  - baseData: {fileID: 11400000, guid: d690eae31fdc9dd40906a04404f24518, type: 2}
+    health: 100
+    speed: 1
+    level: 5
+    canAttack: 1
+    capacites:
+    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
+      power: 10
+      powerPoints: 5
+    - baseData: {fileID: 11400000, guid: 95f3389b3c8f95145b242fa99e71b723, type: 2}
+      power: 100
+      powerPoints: 0
+    - baseData: {fileID: 11400000, guid: 9d928a9e9ae9f1d499ee8aa79c070e6b, type: 2}
+      power: 50
+      powerPoints: 7
+    - baseData: {fileID: 11400000, guid: 9d928a9e9ae9f1d499ee8aa79c070e6b, type: 2}
+      power: 50
+      powerPoints: 10
+    stateDescription: NormalState
   currentPokeIUT:
-    baseData: {fileID: 0}
-    health: 0
-    speed: 0
-    level: 0
-    capacites: []
+    baseData: {fileID: 11400000, guid: d690eae31fdc9dd40906a04404f24518, type: 2}
+    health: 100
+    speed: 1
+    level: 5
+    canAttack: 1
+    capacites:
+    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
+      power: 10
+      powerPoints: 5
+    - baseData: {fileID: 11400000, guid: 95f3389b3c8f95145b242fa99e71b723, type: 2}
+      power: 100
+      powerPoints: 0
+    - baseData: {fileID: 11400000, guid: 9d928a9e9ae9f1d499ee8aa79c070e6b, type: 2}
+      power: 50
+      powerPoints: 7
+    - baseData: {fileID: 11400000, guid: 9d928a9e9ae9f1d499ee8aa79c070e6b, type: 2}
+      power: 50
+      powerPoints: 10
+    stateDescription: NormalState
   enemyType: 1
   lastPosition: {x: 0, y: 0, z: 0}

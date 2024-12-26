@@ -15,29 +15,29 @@ public class PlayerData : EntityData
 
     public void InitializePokeIUTTeam()
     {
-        if (pokIUTTeamData == null || pokIUTTeamData.Length == 0)
+        if (pokeIUTTeamData == null || pokeIUTTeamData.Length == 0)
         {
             Debug.LogWarning("PokeIUTTeamData est vide.");
             return;
         }
 
-        if (pokIUTTeam == null || pokIUTTeam.Length != pokIUTTeamData.Length)
+        if (pokeIUTTeam == null || pokeIUTTeam.Length != pokeIUTTeamData.Length)
         {
-            pokIUTTeam = new PokeIUTInstance[pokIUTTeamData.Length];
+            pokeIUTTeam = new PokeIUTInstance[pokeIUTTeamData.Length];
         }
 
-        for (int i = 0; i < pokIUTTeamData.Length; i++)
+        for (int i = 0; i < pokeIUTTeamData.Length; i++)
         {
-            if (pokIUTTeamData[i] == null)
+            if (pokeIUTTeamData[i] == null)
             {
-                Debug.LogError($"PlayerData | pokIUTTeamData[{i}] est null. Veuillez assigner un PokeIUTData valide.");
+                Debug.LogError($"PlayerData | pokeIUTTeamData[{i}] est null. Veuillez assigner un PokeIUTData valide.");
                 continue;
             }
 
-            if (pokIUTTeam[i] == null || pokIUTTeam[i].baseData != pokIUTTeamData[i])
+            if (pokeIUTTeam[i] == null || pokeIUTTeam[i].baseData != pokeIUTTeamData[i])
             {
-                pokIUTTeam[i] = new PokeIUTInstance(pokIUTTeamData[i]);
-                pokIUTTeam[i].state = new NormalState(pokIUTTeam[i]);
+                pokeIUTTeam[i] = new PokeIUTInstance(pokeIUTTeamData[i]);
+                pokeIUTTeam[i].state = new NormalState(pokeIUTTeam[i]);
             }
 
         }
@@ -46,7 +46,7 @@ public class PlayerData : EntityData
         if (currentPokeIUT != null && currentPokeIUT.baseData != null)
         {
             bool found = false;
-            foreach (PokeIUTInstance pokeIUT in pokIUTTeam)
+            foreach (PokeIUTInstance pokeIUT in pokeIUTTeam)
             {
                 if (pokeIUT.baseData == currentPokeIUT.baseData)
                 {
@@ -57,12 +57,12 @@ public class PlayerData : EntityData
             }
             if (!found)
             {
-                currentPokeIUT = pokIUTTeam[0];
+                currentPokeIUT = pokeIUTTeam[0];
             }
         }
         else
         {
-            currentPokeIUT = pokIUTTeam[0];
+            currentPokeIUT = pokeIUTTeam[0];
         }
     }
 
@@ -97,11 +97,11 @@ public class PlayerData : EntityData
 
     public void ResetPokeIUT()
     {
-        for (int i = 0; i < pokIUTTeam.Length; i++)
+        for (int i = 0; i < pokeIUTTeam.Length; i++)
         {
-            if (pokIUTTeam[i] != null)
+            if (pokeIUTTeam[i] != null)
             {
-                pokIUTTeam[i].Reset();
+                pokeIUTTeam[i].Reset();
             }
         }
     }

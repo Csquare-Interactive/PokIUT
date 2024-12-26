@@ -18,102 +18,36 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9340584de6340b94ba8313de272df04f, type: 2}
   items:
   - baseData: {fileID: 11400000, guid: 9340584de6340b94ba8313de272df04f, type: 2}
-    quantity: 9
-  maxPokIUT: 20
-  pokIUTInventoryData: []
-  pokIUTTeamData:
+    quantity: 10
+  maxpokeIUT: 0
+  pokeIUTInventoryData: []
+  pokeIUTTeamData:
   - {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
   - {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
   - {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
   - {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
   currentPokeIUTData: {fileID: 0}
-  pokIUTInventory: []
-  pokIUTTeam:
-  - baseData: {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
-    health: 50
-    speed: 2
-    level: 10
-    capacites:
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 0
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 0
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 3
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 1
-  - baseData: {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
-    health: 200
-    speed: 2
-    level: 10
-    capacites:
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 5
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 5
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 5
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 5
-  - baseData: {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
-    health: 200
-    speed: 2
-    level: 10
-    capacites:
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 5
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 5
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 5
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 5
-  - baseData: {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
-    health: 200
-    speed: 2
-    level: 10
-    capacites:
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 5
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 5
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 5
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
-      powerPoints: 5
+  pokeIUTInventory: []
+  pokeIUTTeam: []
   currentPokeIUT:
     baseData: {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
     health: 50
     speed: 2
     level: 10
+    canAttack: 0
     capacites:
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
+      power: 0
       powerPoints: 0
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
+      power: 0
       powerPoints: 0
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
+      power: 0
       powerPoints: 3
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      damage: 10
+      power: 0
       powerPoints: 1
+    stateDescription: No State
   enemyType: 0
   lastPosition: {x: 0, y: 0, z: 0}

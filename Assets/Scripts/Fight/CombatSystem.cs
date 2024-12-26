@@ -16,6 +16,7 @@ public class CombatSystem
     public event Action OnBattleStart;
     public event Action OnTurnEnd;
     public event Action OnBattleEnd;
+    public event Action OnPokeIUTDead;
 
     public CombatSystem(PlayerData player, EnemyData enemy)
     {
@@ -33,6 +34,8 @@ public class CombatSystem
 
     public bool IsPlayerFirst() => PlayerPokeIUT.speed >= EnemyPokeIUT.speed;
 
+    public bool IsPokeIUTsAvailable(PokeIUTInstance[] pokeIUTs) => pokeIUTs.Any(p => p.health > 0);
+
     public int PlayerUseCapacite(int index)
     {
         PlayerPokeIUT.OnAction(); // Apply the state effect of the player's PokeIUT when attacking
@@ -48,13 +51,14 @@ public class CombatSystem
         capacite.baseData.capacity.Use(Player, Enemy);
         capacite.powerPoints--;
         
-        foreach (var pokeIUT in Enemy.pokIUTTeam)
+        if (EnemyPokeIUT.health <= 0)
         {
-            if (pokeIUT.health > 0)
+            if (!IsPokeIUTsAvailable(Enemy.pokeIUTTeam))
             {
-                break;
+                OnBattleEnd?.Invoke();
+                return 0;
             }
-            OnBattleEnd?.Invoke();
+            EnemyPokeIUT = EnemyIA.ChoosePokeIUT(Enemy.pokeIUTTeam);
         }
 
         OnTurnEnd?.Invoke();
@@ -63,9 +67,9 @@ public class CombatSystem
 
     public int PlayerSwitchPokeIUT(int index)
     {
-        if (Player.pokIUTTeam[index].health <= 0) return 1;
-        if (Player.pokIUTTeam[index] == PlayerPokeIUT) return 1;
-        PlayerPokeIUT = Player.pokIUTTeam[index];
+        if (Player.pokeIUTTeam[index].health <= 0) return 1;
+        if (Player.pokeIUTTeam[index] == PlayerPokeIUT) return 1;
+        PlayerPokeIUT = Player.pokeIUTTeam[index];
         Player.currentPokeIUT = PlayerPokeIUT;
         OnTurnEnd?.Invoke();
         return 0;
@@ -95,7 +99,7 @@ public class CombatSystem
         {
             case "Switch": //////////////////////////////////////////////////////////
 
-                PokeIUTInstance pokeIUT = EnemyIA.ChoosePokeIUT(Enemy.pokIUTTeam);
+                PokeIUTInstance pokeIUT = EnemyIA.ChoosePokeIUT(Enemy.pokeIUTTeam);
                 EnemyPokeIUT = pokeIUT;
                 Enemy.currentPokeIUT = pokeIUT;
                 break;
@@ -146,13 +150,14 @@ public class CombatSystem
                 capacite.baseData.capacity.Use(Enemy, Player);
                 capacite.powerPoints--;
 
-                foreach (PokeIUTInstance playerPokeIUT in Player.pokIUTTeam)
+                if (PlayerPokeIUT.health <= 0)
                 {
-                    if (playerPokeIUT.health > 0)
+                    if (!IsPokeIUTsAvailable(Player.pokeIUTTeam))
                     {
-                        break;
+                        OnBattleEnd?.Invoke();
+                        return;
                     }
-                    OnBattleEnd?.Invoke();
+                    OnPokeIUTDead?.Invoke();
                 }
 
                 break;

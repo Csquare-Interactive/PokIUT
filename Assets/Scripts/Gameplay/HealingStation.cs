@@ -9,7 +9,7 @@ public class HealingStation : MonoBehaviour
         PlayerData playerData = GameManager.Instance.playerData;
         if (playerData != null)
         {
-            foreach (var pokeIUT in playerData.pokIUTTeam)
+            foreach (var pokeIUT in playerData.pokeIUTTeam)
             {
                 if (pokeIUT != null)
                 {

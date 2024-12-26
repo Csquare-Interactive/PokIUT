@@ -162,7 +162,7 @@ public class ExploreUIManager : MonoBehaviour
         {
             button.gameObject.SetActive(false);
         }
-        for (int i = 0; i < playerData.pokIUTTeam.Length; i++)
+        for (int i = 0; i < playerData.pokeIUTTeam.Length; i++)
         {
             pokeIUTTeamButtons[i].gameObject.SetActive(show);
         }
@@ -170,9 +170,9 @@ public class ExploreUIManager : MonoBehaviour
 
     public void UpdatePokeIUTTeamInfos(PlayerData playerData)
     {
-    for (int index = 0; index < playerData.pokIUTTeam.Length; index++)
+    for (int index = 0; index < playerData.pokeIUTTeam.Length; index++)
         {
-            var pokeIUT = playerData.pokIUTTeam[index];
+            var pokeIUT = playerData.pokeIUTTeam[index];
             var button = pokeIUTTeamButtons[index];
             button.transform.Find("PokeIUT_Name").GetComponent<Text>().text = pokeIUT.baseData.pokeiutName;
             button.transform.Find("PokeIUT_Health").GetComponent<Text>().text = $"HP {pokeIUT.health}";
