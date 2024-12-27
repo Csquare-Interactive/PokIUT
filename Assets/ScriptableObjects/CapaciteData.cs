@@ -12,11 +12,15 @@ public class CapaciteData : ScriptableObject
     public int power;
     public int maxPowerPoints;
     public int powerPoints;
+    [Range(0,6)]
+    public int accuracyLevel;
+
     [Header("Infos de la capacité")]
     public PokeIUTData.Type type;
 
     [Header("Effets spéciaux")]
     public int powerDebuff;
+    public bool isInUse = false;
     [Header("Capacité Concrète")]
     [SerializeReference] 
     public Capacity capacity;

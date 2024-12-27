@@ -226,6 +226,11 @@ public class BattleUIManager : MonoBehaviour
             playerPokeIUTStateIcon.gameObject.SetActive(true);
             playerPokeIUTStateIcon.sprite = Resources.Load<Sprite>("Imports/Images/UI/Paralyzed_icon");
         }
+        if (player.state is IndentState)
+        {
+            playerPokeIUTStateIcon.gameObject.SetActive(true);
+            playerPokeIUTStateIcon.sprite = Resources.Load<Sprite>("Imports/Images/UI/Indent_icon");
+        }
     }
 
     public void UpdateEnemyPokeIUTStateIcon(PokeIUTInstance enemy)
@@ -236,6 +241,11 @@ public class BattleUIManager : MonoBehaviour
         {
             enemyPokeIUTStateIcon.gameObject.SetActive(true);
             enemyPokeIUTStateIcon.sprite = Resources.Load<Sprite>("Imports/Images/UI/Paralyzed_icon");
+        }
+        if (enemy.state is IndentState)
+        {
+            enemyPokeIUTStateIcon.gameObject.SetActive(true);
+            enemyPokeIUTStateIcon.sprite = Resources.Load<Sprite>("Imports/Images/UI/Indent_icon");
         }
     }
     

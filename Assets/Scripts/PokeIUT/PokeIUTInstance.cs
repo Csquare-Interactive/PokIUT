@@ -12,6 +12,7 @@ public class PokeIUTInstance
     public bool canAttack = true;
     public List<CapaciteInstance> capacites;
     public PokeIUTState state;
+    public Capacity savedCapacity;
 
     [SerializeField, Tooltip("Description of the current state")]
     private string stateDescription;

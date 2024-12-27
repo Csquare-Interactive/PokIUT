@@ -16,7 +16,7 @@ public class HealingStation : MonoBehaviour
                     pokeIUT.health = pokeIUT.baseData.maxHealth;
                     foreach (var capacite in pokeIUT.capacites)
                     {
-                    capacite.powerPoints = capacite.baseData.maxPowerPoints;
+                        capacite.Reset();
                     }
                     pokeIUT.canAttack = true;
                     pokeIUT.state = new NormalState(pokeIUT);
@@ -25,5 +25,6 @@ public class HealingStation : MonoBehaviour
             }
             Debug.Log("Tous les PokeIUTs ont été soignés !");
         }
+        playerData.waitingTurns = 0;
     }
 }

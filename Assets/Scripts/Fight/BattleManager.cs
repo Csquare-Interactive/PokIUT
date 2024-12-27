@@ -91,6 +91,7 @@ public class BattleManager : MonoBehaviour
         combatSystem.OnTurnEnd += HandleTurnEnd;
         combatSystem.OnBattleEnd += HandleBattleEnd;
         combatSystem.OnPokeIUTDead += HandlePokeiutClicked;
+        combatSystem.OnEnemyAction += (action) => battleUIManager.ShowDescription(action);
 
         isPlayerTurn = combatSystem.IsPlayerFirst();
 
@@ -121,7 +122,10 @@ public class BattleManager : MonoBehaviour
             combatSystem.EnemyPokeIUT.UpdateStateDescription();
             if (isPlayerTurn)
             {
+                yield return new WaitForSeconds(1f);
                 battleUIManager.ShowDescription("C'est au tour de {0} !", playerData.name);
+                if (playerData.waitingTurns > 0) // Use Waiting Capacity
+                    HandleCapaciteClicked(-1);
                 battleUIManager.ShowActionButtons(true);
                 battleUIManager.RefreshUI(combatSystem.PlayerPokeIUT, combatSystem.EnemyPokeIUT);
                 battleUIManager.ShowPokeIUTTeamIcons(playerData, enemyData, true);
@@ -135,14 +139,15 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
+                yield return new WaitForSeconds(1f);
                 battleUIManager.ShowDescription("C'est au tour de {0} !", enemyData.name);
                 combatSystem.EnemyPokeIUT.OnStartTurn(); // Get EnemyPokeIUT state effect at the start of the turn
+                yield return new WaitForSeconds(1f);
                 combatSystem.EnemyTurn();
                 battleUIManager.ShowPokeIUTTeamIcons(playerData, enemyData, true);
                 battleUIManager.RefreshUI(combatSystem.PlayerPokeIUT, combatSystem.EnemyPokeIUT);
                 battleUIManager.UpdatePokeIUTTeamIcons(playerData, enemyData);
                 combatSystem.EnemyPokeIUT.OnEndTurn(); // Get EnemyPokeIUT state effect at the end of the turn
-                yield return new WaitForSeconds(1f);
             }
         }
     }
@@ -158,10 +163,19 @@ public class BattleManager : MonoBehaviour
         int result = combatSystem.PlayerUseCapacite(index);
         if (result == 0) // Worked
             battleUIManager.ShowDescription("{0} a utilisé {1}", playerData.name, combatSystem.PlayerPokeIUT.capacites[index].baseData.name);
-        else // Illegal Action (No PP)
+        if (result == 1) // Illegal Action (No PP)
         {
             battleUIManager.ShowDescription("{0} a utilisé {1} mais il n'y a plus de PP", playerData.name, combatSystem.PlayerPokeIUT.capacites[index].baseData.name);
             battleUIManager.ShowActionButtons(true);
+        }
+        if (result == -1) // Missed
+            battleUIManager.ShowDescription("{0} a utilisé {1} mais a raté", playerData.name, combatSystem.PlayerPokeIUT.capacites[index].baseData.name);
+        if (result == -2) // Waiting
+            battleUIManager.ShowDescription("{0} attend pour lancer {1}...", playerData.name, combatSystem.PlayerPokeIUT.savedCapacity.data.name);
+        if (result == -3) // Used Waiting Capacity
+        {
+            battleUIManager.ShowDescription("{0} a utilisé {1}", playerData.name, combatSystem.PlayerPokeIUT.savedCapacity.data.name);
+            combatSystem.PlayerPokeIUT.savedCapacity = null;
         }
         battleUIManager.ShowCapaciteButtons(false, combatSystem.PlayerPokeIUT);
     }
@@ -230,7 +244,6 @@ public class BattleManager : MonoBehaviour
 
     private void HandlePokeIUTSelected(int pokeIUTIndex)
     {
-        Debug.Log("Using Item on PokeIUT: " + pokeIUTIndex);
         if (isUsingItem)
         {
             PokeIUTInstance pokeIUT = playerData.pokeIUTTeam[pokeIUTIndex];

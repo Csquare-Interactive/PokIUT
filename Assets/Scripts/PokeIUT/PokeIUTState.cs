@@ -100,14 +100,13 @@ public class ParalyzedState : PokeIUTState
 }
 
 [System.Serializable]
-public class PoisonedState : PokeIUTState
+public class IndentState : PokeIUTState
 {
-    public PoisonedState(PokeIUTInstance pokeIUT) : base(pokeIUT)
+    public IndentState(PokeIUTInstance pokeIUT) : base(pokeIUT)
     {}
     public override void ApplyEffect()
     {
-        Debug.Log("PokeIUT State(Poisoned): Poisoned");
-        pokeIUT.health -= pokeIUT.GetDamage(15, -5, 5);
+        Debug.Log("PokeIUT State(Indent): Indented");
     }
 
     public override void OnStartTurn()
@@ -118,7 +117,7 @@ public class PoisonedState : PokeIUTState
 
     public override void OnEndTurn()
     {
-        if (Random.Range(0, 100) < 50)
+        if (Random.Range(0, 100) < 25)
         {
             pokeIUT.state = new NormalState(pokeIUT);
         }

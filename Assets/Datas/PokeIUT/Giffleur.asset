@@ -15,13 +15,11 @@ MonoBehaviour:
   pokeiutName: Giffleur
   level: 10
   maxHealth: 200
-  health: 200
   maxSpeed: 2
-  speed: 2
   icon: {fileID: 7482667652216324306, guid: 3fa310c63a51c344cad7a80e08919167, type: 3}
   pokeiutType: 0
   capacites:
   - {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
   - {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-  - {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-  - {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
+  - {fileID: 11400000, guid: e0ef0755c67adb94c97fe97626cc7758, type: 2}
+  - {fileID: 11400000, guid: e0ef0755c67adb94c97fe97626cc7758, type: 2}

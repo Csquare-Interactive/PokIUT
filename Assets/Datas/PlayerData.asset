@@ -25,7 +25,7 @@ MonoBehaviour:
   - baseData: {fileID: 11400000, guid: 4ef5d6877ba384647ac0c23cea808faf, type: 2}
     quantity: 5
   - baseData: {fileID: 11400000, guid: 250f8a432c02ba6419bd35da7b943cb1, type: 2}
-    quantity: 5
+    quantity: 4
   - baseData: {fileID: 11400000, guid: 5cedc87b65490a04c99775052fde7bcf, type: 2}
     quantity: 3
   maxpokeIUT: 0
@@ -46,36 +46,44 @@ MonoBehaviour:
     capacites:
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
       power: 10
+      accuracyLevel: 0
       powerPoints: 5
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
       power: 10
+      accuracyLevel: 0
       powerPoints: 5
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      power: 10
-      powerPoints: 5
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      power: 10
-      powerPoints: 5
+    - baseData: {fileID: 11400000, guid: e0ef0755c67adb94c97fe97626cc7758, type: 2}
+      power: 40
+      accuracyLevel: 0
+      powerPoints: 10
+    - baseData: {fileID: 11400000, guid: e0ef0755c67adb94c97fe97626cc7758, type: 2}
+      power: 40
+      accuracyLevel: 0
+      powerPoints: 10
     stateDescription: NormalState
   - baseData: {fileID: 11400000, guid: d690eae31fdc9dd40906a04404f24518, type: 2}
-    health: 100
+    health: 62
     speed: 1
     level: 5
     canAttack: 1
     capacites:
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
       power: 10
+      accuracyLevel: 0
       powerPoints: 5
-    - baseData: {fileID: 11400000, guid: 95f3389b3c8f95145b242fa99e71b723, type: 2}
-      power: 100
-      powerPoints: 5
-    - baseData: {fileID: 11400000, guid: 9d928a9e9ae9f1d499ee8aa79c070e6b, type: 2}
-      power: 50
+    - baseData: {fileID: 11400000, guid: e0ef0755c67adb94c97fe97626cc7758, type: 2}
+      power: 40
+      accuracyLevel: 0
       powerPoints: 10
     - baseData: {fileID: 11400000, guid: 9d928a9e9ae9f1d499ee8aa79c070e6b, type: 2}
       power: 50
+      accuracyLevel: 0
       powerPoints: 10
-    stateDescription: NormalState
+    - baseData: {fileID: 11400000, guid: 50ca75ac910cf0a4fbe1a1f279139eca, type: 2}
+      power: 0
+      accuracyLevel: 0
+      powerPoints: 5
+    stateDescription: IndentState
   - baseData: {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
     health: 200
     speed: 2
@@ -84,16 +92,20 @@ MonoBehaviour:
     capacites:
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
       power: 10
+      accuracyLevel: 0
       powerPoints: 5
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
       power: 10
+      accuracyLevel: 0
       powerPoints: 5
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      power: 10
-      powerPoints: 5
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      power: 10
-      powerPoints: 5
+    - baseData: {fileID: 11400000, guid: e0ef0755c67adb94c97fe97626cc7758, type: 2}
+      power: 40
+      accuracyLevel: 0
+      powerPoints: 10
+    - baseData: {fileID: 11400000, guid: e0ef0755c67adb94c97fe97626cc7758, type: 2}
+      power: 40
+      accuracyLevel: 0
+      powerPoints: 10
     stateDescription: NormalState
   - baseData: {fileID: 11400000, guid: d690eae31fdc9dd40906a04404f24518, type: 2}
     health: 100
@@ -103,37 +115,46 @@ MonoBehaviour:
     capacites:
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
       power: 10
+      accuracyLevel: 0
       powerPoints: 5
-    - baseData: {fileID: 11400000, guid: 95f3389b3c8f95145b242fa99e71b723, type: 2}
-      power: 100
-      powerPoints: 5
-    - baseData: {fileID: 11400000, guid: 9d928a9e9ae9f1d499ee8aa79c070e6b, type: 2}
-      power: 50
+    - baseData: {fileID: 11400000, guid: e0ef0755c67adb94c97fe97626cc7758, type: 2}
+      power: 40
+      accuracyLevel: 0
       powerPoints: 10
     - baseData: {fileID: 11400000, guid: 9d928a9e9ae9f1d499ee8aa79c070e6b, type: 2}
       power: 50
+      accuracyLevel: 0
       powerPoints: 10
+    - baseData: {fileID: 11400000, guid: 50ca75ac910cf0a4fbe1a1f279139eca, type: 2}
+      power: 0
+      accuracyLevel: 0
+      powerPoints: 5
     stateDescription: NormalState
   currentPokeIUT:
     baseData: {fileID: 11400000, guid: d690eae31fdc9dd40906a04404f24518, type: 2}
-    health: 100
+    health: 62
     speed: 1
     level: 5
     canAttack: 1
     capacites:
     - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
       power: 10
+      accuracyLevel: 0
       powerPoints: 5
-    - baseData: {fileID: 11400000, guid: 95f3389b3c8f95145b242fa99e71b723, type: 2}
-      power: 100
-      powerPoints: 5
-    - baseData: {fileID: 11400000, guid: 9d928a9e9ae9f1d499ee8aa79c070e6b, type: 2}
-      power: 50
+    - baseData: {fileID: 11400000, guid: e0ef0755c67adb94c97fe97626cc7758, type: 2}
+      power: 40
+      accuracyLevel: 0
       powerPoints: 10
     - baseData: {fileID: 11400000, guid: 9d928a9e9ae9f1d499ee8aa79c070e6b, type: 2}
       power: 50
+      accuracyLevel: 0
       powerPoints: 10
-    stateDescription: NormalState
+    - baseData: {fileID: 11400000, guid: 50ca75ac910cf0a4fbe1a1f279139eca, type: 2}
+      power: 0
+      accuracyLevel: 0
+      powerPoints: 5
+    stateDescription: IndentState
+  waitingTurns: 0
   money: 0
   walkSpeed: 6
   runSpeed: 10

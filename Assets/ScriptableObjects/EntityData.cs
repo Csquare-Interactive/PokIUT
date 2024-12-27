@@ -19,5 +19,8 @@ public abstract class EntityData : ScriptableObject
     public PokeIUTInstance[] pokeIUTTeam;
     public PokeIUTInstance currentPokeIUT;
 
+    [Header("Battle")]
+    public int waitingTurns;
+
 
 }

@@ -20,6 +20,6 @@ MonoBehaviour:
   pokeiutType: 2
   capacites:
   - {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-  - {fileID: 11400000, guid: 95f3389b3c8f95145b242fa99e71b723, type: 2}
+  - {fileID: 11400000, guid: e0ef0755c67adb94c97fe97626cc7758, type: 2}
   - {fileID: 11400000, guid: 9d928a9e9ae9f1d499ee8aa79c070e6b, type: 2}
-  - {fileID: 11400000, guid: 9d928a9e9ae9f1d499ee8aa79c070e6b, type: 2}
+  - {fileID: 11400000, guid: 50ca75ac910cf0a4fbe1a1f279139eca, type: 2}
