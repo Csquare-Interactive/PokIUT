@@ -2,9 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Text = TMPro.TextMeshProUGUI;
 
-
-
-
 public class ItemButton : MonoBehaviour
 {
     public Text itemNameText;
