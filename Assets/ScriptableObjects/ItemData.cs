@@ -8,6 +8,8 @@ public class ItemData : ScriptableObject
     public string itemName;
     public int maxQuantity;
     public ItemType itemType;
+    public int price;
+    public string description;
 }
 
 [Serializable]

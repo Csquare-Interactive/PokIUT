@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Player/PlayerData")]
 public class PlayerData : EntityData
@@ -74,9 +75,9 @@ public class PlayerData : EntityData
             return;
         }
 
-        if (items == null || items.Length != itemsData.Length)
+        if (items == null)
         {
-            items = new ItemInstance[itemsData.Length];
+            items = new List<ItemInstance>(itemsData.Length);
         }
 
         for (int i = 0; i < itemsData.Length; i++)
@@ -87,10 +88,16 @@ public class PlayerData : EntityData
                 continue;
             }
 
-            if (items[i] == null || items[i].baseData != itemsData[i])
+            if (i >= items.Count || items[i] == null || items[i].baseData != itemsData[i])
             {
-                items[i] = new ItemInstance(itemsData[i]);
-                items[i].quantity = itemsData[i].maxQuantity; //NOTE: Temporaire, le temps de permettre au joueur de récupérer des items //
+                if (i < items.Count)
+                {
+                    items[i] = new ItemInstance(itemsData[i]);
+                }
+                else
+                {
+                    items.Add(new ItemInstance(itemsData[i]));
+                }
             }
         }
     }
@@ -104,5 +111,39 @@ public class PlayerData : EntityData
                 pokeIUTTeam[i].Reset();
             }
         }
+    }
+
+    public void AddItem(ItemData item)
+    {
+        Debug.Log("AddItem called with item: " + item.itemName);
+
+        foreach (var playerItem in items)
+        {
+            Debug.Log("Checking item: " + playerItem.baseData.itemName);
+
+            if (playerItem.baseData == item)
+            {
+                playerItem.quantity++;
+                Debug.Log("Item found. New quantity: " + playerItem.quantity);
+                return;
+            }
+        }
+
+        var newItem = new ItemInstance(item);
+        newItem.quantity = 1;
+        items.Add(newItem);
+        Debug.Log("New item added: " + item.itemName + " with quantity: " + newItem.quantity);
+    }
+
+    public int GetItemQuantity(ItemData item)
+    {
+        foreach (var playerItem in items)
+        {
+            if (playerItem.baseData == item)
+            {
+                return playerItem.quantity;
+            }
+        }
+        return 0;
     }
 }

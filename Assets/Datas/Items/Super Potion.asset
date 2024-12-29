@@ -15,3 +15,5 @@ MonoBehaviour:
   itemName: Super Potion
   maxQuantity: 5
   itemType: 1
+  price: 20
+  description: Super Potion qui soigne la vie du Pokiut

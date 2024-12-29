@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 269bbfaef7c552d47bb74e1e95138c7e, type: 3}
-  m_Name: Bouclier
+  m_Script: {fileID: 11500000, guid: 60587f7816fa6334186b06cd068deae6, type: 3}
+  m_Name: ShopItemsData
   m_EditorClassIdentifier: 
-  itemName: Bouclier
-  maxQuantity: 5
-  itemType: 3
-  price: 50
-  description: 'Bouclier qui defend '
+  items:
+  - {fileID: 11400000, guid: 9340584de6340b94ba8313de272df04f, type: 2}
+  - {fileID: 11400000, guid: 4ef5d6877ba384647ac0c23cea808faf, type: 2}

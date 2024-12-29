@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
         {
             CheckForHealingStation();
             CheckForTrainer();
+            CheckForShop();
         }
 
        if (isInGrass && IsMoving())
@@ -94,6 +95,29 @@ public class PlayerController : MonoBehaviour
         else
         {
             Debug.Log("Raycast did not hit any object."); 
+        }
+    }
+
+    private void CheckForShop()
+    {
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+
+        Debug.DrawRay(ray.origin, ray.direction * interactionDistance, Color.green, 2f);
+
+        if (Physics.Raycast(ray, out hit, interactionDistance))
+        {
+            Debug.Log("Raycast hit: " + hit.collider.name);
+
+            if (hit.collider.CompareTag("Shop"))
+            {
+                Debug.Log("Shop detected!");
+                hit.collider.GetComponent<Shop>().ActivateShop();
+            }
+        }
+        else
+        {
+            Debug.Log("Raycast did not hit any object.");
         }
     }
 

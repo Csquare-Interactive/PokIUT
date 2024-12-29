@@ -4,7 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public PlayerData playerData;
-    
+    public Shop shop;
     private AudioListener audioListener;
 
     private void Awake()

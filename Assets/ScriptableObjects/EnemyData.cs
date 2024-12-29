@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "EnemyData", menuName = "Enemy/EnemyData")]
 public class EnemyData : EntityData
@@ -35,12 +36,17 @@ public class EnemyData : EntityData
             return;
         }
 
-        items = new ItemInstance[itemsData.Length];
+        items = new List<ItemInstance>(itemsData.Length); // Utiliser une List<ItemInstance>
 
         for (int i = 0; i < itemsData.Length; i++)
         {
-            items[i] = new ItemInstance(itemsData[i]);
-            items[i].quantity = itemsData[i].maxQuantity;
+            if (itemsData[i] == null)
+            {
+                Debug.LogError($"EnemyData | itemsData[{i}] est null. Veuillez assigner un ItemData valide.");
+                continue;
+            }
+
+            items.Add(new ItemInstance(itemsData[i]));
         }
     }
 }

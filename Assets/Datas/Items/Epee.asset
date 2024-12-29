@@ -15,3 +15,5 @@ MonoBehaviour:
   itemName: Epee
   maxQuantity: 7
   itemType: 2
+  price: 30
+  description: Epee qui attaque

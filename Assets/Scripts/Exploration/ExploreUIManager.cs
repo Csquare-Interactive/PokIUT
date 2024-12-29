@@ -7,8 +7,10 @@ using Image = UnityEngine.UI.Image;
 
 public class ExploreUIManager : MonoBehaviour
 {
+
     public Button inventoryButton;
     public Button pokeiutButton;
+    public Text playerMoneyText;
 
     [Header("Inventory")]
     public GameObject inventoryUI;
@@ -74,6 +76,9 @@ public class ExploreUIManager : MonoBehaviour
         backButtonBag.onClick.AddListener(() => OnBackClicked?.Invoke());
         leftArrowButton.onClick.AddListener(ShowPreviousItemType);
         rightArrowButton.onClick.AddListener(ShowNextItemType);
+
+
+        UpdateMoney();
 
         SetupExploreUI();
     }
@@ -186,5 +191,11 @@ public class ExploreUIManager : MonoBehaviour
             button.transform.Find("PokeIUT_Level").GetComponent<Text>().text = $"LVL {pokeIUT.level}";
 
         }
+    }
+
+    public void UpdateMoney()
+    {
+        int money = GameManager.Instance.playerData.money;
+        playerMoneyText.text = "Argent : " + money.ToString();
     }
 }

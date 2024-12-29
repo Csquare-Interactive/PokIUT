@@ -5,7 +5,7 @@ public class EnemyIA
 {
     CombatSystem CombatSystem { get; set; }
 
-    private ItemInstance[] items;
+    private List<ItemInstance> items;
 
     public EnemyIA(CombatSystem combatSystem)
     {

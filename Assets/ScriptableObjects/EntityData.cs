@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public abstract class EntityData : ScriptableObject
 {
@@ -6,8 +7,8 @@ public abstract class EntityData : ScriptableObject
 
     [Header("Inventaire")]
     public int maxItems;
+    public List<ItemInstance> items;
     public ItemData[] itemsData;
-    public ItemInstance[] items;
 
     [Header("pokeIUT")]
     public int maxpokeIUT;

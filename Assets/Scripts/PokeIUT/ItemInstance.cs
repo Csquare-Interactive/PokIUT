@@ -9,10 +9,17 @@ public class ItemInstance
     public ItemInstance(ItemData data)
     {
         baseData = data;
+        quantity = 0;
+
     }
 
     public void Reset()
     {
         quantity = baseData.maxQuantity;
+    }
+
+    public void Add(int amount)
+    {
+        quantity += amount;
     }
 }

@@ -107,7 +107,7 @@ public class CombatSystem
 
             case "Heal": //////////////////////////////////////////////////////////
 
-                ItemInstance[] healingItems = Array.FindAll(Enemy.items, i => i.baseData.itemType == ItemType.Healing);
+                ItemInstance[] healingItems = Enemy.items.Where(i => i.baseData.itemType == ItemType.Healing).ToArray();
                 if (healingItems.Length == 0)
                 {
                     OnTurnEnd?.Invoke();
