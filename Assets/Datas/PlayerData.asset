@@ -23,6 +23,8 @@ MonoBehaviour:
     quantity: 0
   - baseData: {fileID: 11400000, guid: 5cedc87b65490a04c99775052fde7bcf, type: 2}
     quantity: 0
+  - baseData: {fileID: 11400000, guid: 5c2d4c38f9361034c9739d55b5ea36ae, type: 2}
+    quantity: 1
   itemsData:
   - {fileID: 11400000, guid: 9340584de6340b94ba8313de272df04f, type: 2}
   - {fileID: 11400000, guid: 4ef5d6877ba384647ac0c23cea808faf, type: 2}
@@ -34,7 +36,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
   - {fileID: 11400000, guid: d690eae31fdc9dd40906a04404f24518, type: 2}
   - {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
-  - {fileID: 11400000, guid: d690eae31fdc9dd40906a04404f24518, type: 2}
+  - {fileID: 11400000, guid: 153e6767118c98148a7ac614e53a870e, type: 2}
   currentPokeIUTData: {fileID: 0}
   pokeIUTInventory: []
   pokeIUTTeam:
@@ -95,7 +97,15 @@ MonoBehaviour:
       power: 10
       powerPoints: 5
     stateDescription: NormalState
-  - baseData: {fileID: 11400000, guid: d690eae31fdc9dd40906a04404f24518, type: 2}
+  - baseData: {fileID: 0}
+    health: 0
+    speed: 0
+    level: 0
+    canAttack: 0
+    capacites: []
+    stateDescription: 
+  currentPokeIUT:
+    baseData: {fileID: 11400000, guid: d690eae31fdc9dd40906a04404f24518, type: 2}
     health: 100
     speed: 1
     level: 5
@@ -114,27 +124,7 @@ MonoBehaviour:
       power: 50
       powerPoints: 10
     stateDescription: NormalState
-  currentPokeIUT:
-    baseData: {fileID: 11400000, guid: d690eae31fdc9dd40906a04404f24518, type: 2}
-    health: 96
-    speed: 1
-    level: 5
-    canAttack: 1
-    capacites:
-    - baseData: {fileID: 11400000, guid: e6f2a0a57ee576b4ea6d566e6c665852, type: 2}
-      power: 10
-      powerPoints: 4
-    - baseData: {fileID: 11400000, guid: 95f3389b3c8f95145b242fa99e71b723, type: 2}
-      power: 100
-      powerPoints: 1
-    - baseData: {fileID: 11400000, guid: 9d928a9e9ae9f1d499ee8aa79c070e6b, type: 2}
-      power: 50
-      powerPoints: 0
-    - baseData: {fileID: 11400000, guid: 9d928a9e9ae9f1d499ee8aa79c070e6b, type: 2}
-      power: 50
-      powerPoints: 2
-    stateDescription: ParalyzedState
-  money: 150
+  money: 140
   walkSpeed: 6
   runSpeed: 10
   smoothFactor: 10

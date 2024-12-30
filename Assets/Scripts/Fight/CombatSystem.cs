@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Random = UnityEngine.Random;
 
 public class CombatSystem
 {
@@ -76,22 +77,59 @@ public class CombatSystem
         return 0;
     }
 
-    public int PlayerUseItem(ItemInstance item, PokeIUTInstance target)
+    public int PlayerUseItem(ItemInstance item, PokeIUTInstance target = null)
     {
         switch (item.baseData.itemName)
         {
             case "Potion":
-                if (target.health + 20 > target.baseData.maxHealth) return 1;
+                if (target == null || target.health + 20 > target.baseData.maxHealth) return 1;
                 target.health += 20;
                 break;
             case "Super Potion":
-                if (target.health + 50 > target.baseData.maxHealth) return 1;
+                if (target == null || target.health + 50 > target.baseData.maxHealth) return 1;
                 target.health += 50;
                 break;
+            case "Pokiutball":
+                Debug.Log("PokeIUT type: " + Enemy.enemyType);
+                if (Enemy.enemyType != EnemyType.Wild || EnemyPokeIUT == null) return 1; // Only allow capture for wild enemies
+
+                // Calculate capture probability
+                float captureProbability = Mathf.Clamp01(1.0f - (float)EnemyPokeIUT.health / EnemyPokeIUT.baseData.maxHealth);
+                if (Random.Range(0f, 1f) <= captureProbability)
+                {
+                    // Capture successful
+                    Debug.Log("Capture successful!");
+                    AddPokeIUTToTeam(EnemyPokeIUT);
+                    Debug.Log("PokeIUT added to team: " + EnemyPokeIUT.baseData.name);
+                    OnBattleEnd?.Invoke();
+                }
+                else
+                {
+                    // Capture failed
+                    Debug.Log("Capture failed!");
+                }
+                return 0;
+
         }
         OnTurnEnd?.Invoke();
         return 0;
     }
+
+public void AddPokeIUTToTeam(PokeIUTInstance pokeIUT)
+{
+    Debug.Log("Attempting to add PokeIUT to team");
+
+    for (int i = 0; i < Player.pokeIUTTeam.Length; i++)
+    {
+        if (Player.pokeIUTTeam[i] == null)
+        {
+            Player.pokeIUTTeam[i] = pokeIUT;
+            Debug.Log("PokeIUT added to team at position: " + i);
+            return;
+        }
+    }
+    Debug.LogWarning("No space available in the team to add a new PokeIUT.");
+}
 
     public void EnemyTurn()
     {

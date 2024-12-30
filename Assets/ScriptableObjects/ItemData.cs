@@ -19,4 +19,5 @@ public enum ItemType
     Healing,
     Attack,
     Defense,
+    Pokiutball,
 }

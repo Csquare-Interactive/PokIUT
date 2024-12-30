@@ -181,10 +181,28 @@ public class BattleManager : MonoBehaviour
         if (item.quantity <= 0) return;
 
         currentItem = item;
-        isUsingItem = true;
-        battleUIManager.ShowBagUI(false);
-        battleUIManager.ShowPokeIUTTeamUI(true, playerData);
-        battleUIManager.UpdatePokeIUTTeamInfos(playerData);
+        if (currentItem.baseData.itemName == "Pokiutball")
+        {
+            // Use Pokiutball directly
+            int result = combatSystem.PlayerUseItem(currentItem);
+            if (result == 0) // Worked
+            {
+                battleUIManager.ShowDescription("{0} a utilisé {1}", playerData.name, currentItem.baseData.itemName);
+                currentItem.quantity--;
+                battleUIManager.UpdateBagInfos(playerData);
+            }
+            else // Illegal Action
+            {
+                battleUIManager.ShowDescription("Action Impossible");
+            }
+        }
+        else
+        {
+            isUsingItem = true;
+            battleUIManager.ShowBagUI(false);
+            battleUIManager.ShowPokeIUTTeamUI(true, playerData);
+            battleUIManager.UpdatePokeIUTTeamInfos(playerData);
+        }
     }
 
     private void HandleBackClicked()
